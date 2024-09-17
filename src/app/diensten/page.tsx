@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { CheckCircle } from 'lucide-react'
 
+
 const services = [
   {
     title: "Huishoudelijk Schoonmaak",
@@ -73,23 +74,22 @@ export default function DienstenPage() {
   return (
     <div className="container mx-auto px-4 py-12">
       <h1 className="text-4xl font-bold text-center mb-12">Onze Diensten</h1>
-      
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
         {services.map((service, index) => (
-          <div key={index} className={`relative overflow-hidden rounded-lg bg-gradient-to-r ${service.color} p-1 transition-all duration-300 hover:scale-105`}>
-            <div className="bg-white p-6 rounded-lg h-full flex flex-col justify-between">
+          <Link key={index} href={`/diensten/${service.slug}`} className={`block relative overflow-hidden rounded-lg bg-gradient-to-r ${service.color} p-1 transition-all duration-300 hover:scale-105 group`}>
+            <div className="bg-white p-6 rounded-lg h-full flex flex-col justify-between group-hover:bg-opacity-90 transition-all duration-300">
               <div>
                 <div className="text-5xl mb-4">{service.icon}</div>
                 <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
                 <p className="text-gray-600">{service.description}</p>
               </div>
               <div className="mt-4">
-                <Link href={`/diensten/${service.slug}`} className="inline-block bg-black bg-opacity-10 text-black rounded-full px-3 py-1 text-sm font-semibold hover:bg-opacity-20 transition-colors">
+                <span className="inline-block bg-black bg-opacity-10 text-black rounded-full px-3 py-1 text-sm font-semibold group-hover:bg-opacity-20 transition-colors">
                   Meer info
-                </Link>
+                </span>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 
@@ -140,9 +140,11 @@ export default function DienstenPage() {
         <p className="max-w-2xl mx-auto text-gray-600 mb-6">
           Of u nu een eenmalige dieptereiniging nodig heeft of regelmatige schoonmaakdiensten, wij staan voor u klaar met op maat gemaakte oplossingen.
         </p>
+        <Link href="/#contact" passHref>
         <button className="bg-blue-600 text-white rounded-md px-6 py-2 hover:bg-blue-700 transition duration-300">
-          Vraag een Offerte Aan
+            Vraag een Offerte Aan
         </button>
+        </Link>
       </div>
     </div>
   )

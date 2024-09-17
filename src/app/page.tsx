@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import ContactForm from '@/components/ContactForm'
-import { Sparkles, Repeat, Trash2, Star, ArrowRight, CheckCircle, HelpCircle } from 'lucide-react'
+import { Sparkles, Repeat, Trash2, Star, ArrowRight, CheckCircle, HelpCircle, Droplets } from 'lucide-react'
 import SocialMedia from '@/components/SocialMedia'
 import ExampleWork from '@/components/WorkImages'
 
@@ -75,8 +75,8 @@ export default function Component() {
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-gradient-to-r from-blue-100 to-green-100">
-          <div className="container px-4 md:px-6 mx-auto">
+      <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-gradient-to-r from-blue-100 to-green-100 relative overflow-hidden">
+          <div className="container px-4 md:px-6 mx-auto relative z-10">
             <div className="flex flex-col items-center space-y-4 text-center">
               <div className="space-y-2">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
@@ -96,7 +96,37 @@ export default function Component() {
               </div>
             </div>
           </div>
+          {[
+            { src: '/images/toys.png', position: { top: '5%', left: '5%' } },
+            { src: '/images/wcrol.png', position: { top: '15%', right: '10%' } },
+            { src: '/images/bottles.png', position: { bottom: '15%', left: '15%' } },
+            { src: '/images/car.png', position: { bottom: '10%', right: '5%' } },
+          ].map((item, index) => (
+            <div
+              key={index}
+              className="absolute animate-float"
+              style={{
+                ...item.position,
+                // transform: `rotate(${Math.random() * 30 - 15}deg)`,
+                zIndex: 1,
+                animation: `float ${3 + index}s ease-in-out infinite`,
+                animationDelay: `${index * 0.5}s`,
+              }}
+            >
+              <Image
+                src={item.src}
+                alt={`Cleaning icon ${index + 1}`}
+                width={100}
+                height={100}
+                className="opacity-50 hover:opacity-80 transition-opacity duration-300 filter drop-shadow-md"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none'
+                }}
+              />
+            </div>
+          ))}
         </section>
+        {/* Rest of the sections remain unchanged */}
         <section id="services" className="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
           <div className="container px-4 md:px-6 mx-auto">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">Frisspits Diensten</h2>
@@ -206,15 +236,34 @@ export default function Component() {
             </div>
           </div>
         </section>
-        <section id="cta" className="w-full py-12 md:py-24 lg:py-32 bg-blue-600 text-white">
-          <div className="container px-4 md:px-6 mx-auto text-center">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-6">Klaar voor een Stralend Schone Ruimte?</h2>
-            <p className="text-xl mb-8 max-w-2xl mx-auto">
-              Laat Frisspits u helpen met het creëren van een schone, gezonde en aangename omgeving. Vraag vandaag nog een gratis offerte aan!
-            </p>
-            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background bg-white text-blue-600 hover:bg-gray-100 h-12 px-6 py-2">
-              Vraag een Gratis Offerte Aan
-            </button>
+        <section id="cta" className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-r from-blue-500 to-green-400 text-white overflow-hidden">
+          <div className="container px-4 md:px-6 mx-auto relative">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              <div className="text-center md:text-left">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-6">Klaar voor een Stralend Schone Ruimte?</h2>
+                <p className="text-xl mb-8 max-w-md mx-auto md:mx-0">
+                  Laat Frisspits u helpen met het creëren van een schone, gezonde en aangename omgeving. Vraag vandaag nog een gratis offerte aan!
+                </p>
+                <button className="inline-flex items-center justify-center rounded-full text-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background bg-white text-blue-600 hover:bg-blue-50 h-14 px-8 py-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                  Vraag een Gratis Offerte Aan
+                </button>
+              </div>
+              <div className="relative h-[400px] md:h-[600px] lg:h-[700px] w-full">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-green-300 blur-3xl opacity-30"></div>
+                <div className="relative h-full w-full overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 to-green-400/30 z-10"></div>
+                  <Image
+                    src="/images/cleaners.jpg"
+                    alt="Vrolijke schoonmakers"
+                    layout="fill"
+                    objectFit="cover"
+                    objectPosition="center 20%"
+                    className="shadow-md"
+                    priority
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </section>
         <section id="social-media" className="w-full py-12 bg-gradient-to-r from-blue-500 to-green-500">
@@ -265,7 +314,7 @@ export default function Component() {
           right: 0;
           display: flex;
           align-items: center;
-          justify-content: center;
+          justify-center: center;
           z-index: -1;
         }
 
@@ -298,6 +347,15 @@ export default function Component() {
 
           100% {
             transform: rotate(360deg);
+          }
+        }
+
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-20px);
           }
         }
       `}</style>
