@@ -1,8 +1,9 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import ContactForm from '@/components/ContactForm'
-import { Sparkles, Repeat, Trash2, Star, ArrowRight } from 'lucide-react'
+import { Sparkles, Repeat, Trash2, Star, ArrowRight, CheckCircle, HelpCircle } from 'lucide-react'
 import SocialMedia from '@/components/SocialMedia'
 import ExampleWork from '@/components/WorkImages'
 
@@ -25,31 +26,51 @@ const testimonials = [
 ]
 
 const exampleImages = [
-    { 
-      src: "https://images.unsplash.com/photo-1593136573819-c3b57b8caf29?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
-      alt: "Schoonmaken van Keuken", 
-      caption: "Stralende woonkamers", 
-      link: "/diensten/huishoudelijk-schoonmaak"
-    },
-    { 
-      src: "https://images.unsplash.com/photo-1517414628894-83d47b22f233?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
-      alt: "Schoonmaken en Glanzende badkamer", 
-      caption: "Glanzende badkamers", 
-      link: "/diensten/huishoudelijk-schoonmaak#badkamer"
-    },
-    { 
-      src: "https://images.unsplash.com/photo-1576961453646-b4c376c7021b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
-      alt: "Schoonmaken voor Bedrijven", 
-      caption: "Georganiseerde keukens", 
-      link: "/diensten/huishoudelijk-schoonmaak#keuken"
-    },
-    { 
-      src: "https://images.unsplash.com/photo-1497366672149-e5e4b4d34eb3?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
-      alt: "Schoonmaken voor kantoor", 
-      caption: "Professionele kantoorruimtes", 
-      link: "/diensten/kantoor-schoonmaak"
-    },
-  ]
+  { 
+    src: "https://images.unsplash.com/photo-1593136573819-c3b57b8caf29?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
+    alt: "Schoonmaken van Keuken", 
+    caption: "Stralende woonkamers", 
+    link: "/diensten/huishoudelijk-schoonmaak"
+  },
+  { 
+    src: "https://images.unsplash.com/photo-1517414628894-83d47b22f233?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
+    alt: "Schoonmaken en Glanzende badkamer", 
+    caption: "Glanzende badkamers", 
+    link: "/diensten/huishoudelijk-schoonmaak#badkamer"
+  },
+  { 
+    src: "https://images.unsplash.com/photo-1576961453646-b4c376c7021b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
+    alt: "Schoonmaken voor Bedrijven", 
+    caption: "Georganiseerde keukens", 
+    link: "/diensten/huishoudelijk-schoonmaak#keuken"
+  },
+  { 
+    src: "https://images.unsplash.com/photo-1497366672149-e5e4b4d34eb3?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", 
+    alt: "Schoonmaken voor kantoor", 
+    caption: "Professionele kantoorruimtes", 
+    link: "/diensten/kantoor-schoonmaak"
+  },
+]
+
+const faqs = [
+  {
+    question: "Hoe vaak moet ik mijn huis laten schoonmaken?",
+    answer: "De frequentie hangt af van uw levensstijl en voorkeuren. Wekelijks of tweewekelijks is gebruikelijk voor de meeste huishoudens, maar we kunnen een schema op maat maken dat bij uw behoeften past."
+  },
+  {
+    question: "Gebruiken jullie milieuvriendelijke schoonmaakmiddelen?",
+    answer: "Ja, we gebruiken eco-vriendelijke en niet-toxische schoonmaakmiddelen die veilig zijn voor uw gezin en huisdieren, zonder in te boeten aan effectiviteit."
+  },
+  {
+    question: "Kan ik een eenmalige schoonmaak boeken?",
+    answer: "Zeker! We bieden zowel eenmalige als regelmatige schoonmaakdiensten aan. Of u nu een grote schoonmaak nodig heeft of regelmatig onderhoud, we staan voor u klaar."
+  },
+  {
+    question: "Zijn jullie schoonmakers verzekerd?",
+    answer: "Absoluut. Al onze medewerkers zijn volledig verzekerd en gescreend voor uw gemoedsrust."
+  }
+]
+
 export default function Component() {
   return (
     <div className="flex flex-col min-h-screen">
@@ -108,6 +129,33 @@ export default function Component() {
           title="Ons Werk in Beeld" 
           images={exampleImages} 
         />
+        <section id="why-choose-us" className="w-full py-12 md:py-24 lg:py-32 bg-white">
+          <div className="container px-4 md:px-6 mx-auto">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-12">Waarom Kiezen voor Frisspits?</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="flex flex-col items-center text-center p-6 bg-gray-50 rounded-lg">
+                <CheckCircle className="h-12 w-12 mb-4 text-green-500" />
+                <h3 className="text-xl font-bold mb-2">Professioneel & Betrouwbaar</h3>
+                <p className="text-gray-600">Ons team bestaat uit ervaren en gescreende professionals die uw vertrouwen waardig zijn.</p>
+              </div>
+              <div className="flex flex-col items-center text-center p-6 bg-gray-50 rounded-lg">
+                <CheckCircle className="h-12 w-12 mb-4 text-green-500" />
+                <h3 className="text-xl font-bold mb-2">Milieuvriendelijk</h3>
+                <p className="text-gray-600">We gebruiken eco-vriendelijke producten die veilig zijn voor uw gezin en het milieu.</p>
+              </div>
+              <div className="flex flex-col items-center text-center p-6 bg-gray-50 rounded-lg">
+                <CheckCircle className="h-12 w-12 mb-4 text-green-500" />
+                <h3 className="text-xl font-bold mb-2">Flexibele Diensten</h3>
+                <p className="text-gray-600">Van eenmalige schoonmaak tot regelmatig onderhoud, we passen ons aan uw behoeften aan.</p>
+              </div>
+              <div className="flex flex-col items-center text-center p-6 bg-gray-50 rounded-lg">
+                <CheckCircle className="h-12 w-12 mb-4 text-green-500" />
+                <h3 className="text-xl font-bold mb-2">100% Tevredenheidsgarantie</h3>
+                <p className="text-gray-600">Niet tevreden? We komen terug en maken het opnieuw schoon, gratis.</p>
+              </div>
+            </div>
+          </div>
+        </section>
         <section id="testimonials" className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-br from-blue-50 to-green-50">
           <div className="container px-4 md:px-6 mx-auto">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-12">
@@ -140,6 +188,33 @@ export default function Component() {
                 </div>
               </button>
             </div>
+          </div>
+        </section>
+        <section id="faq" className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
+          <div className="container px-4 md:px-6 mx-auto">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-12">Veelgestelde Vragen</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {faqs.map((faq, index) => (
+                <div key={index} className="bg-white p-6 rounded-lg shadow-sm">
+                  <h3 className="text-xl font-semibold mb-2 flex items-start">
+                    <HelpCircle className="h-6 w-6 mr-2 text-blue-500 flex-shrink-0 mt-1" />
+                    {faq.question}
+                  </h3>
+                  <p className="text-gray-600">{faq.answer}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section id="cta" className="w-full py-12 md:py-24 lg:py-32 bg-blue-600 text-white">
+          <div className="container px-4 md:px-6 mx-auto text-center">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-6">Klaar voor een Stralend Schone Ruimte?</h2>
+            <p className="text-xl mb-8 max-w-2xl mx-auto">
+              Laat Frisspits u helpen met het creëren van een schone, gezonde en aangename omgeving. Vraag vandaag nog een gratis offerte aan!
+            </p>
+            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background bg-white text-blue-600 hover:bg-gray-100 h-12 px-6 py-2">
+              Vraag een Gratis Offerte Aan
+            </button>
           </div>
         </section>
         <section id="social-media" className="w-full py-12 bg-gradient-to-r from-blue-500 to-green-500">
