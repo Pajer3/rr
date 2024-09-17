@@ -3,18 +3,6 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
-const WaterDrop = ({ delay }: { delay: number }) => (
-  <div
-    className="absolute rounded-full bg-blue-300 opacity-70 animate-fall"
-    style={{
-      width: '10px',
-      height: '10px',
-      animationDelay: `${delay}s`,
-      left: `${Math.random() * 100}%`,
-    }}
-  />
-)
-
 export default function NotFound() {
   const [isClient, setIsClient] = useState(false)
   const [mopPosition, setMopPosition] = useState(0)
@@ -23,7 +11,7 @@ export default function NotFound() {
   useEffect(() => {
     setIsClient(true)
     const interval = setInterval(() => {
-      setMopPosition(prev => (prev === 0 ? 20 : 0))
+      setMopPosition(prev => (prev === 0 ? 40 : 0))
     }, 500)
     return () => clearInterval(interval)
   }, [])
@@ -34,12 +22,9 @@ export default function NotFound() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-50 to-green-50 p-4 overflow-hidden">
-      <div className="relative w-64 h-64 mb-8">
-        {[...Array(20)].map((_, i) => (
-          <WaterDrop key={i} delay={i * 0.2} />
-        ))}
+      <div className="relative w-64 h-64 mb-8 border-b-4 border-gray-300">
         <div
-          className="absolute inset-0 flex items-center justify-center"
+          className="absolute bottom-0 left-0"
           style={{ transform: `translateX(${mopPosition}px)` }}
         >
           <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -51,6 +36,7 @@ export default function NotFound() {
             ))}
           </svg>
         </div>
+        <div className="absolute bottom-0 left-0 w-full h-4 bg-blue-100 opacity-50 animate-wave" />
       </div>
       <h1 className="text-4xl font-bold mb-4 text-gray-800">Oeps! Pagina niet gevonden</h1>
       <p className="text-xl mb-8 text-gray-600 text-center">
@@ -81,12 +67,12 @@ export default function NotFound() {
         </p>
       </div>
       <style jsx>{`
-        @keyframes fall {
-          0% { transform: translateY(-100px); }
-          100% { transform: translateY(300px); }
+        @keyframes wave {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-5px); }
         }
-        .animate-fall {
-          animation: fall 2s linear infinite;
+        .animate-wave {
+          animation: wave 2s ease-in-out infinite;
         }
       `}</style>
     </div>
