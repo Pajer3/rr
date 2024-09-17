@@ -6,7 +6,7 @@ import ContactForm from '@/components/ContactForm'
 import { Sparkles, Repeat, Trash2, Star, ArrowRight, CheckCircle, HelpCircle} from 'lucide-react'
 import SocialMedia from '@/components/SocialMedia'
 import ExampleWork from '@/components/WorkImages'
-
+//testimonials
 const testimonials = [
   {
     name: "Sarah J.",
