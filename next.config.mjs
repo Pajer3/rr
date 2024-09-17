@@ -8,7 +8,7 @@ const nextConfig = {
       },
       transpilePackages: ['lucide-react'],
   images: {
-    domains: ['images.remotePatterns'],
+    domains: ['images.unsplash.com'],
   },
 };
 
