@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import emailjs, { init } from '@emailjs/browser'
 
 // Initialize EmailJS with your User ID
@@ -10,12 +10,12 @@ export default function ContactForm() {
   const [errorMessage, setErrorMessage] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
 
-  useEffect(() => {
-    // Log environment variables to check if they're properly set
-    console.log('Service ID:', process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID);
-    console.log('Template ID:', process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID);
-    console.log('User ID:', process.env.NEXT_PUBLIC_EMAILJS_USER_ID);
-  }, []);
+//   useEffect(() => {
+//     // Log environment variables to check if they're properly set
+//     console.log('Service ID:', process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID);
+//     console.log('Template ID:', process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID);
+//     console.log('User ID:', process.env.NEXT_PUBLIC_EMAILJS_USER_ID);
+//   }, []);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
