@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import ContactForm from '@/components/ContactForm'
-import { Sparkles, Repeat, Trash2, Star, ArrowRight, CheckCircle, HelpCircle, Droplets } from 'lucide-react'
+import { Sparkles, Repeat, Trash2, Star, ArrowRight, CheckCircle, HelpCircle} from 'lucide-react'
 import SocialMedia from '@/components/SocialMedia'
 import ExampleWork from '@/components/WorkImages'
 
