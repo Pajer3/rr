@@ -14,7 +14,7 @@ const CTASection: React.FC = () => {
     labels: ['Keuken', 'Badkamer', 'Woonkamer', 'Slaapkamer', 'Kantoor'],
     datasets: [
       {
-        label: 'Gemiddelde tijd besteed aan schoonmaken (minuten per week)',
+        label: 'Minuten per week',
         data: [120, 90, 60, 45, 30],
         backgroundColor: [
           'rgba(255, 99, 132, 0.6)',
@@ -37,13 +37,39 @@ const CTASection: React.FC = () => {
 
   const chartOptions = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: 'top' as const,
+        labels: {
+          boxWidth: 10,
+          font: {
+            size: 12,
+          },
+        },
       },
       title: {
         display: true,
-        text: 'Schoonmaakstatistieken per ruimte',
+        text: 'Schoonmaaktijd per ruimte',
+        font: {
+          size: 16,
+        },
+      },
+    },
+    scales: {
+      x: {
+        ticks: {
+          font: {
+            size: 10,
+          },
+        },
+      },
+      y: {
+        ticks: {
+          font: {
+            size: 10,
+          },
+        },
       },
     },
   }
@@ -53,17 +79,17 @@ const CTASection: React.FC = () => {
       <div className="container px-4 md:px-6 mx-auto relative z-10">
         <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
           <div className="px-6 py-8 sm:p-10 relative">
-            <div className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 items-center">
-              <div>
-                <h2 className="text-3xl sm:text-4xl font-bold text-blue-600 leading-tight mb-4">
+            <div className="flex flex-col lg:flex-row gap-8 items-center">
+              <div className="w-full lg:w-1/2">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-blue-600 leading-tight mb-4">
                   Laat Frisspits uw tijd besparen!
                 </h2>
-                <p className="text-lg text-gray-600 mb-6">
+                <p className="text-base lg:text-lg text-gray-600 mb-6">
                   Onze professionele schoonmakers nemen het zware werk over, zodat u kunt genieten van een schoon huis zonder de moeite.
                 </p>
                 <Link href="/#contact" passHref legacyBehavior>
                   <motion.a
-                    className="inline-block bg-blue-600 hover:bg-blue-700 text-white text-center font-bold py-3 px-6 rounded-lg text-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105 shadow-lg"
+                    className="inline-block bg-blue-600 hover:bg-blue-700 text-white text-center font-bold py-3 px-6 rounded-lg text-base lg:text-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105 shadow-lg"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -71,9 +97,11 @@ const CTASection: React.FC = () => {
                   </motion.a>
                 </Link>
               </div>
-              <div className="bg-white border border-slate-200 rounded-xl p-4 text-sm">
-                <h3 className="text-center text-slate-600 text-xl font-bold mb-4">Schoonmaaktijd per ruimte</h3>
-                <Bar data={chartData} options={chartOptions} />
+              <div className="w-full lg:w-1/2 bg-white border border-slate-200 rounded-xl p-4">
+                <h3 className="text-center text-slate-600 text-lg font-bold mb-4">Schoonmaaktijd per ruimte</h3>
+                <div className="h-64 sm:h-80">
+                  <Bar data={chartData} options={chartOptions} />
+                </div>
               </div>
             </div>
           </div>

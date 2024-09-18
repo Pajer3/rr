@@ -163,7 +163,7 @@ export default function Component() {
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
                   Frisspits: Uitstekende Schoonmaak
                 </h1>
-                <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
+                <p className="mx-auto max-w-[700px] text-gray-500 text-sm sm:text-base md:text-xl dark:text-gray-400">
                   Professionele schoonmaakdiensten voor huizen en bedrijven. Laat Frisspits de rommel opruimen terwijl u zich concentreert op wat belangrijk is.
                 </p>
               </div>
@@ -197,7 +197,7 @@ export default function Component() {
           ].map((item, index) => (
             <motion.div
               key={index}
-              className="absolute"
+              className="absolute hidden md:block"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
@@ -219,33 +219,34 @@ export default function Component() {
             </motion.div>
           ))}
         </section>
+
         <section id="services" className="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
           <div className="container px-4 md:px-6 mx-auto">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">Frisspits Diensten</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">Frisspits Diensten</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12">
               <motion.div
-                className="flex flex-col items-center text-center p-6 bg-white rounded-lg shadow-sm transition-all duration-300 hover:shadow-md"
+                className="flex flex-col items-center text-center p-4 md:p-6 bg-white rounded-lg shadow-sm transition-all duration-300 hover:shadow-md"
                 whileHover={{ scale: 1.05 }}
               >
-                <Sparkles className="h-12 w-12 mb-4 text-blue-500" />
-                <h3 className="text-xl font-bold mb-2">Dieptereiniging</h3>
-                <p className="text-gray-500">Grondige reiniging van elk hoekje en gaatje.</p>
+                <Sparkles className="h-10 w-10 md:h-12 md:w-12 mb-4 text-blue-500" />
+                <h3 className="text-lg md:text-xl font-bold mb-2">Dieptereiniging</h3>
+                <p className="text-sm md:text-base text-gray-500">Grondige reiniging van elk hoekje en gaatje.</p>
               </motion.div>
               <motion.div
-                className="flex flex-col items-center text-center p-6 bg-white rounded-lg shadow-sm transition-all duration-300 hover:shadow-md"
+                className="flex flex-col items-center text-center p-4 md:p-6 bg-white rounded-lg shadow-sm transition-all duration-300 hover:shadow-md"
                 whileHover={{ scale: 1.05 }}
               >
-                <Repeat className="h-12 w-12 mb-4 text-green-500" />
-                <h3 className="text-xl font-bold mb-2">Regelmatig Onderhoud</h3>
-                <p className="text-gray-500">Houd uw ruimte netjes met onze routinematige schoonmaakdiensten.</p>
+                <Repeat className="h-10 w-10 md:h-12 md:w-12 mb-4 text-green-500" />
+                <h3 className="text-lg md:text-xl font-bold mb-2">Regelmatig Onderhoud</h3>
+                <p className="text-sm md:text-base text-gray-500">Houd uw ruimte netjes met onze routinematige schoonmaakdiensten.</p>
               </motion.div>
               <motion.div
-                className="flex flex-col items-center text-center p-6 bg-white rounded-lg shadow-sm transition-all duration-300 hover:shadow-md"
+                className="flex flex-col items-center text-center p-4 md:p-6 bg-white rounded-lg shadow-sm transition-all duration-300 hover:shadow-md"
                 whileHover={{ scale: 1.05 }}
               >
-                <Trash2 className="h-12 w-12 mb-4 text-purple-500" />
-                <h3 className="text-xl font-bold mb-2">Afvalbeheer</h3>
-                <p className="text-gray-500">Efficiënte afvoer- en recyclingdiensten.</p>
+                <Trash2 className="h-10 w-10 md:h-12 md:w-12 mb-4 text-purple-500" />
+                <h3 className="text-lg md:text-xl font-bold mb-2">Afvalbeheer</h3>
+                <p className="text-sm md:text-base text-gray-500">Efficiënte afvoer- en recyclingdiensten.</p>
               </motion.div>
             </div>
             <div className="text-center">
@@ -272,8 +273,8 @@ export default function Component() {
 
         <section id="why-choose-us" className="w-full py-12 md:py-24 lg:py-32 bg-white">
           <div className="container px-4 md:px-6 mx-auto">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-12">Waarom Kiezen voor Frisspits?</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-12">Waarom Kiezen voor Frisspits?</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
               {[
                 { title: "Professioneel & Betrouwbaar", content: "Ons team bestaat uit ervaren en gescreende professionals die uw vertrouwen waardig zijn." },
                 { title: "Milieuvriendelijk", content: "We gebruiken eco-vriendelijke producten die veilig zijn voor uw gezin en het milieu." },
@@ -282,14 +283,14 @@ export default function Component() {
               ].map((item, index) => (
                 <motion.div
                   key={index}
-                  className="flex flex-col items-center text-center p-6 bg-gray-50 rounded-lg"
+                  className="flex flex-col items-center text-center p-4 md:p-6 bg-gray-50 rounded-lg"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <CheckCircle className="h-12 w-12 mb-4 text-green-500" />
-                  <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                  <p className="text-gray-600">{item.content}</p>
+                  <CheckCircle className="h-10 w-10 md:h-12 md:w-12 mb-4 text-green-500" />
+                  <h3 className="text-lg md:text-xl font-bold mb-2">{item.title}</h3>
+                  <p className="text-sm md:text-base text-gray-600">{item.content}</p>
                 </motion.div>
               ))}
             </div>
@@ -298,28 +299,28 @@ export default function Component() {
 
         <section id="testimonials" className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-br from-blue-50 to-green-50">
           <div className="container px-4 md:px-6 mx-auto">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">
               Ontdek de Frisspits Ervaring
             </h2>
-            <p className="text-xl text-center text-gray-600 mb-12">
+            <p className="text-lg md:text-xl text-center text-gray-600 mb-12">
               Onze klanten zijn onze grootste fans. Lees hier waarom zij zo enthousiast zijn over Frisspits!
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {testimonials.map((testimonial, index) => (
                 <motion.div
                   key={index}
-                  className="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-lg"
+                  className="flex flex-col items-center text-center bg-white p-4 md:p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-lg"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <p className="text-gray-700 mb-4 text-base italic leading-relaxed">{testimonial.content}</p>
+                  <p className="text-gray-700 mb-4 text-sm md:text-base italic leading-relaxed">{testimonial.content}</p>
                   <div className="mt-auto">
-                    <p className="font-semibold text-lg text-blue-600">{testimonial.name}</p>
-                    <p className="text-sm text-gray-500 mb-2">{testimonial.role}</p>
+                    <p className="font-semibold text-base md:text-lg text-blue-600">{testimonial.name}</p>
+                    <p className="text-xs md:text-sm text-gray-500 mb-2">{testimonial.role}</p>
                     <div className="flex justify-center">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 text-yellow-400" fill="currentColor" />
+                        <Star key={i} className="h-4 w-4 md:h-5 md:w-5 text-yellow-400" fill="currentColor" />
                       ))}
                     </div>
                   </div>
@@ -343,21 +344,21 @@ export default function Component() {
 
         <section id="faq" className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
           <div className="container px-4 md:px-6 mx-auto">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-12">Veelgestelde Vragen</h2>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-12">Veelgestelde Vragen</h2>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
               {faqs.map((faq, index) => (
                 <motion.div
                   key={index}
-                  className="bg-white p-6 rounded-lg shadow-sm"
+                  className="bg-white p-4 md:p-6 rounded-lg shadow-sm"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <h3 className="text-xl font-semibold mb-2 flex items-start">
-                    <HelpCircle className="h-6 w-6 mr-2 text-blue-500 flex-shrink-0 mt-1" />
+                  <h3 className="text-lg md:text-xl font-semibold mb-2 flex items-start">
+                    <HelpCircle className="h-5 w-5 md:h-6 md:w-6 mr-2 text-blue-500 flex-shrink-0 mt-1" />
                     {faq.question}
                   </h3>
-                  <p className="text-gray-600">{faq.answer}</p>
+                  <p className="text-sm md:text-base text-gray-600">{faq.answer}</p>
                 </motion.div>
               ))}
             </div>
@@ -368,10 +369,10 @@ export default function Component() {
           <div className="container px-4 md:px-6 mx-auto">
             <div className="flex flex-col md:flex-row items-center justify-between">
               <div className="mb-8 md:mb-0 md:mr-8">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
                   Klaar om te beginnen?
                 </h2>
-                <p className="text-xl mb-4">
+                <p className="text-base md:text-xl mb-4">
                   Laat ons u helpen met het creëren van een schonere, gezondere leefomgeving.
                 </p>
               </div>
@@ -399,19 +400,19 @@ export default function Component() {
           <div className="container px-4 md:px-6 mx-auto relative">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div className="text-center lg:text-left">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-6">Klaar voor een Stralend Schone Ruimte?</h2>
-                <p className="text-xl mb-8 max-w-md mx-auto lg:mx-0">
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-6">Klaar voor een Stralend Schone Ruimte?</h2>
+                <p className="text-base md:text-xl mb-8 max-w-md mx-auto lg:mx-0">
                   Laat Frisspits u helpen met het creëren van een schone, gezonde en aangename omgeving. Vraag vandaag nog een gratis offerte aan!
                 </p>
                 <motion.button
-                  className="inline-flex items-center justify-center rounded-full text-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background bg-white text-blue-600 hover:bg-blue-50 h-14 px-8 py-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                  className="inline-flex items-center justify-center rounded-full text-base md:text-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background bg-white text-blue-600 hover:bg-blue-50 h-12 md:h-14 px-6 md:px-8 py-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   Vraag een Gratis Offerte Aan
                 </motion.button>
               </div>
-              <div className="relative h-[400px] lg:h-[600px] w-full">
+              <div className="relative h-[300px] md:h-[400px] lg:h-[600px] w-full">
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-green-300 blur-3xl opacity-30"></div>
                 <div className="relative h-full w-full overflow-hidden rounded-lg">
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 to-green-400/30 z-10"></div>
@@ -431,10 +432,10 @@ export default function Component() {
 
         <section id="social-media" className="w-full py-12 bg-gradient-to-r from-blue-500 to-green-500">
           <div className="container px-4 md:px-6 mx-auto">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-center mb-8 text-white">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tighter sm:text-4xl text-center mb-8 text-white">
               Volg Ons op Social Media
             </h2>
-            <p className="text-xl text-center mb-8 text-gray-300">
+            <p className="text-base md:text-xl text-center mb-8 text-gray-300">
               Blijf op de hoogte van onze laatste nieuwtjes, tips en aanbiedingen.
             </p>
             <SocialMedia />
@@ -451,11 +452,11 @@ export default function Component() {
             transition={{ duration: 0.5 }}
           >
             <motion.button
-              className="bg-blue-600 text-white rounded-full p-4 shadow-lg hover:bg-blue-700 transition-colors duration-300"
+              className="bg-blue-600 text-white rounded-full p-3 md:p-4 shadow-lg hover:bg-blue-700 transition-colors duration-300"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              <PhoneCall className="h-6 w-6" />
+              <PhoneCall className="h-5 w-5 md:h-6 md:w-6" />
             </motion.button>
           </motion.div>
         )}
@@ -479,16 +480,16 @@ export default function Component() {
                   className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 transition-colors z-10"
                   aria-label="Sluit popup"
                 >
-                  <X className="h-6 w-6" />
+                  <X className="h-5 w-5 md:h-6 md:w-6" />
                 </button>
-                <div className="bg-gradient-to-br from-blue-500 to-green-400 p-6 text-white">
-                  <h3 className="text-2xl font-bold mb-2 flex items-center">
+                <div className="bg-gradient-to-br from-blue-500 to-green-400 p-4 md:p-6 text-white">
+                  <h3 className="text-xl md:text-2xl font-bold mb-2 flex items-center">
                     <Sparkles className="mr-2" /> Speciale Aanbieding!
                   </h3>
-                  <p className="text-lg">Maak uw ruimte stralend schoon voor minder!</p>
+                  <p className="text-base md:text-lg">Maak uw ruimte stralend schoon voor minder!</p>
                 </div>
-                <div className="p-6">
-                  <p className="text-gray-600 mb-4">Boek nu en ontvang <span className="font-bold text-blue-600">20% korting</span> op uw eerste schoonmaakbeurt!</p>
+                <div className="p-4 md:p-6">
+                  <p className="text-sm md:text-base text-gray-600 mb-4">Boek nu en ontvang <span className="font-bold text-blue-600">20% korting</span> op uw eerste schoonmaakbeurt!</p>
                   <div className="flex justify-between items-center mb-6">
                     <div className="flex items-center">
                       <Image
@@ -499,19 +500,19 @@ export default function Component() {
                         className="mr-3"
                       />
                       <div>
-                        <p className="font-semibold">Professionele service</p>
-                        <p className="text-sm text-gray-500">Door ervaren schoonmakers</p>
+                        <p className="font-semibold text-sm md:text-base">Professionele service</p>
+                        <p className="text-xs md:text-sm text-gray-500">Door ervaren schoonmakers</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-2xl font-bold text-green-500">20% OFF</p>
-                      <p className="text-sm text-gray-500">Geldig voor nieuwe klanten</p>
+                      <p className="text-xl md:text-2xl font-bold text-green-500">20% OFF</p>
+                      <p className="text-xs md:text-sm text-gray-500">Geldig voor nieuwe klanten</p>
                     </div>
                   </div>
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-full bg-blue-600 text-white hover:bg-blue-700 rounded-md py-3 px-4 font-medium transition-colors duration-300"
+                    className="w-full bg-blue-600 text-white hover:bg-blue-700 rounded-md py-2 md:py-3 px-4 text-sm md:text-base font-medium transition-colors duration-300"
                     onClick={handlePopupOffer}
                   >
                     Profiteer Nu van Deze Aanbieding
@@ -528,7 +529,7 @@ export default function Component() {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          padding: 15px 30px;
+          padding: 12px 24px;
           border: 0;
           position: relative;
           overflow: hidden;
@@ -539,6 +540,14 @@ export default function Component() {
           color: rgb(37, 37, 37);
           z-index: 0;
           box-shadow: 0 0px 7px -5px rgba(0, 0, 0, 0.5);
+          font-size: 14px;
+        }
+
+        @media (min-width: 768px) {
+          .button {
+            padding: 15px 30px;
+            font-size: 16px;
+          }
         }
 
         .button:hover {
@@ -571,17 +580,31 @@ export default function Component() {
             rgba(0, 212, 255, 1) 100%
           );
           border-radius: 40rem;
-          width: 10rem;
-          height: 10rem;
+          width: 8rem;
+          height: 8rem;
           transition: 0.4s;
           filter: blur(20px);
           animation: effect infinite 3s linear;
           opacity: 0.5;
         }
 
+        @media (min-width: 768px) {
+          .hoverEffect div {
+            width: 10rem;
+            height: 10rem;
+          }
+        }
+
         .button:hover .hoverEffect div {
-          width: 20rem;
-          height: 20rem;
+          width: 15rem;
+          height: 15rem;
+        }
+
+        @media (min-width: 768px) {
+          .button:hover .hoverEffect div {
+            width: 20rem;
+            height: 20rem;
+          }
         }
 
         @keyframes effect {
