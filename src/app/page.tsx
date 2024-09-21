@@ -1,13 +1,15 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import Link from 'next/link'
+// import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Sparkles, Repeat, Trash2, Star, ArrowRight, CheckCircle, HelpCircle, PhoneCall, X } from 'lucide-react'
+import { Sparkles, CheckCircle, HelpCircle, PhoneCall, X } from 'lucide-react'
 import ContactForm from '@/components/ContactForm'
 import SocialMedia from '@/components/SocialMedia'
 import CTASection from '@/components/CTASection'
+import ServicesSection from '@/components/ServicesSection'
+import HeroSection  from '@/components/HeroSection'
 
 interface ImageData {
   src: string;
@@ -28,23 +30,23 @@ interface FormData {
   serviceType: string;
 }
 
-const testimonials = [
-  {
-    name: "Sarah J.",
-    role: "Trotse Huiseigenaar",
-    content: "Ik ben sprakeloos! Frisspits heeft mijn huis getransformeerd. Het voelt als een compleet nieuwe woning - fris, schoon en vol positieve energie. Hun toewijding is ongeëvenaard!"
-  },
-  {
-    name: "Mike T.",
-    role: "Tevreden Kantoormanager",
-    content: "Onze werkplek straalt nu professionaliteit uit! Frisspits begrijpt dat een schoon kantoor leidt tot gelukkige medewerkers en betere productiviteit. Ze zijn een onmisbaar onderdeel van ons team geworden!"
-  },
-  {
-    name: "Lisa V.",
-    role: "Enthousiaste Restauranteigenaar",
-    content: "Wow! Frisspits heeft de lat voor schoonmaak hoger gelegd. Onze gasten merken het verschil en complimenteren ons constant. Het is alsof ze magie gebruiken om alles te laten glanzen!"
-  }
-]
+// const testimonials = [
+//   {
+//     name: "Sarah J.",
+//     role: "Trotse Huiseigenaar",
+//     content: "Ik ben sprakeloos! Frisspits heeft mijn huis getransformeerd. Het voelt als een compleet nieuwe woning - fris, schoon en vol positieve energie. Hun toewijding is ongeëvenaard!"
+//   },
+//   {
+//     name: "Mike T.",
+//     role: "Tevreden Kantoormanager",
+//     content: "Onze werkplek straalt nu professionaliteit uit! Frisspits begrijpt dat een schoon kantoor leidt tot gelukkige medewerkers en betere productiviteit. Ze zijn een onmisbaar onderdeel van ons team geworden!"
+//   },
+//   {
+//     name: "Lisa V.",
+//     role: "Enthousiaste Restauranteigenaar",
+//     content: "Wow! Frisspits heeft de lat voor schoonmaak hoger gelegd. Onze gasten merken het verschil en complimenteren ons constant. Het is alsof ze magie gebruiken om alles te laten glanzen!"
+//   }
+// ]
 
 const exampleImages = [
   {
@@ -89,31 +91,71 @@ const faqs = [
 ]
 
 const ExampleWork: React.FC<ExampleWorkProps> = ({ title, images }) => {
-  return (
-    <section className="py-12 bg-gray-100">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-8 text-center">{title}</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {images.map((image, index) => (
-            <div key={index} className="relative h-64 rounded-lg overflow-hidden">
-              <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                style={{ objectFit: 'cover' }}
-                className="transition-transform duration-300 hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-50 flex items-end p-4">
-                <span className="text-white text-lg font-semibold">
-                  {image.caption}
-                </span>
-              </div>
+    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+
+    return (
+        <section className="py-12 bg-background">
+          <div className="container mx-auto px-4">
+            <motion.h2 
+              className="text-3xl font-bold mb-8 text-center relative inline-block"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {title}
+              <motion.span
+                className="absolute -top-4 -right-4"
+                initial={{ rotate: 0 }}
+                animate={{ rotate: 360 }}
+                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+              >
+                <Sparkles className="w-6 h-6 text-yellow-400" />
+              </motion.span>
+            </motion.h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {images.map((image, index) => (
+                <motion.div 
+                  key={index} 
+                  className="relative h-64 rounded-lg overflow-hidden cursor-pointer"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ scale: 1.05 }}
+                  onHoverStart={() => setHoveredIndex(index)}
+                  onHoverEnd={() => setHoveredIndex(null)}
+                >
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    className="transition-transform duration-300"
+                  />
+                  <AnimatePresence>
+                    {hoveredIndex === index && (
+                      <motion.div 
+                        className="absolute inset-0 bg-gradient-to-t from-black to-transparent flex items-end justify-center p-4"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                      >
+                        <motion.span 
+                          className="text-white text-lg font-semibold text-center"
+                          initial={{ y: 20 }}
+                          animate={{ y: 0 }}
+                          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        >
+                          {image.caption}
+                        </motion.span>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+          </div>
+        </section>
+      )
 };
 
 export default function Component() {
@@ -139,7 +181,7 @@ export default function Component() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowPopup(true)
-    }, 10000) // Show popup after 30 seconds
+    },20000) // Show popup after 30 seconds
 
     return () => clearTimeout(timer)
   }, [])
@@ -156,122 +198,14 @@ export default function Component() {
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-gradient-to-r from-blue-100 to-green-100 relative overflow-hidden">
-          <div className="container px-4 md:px-6 mx-auto relative z-10">
-            <div className="flex flex-col items-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                  Frisspits: Uitstekende Schoonmaak
-                </h1>
-                <p className="mx-auto max-w-[700px] text-gray-500 text-sm sm:text-base md:text-xl dark:text-gray-400">
-                  Professionele schoonmaakdiensten voor huizen en bedrijven. Laat Frisspits de rommel opruimen terwijl u zich concentreert op wat belangrijk is.
-                </p>
-              </div>
-              <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                <Link href="/#contact" passHref legacyBehavior>
-                  <motion.a
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background bg-black text-white hover:bg-gray-800 h-10 py-2 px-4"
-                  >
-                    Nu Boeken
-                  </motion.a>
-                </Link>
-                <Link href="/diensten" passHref legacyBehavior>
-                  <motion.a
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background border border-input hover:bg-accent hover:text-accent-foreground h-10 py-2 px-4"
-                  >
-                    Onze Diensten
-                  </motion.a>
-                </Link>
-              </div>
-            </div>
-          </div>
-          {[
-            { src: '/images/toys.png', position: { top: '5%', left: '5%' } },
-            { src: '/images/wcrol.png', position: { top: '15%', right: '10%' } },
-            { src: '/images/bottles.png', position: { bottom: '15%', left: '15%' } },
-            { src: '/images/car.png', position: { bottom: '10%', right: '5%' } },
-          ].map((item, index) => (
-            <motion.div
-              key={index}
-              className="absolute hidden md:block"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              style={{
-                ...item.position,
-                zIndex: 1,
-              }}
-            >
-              <Image
-                src={item.src}
-                alt={`Cleaning icon ${index + 1}`}
-                width={100}
-                height={100}
-                className="opacity-50 hover:opacity-80 transition-opacity duration-300 filter drop-shadow-md"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none'
-                }}
-              />
-            </motion.div>
-          ))}
-        </section>
-
-        <section id="services" className="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
-          <div className="container px-4 md:px-6 mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">Frisspits Diensten</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12">
-              <motion.div
-                className="flex flex-col items-center text-center p-4 md:p-6 bg-white rounded-lg shadow-sm transition-all duration-300 hover:shadow-md"
-                whileHover={{ scale: 1.05 }}
-              >
-                <Sparkles className="h-10 w-10 md:h-12 md:w-12 mb-4 text-blue-500" />
-                <h3 className="text-lg md:text-xl font-bold mb-2">Dieptereiniging</h3>
-                <p className="text-sm md:text-base text-gray-500">Grondige reiniging van elk hoekje en gaatje.</p>
-              </motion.div>
-              <motion.div
-                className="flex flex-col items-center text-center p-4 md:p-6 bg-white rounded-lg shadow-sm transition-all duration-300 hover:shadow-md"
-                whileHover={{ scale: 1.05 }}
-              >
-                <Repeat className="h-10 w-10 md:h-12 md:w-12 mb-4 text-green-500" />
-                <h3 className="text-lg md:text-xl font-bold mb-2">Regelmatig Onderhoud</h3>
-                <p className="text-sm md:text-base text-gray-500">Houd uw ruimte netjes met onze routinematige schoonmaakdiensten.</p>
-              </motion.div>
-              <motion.div
-                className="flex flex-col items-center text-center p-4 md:p-6 bg-white rounded-lg shadow-sm transition-all duration-300 hover:shadow-md"
-                whileHover={{ scale: 1.05 }}
-              >
-                <Trash2 className="h-10 w-10 md:h-12 md:w-12 mb-4 text-purple-500" />
-                <h3 className="text-lg md:text-xl font-bold mb-2">Afvalbeheer</h3>
-                <p className="text-sm md:text-base text-gray-500">Efficiënte afvoer- en recyclingdiensten.</p>
-              </motion.div>
-            </div>
-            <div className="text-center">
-              <Link href="/diensten" passHref legacyBehavior>
-                <motion.a
-                  className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background bg-blue-600 text-white hover:bg-blue-700 h-10 py-2 px-4"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Bekijk Alle Diensten
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </motion.a>
-              </Link>
-            </div>
-          </div>
-        </section>
-
+        <HeroSection />
+        <ServicesSection />
         <ExampleWork
           title="Ons Werk in Beeld"
           images={exampleImages}
         />
-
         <CTASection />
-
-        <section id="why-choose-us" className="w-full py-12 md:py-24 lg:py-32 bg-white">
+        <section id="why-choose-us" className="w-full py-12 md:py-24 lg:py-32 bg-background">
           <div className="container px-4 md:px-6 mx-auto">
             <h2 className="text-2xl md:text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-12">Waarom Kiezen voor Frisspits?</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
@@ -297,7 +231,7 @@ export default function Component() {
           </div>
         </section>
 
-        <section id="testimonials" className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-br from-blue-50 to-green-50">
+        {/* <section id="testimonials" className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-br from-blue-50 to-green-50">
           <div className="container px-4 md:px-6 mx-auto">
             <h2 className="text-2xl md:text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">
               Ontdek de Frisspits Ervaring
@@ -340,9 +274,9 @@ export default function Component() {
               </motion.button>
             </div>
           </div>
-        </section>
+        </section> */}
 
-        <section id="faq" className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
+        <section id="faq" className="w-full py-12 md:py-24 lg:py-32 bg-background">
           <div className="container px-4 md:px-6 mx-auto">
             <h2 className="text-2xl md:text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-12">Veelgestelde Vragen</h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
