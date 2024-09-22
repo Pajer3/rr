@@ -4,21 +4,21 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import emailjs from '@emailjs/browser'
 
-const cleaningOptions = [
-  { id: 'livingroom', label: 'Woonkamer' },
-  { id: 'kitchen', label: 'Keuken' },
-  { id: 'bathroom', label: 'Badkamer' },
-  { id: 'bedroom', label: 'Slaapkamer' },
-  { id: 'hallway', label: 'Gang' },
-  { id: 'stairs', label: 'Trap' },
-  { id: 'windows', label: 'Ramen' },
-]
+// const cleaningOptions = [
+//   { id: 'Huishoudelijk reiniging', label: 'Huishoudelijk reiniging' },
+//   { id: 'Schoonmaak bij Verhuizen', label: 'Schoonmaak bij Verhuizen' },
+//   { id: 'Schoonmaak bij Nieuwbouw', label: 'Schoonmaak bij Nieuwbouw' },
+//   { id: 'Schoonmaak bij Verhuizen', label: 'Schoonmaak bij Verhuizen' },
+//   { id: 'Gadagelijkse schoonmaakng', label: 'Gadagelijkse schoonmaakng' },
+//   { id: 'weeklijkse schoonmaak', label: 'weeklijkse schoonmaak' },
+//   { id: 'maandelijkse schoonmaak', label: 'maandelijkse schoonmaak' },
+// ]
 
 const frequencyOptions = [
   { id: 'daily', label: 'Dagelijks' },
   { id: 'weekly', label: 'Wekelijks' },
   { id: 'biweekly', label: 'Tweewekelijks' },
-  { id: 'monthly', label: 'Maandelijks' },
+//   { id: 'monthly', label: 'Maandelijks' },
   { id: 'onetime', label: 'Eenmalig' },
 ]
 

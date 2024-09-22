@@ -4,7 +4,7 @@ import SocialMedia from './SocialMedia'
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-100 text-gray-600 py-8 px-4 md:px-6">
+    <footer className="bg-background text-black py-8 px-4 md:px-6">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
@@ -28,7 +28,7 @@ export default function Footer() {
             <ul className="space-y-2">
               <li><Link href="/bedrijf/over-ons" className="text-sm hover:underline">Over Ons</Link></li>
               <li><Link href="/bedrijf/carriere" className="text-sm hover:underline">Carrière</Link></li>
-              <li><Link href="/bedrijf/blog" className="text-sm hover:underline">Blog</Link></li>
+              {/* <li><Link href="/bedrijf/blog" className="text-sm hover:underline">Blog</Link></li> */}
               <li><Link href="/bedrijf/contact" className="text-sm hover:underline">Contact</Link></li>
             </ul>
           </div>

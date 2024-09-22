@@ -12,11 +12,11 @@ interface PrivacySection {
 const privacySections: PrivacySection[] = [
   {
     title: "1. Gegevensverzameling",
-    content: "1.1 Frisspits verzamelt persoonsgegevens die u vrijwillig verstrekt, zoals naam, adres, telefoonnummer en e-mailadres, wanneer u gebruik maakt van onze diensten of contact met ons opneemt.\n\n1.2 We kunnen ook automatisch bepaalde informatie verzamelen wanneer u onze website bezoekt, zoals uw IP-adres, browsertype, en informatie over uw gebruik van de website."
+    content: "1.1 Frisspits verzamelt persoonsgegevens die u vrijwillig verstrekt, zoals naam, adres, telefoonnummer en e-mailadres, wanneer u gebruik maakt van onze diensten of contact met ons opneemt."
   },
   {
     title: "2. Gebruik van Gegevens",
-    content: "2.1 Frisspits gebruikt uw persoonsgegevens voor de volgende doeleinden:\n- Het leveren en verbeteren van onze diensten\n- Het verwerken van betalingen\n- Het verzenden van servicemededelingen en promotionele aanbiedingen\n- Het reageren op uw vragen en verzoeken\n- Het naleven van wettelijke verplichtingen\n\n2.2 We zullen uw gegevens niet voor andere doeleinden gebruiken zonder uw toestemming."
+    content: "2.1 Frisspits gebruikt uw persoonsgegevens voor de volgende doeleinden:\n- Het leveren en verbeteren van onze diensten\n- Het verwerken van betalingen\n- Het reageren op uw vragen en verzoeken\n- Het naleven van wettelijke verplichtingen\n\n2.2 We zullen uw gegevens niet voor andere doeleinden gebruiken zonder uw toestemming."
   },
   {
     title: "3. Gegevensbescherming",
@@ -52,7 +52,7 @@ export default function PrivacyPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-12">
         <Link href="/" className="inline-flex items-center text-blue-600 hover:text-blue-800 transition duration-300 mb-8">
           <ArrowLeft className="mr-2 h-5 w-5" />

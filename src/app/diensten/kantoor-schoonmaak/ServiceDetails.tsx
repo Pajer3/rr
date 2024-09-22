@@ -19,7 +19,7 @@ export default function ServiceDetails() {
           <li>Schoonmaken van vergaderruimtes</li>
           <li>Reiniging en desinfectie van sanitaire voorzieningen</li>
           <li>Keuken en lunchruimte onderhoud</li>
-          <li>Afvalbeheer en recycling</li>
+          {/* <li>Afvalbeheer en recycling</li> */}
           <li>Periodieke dieptereiniging van tapijten en stoffering</li>
           <li>Glazenwassen (binnen en buiten)</li>
         </ul>

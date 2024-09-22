@@ -18,8 +18,8 @@ export default function ServiceDetails() {
           <li>Verwijdering van vuil, stof, en vogeluitwerpselen</li>
           <li>Inspectie op schade of defecten</li>
           <li>Gebruik van gespecialiseerde, niet-schurende reinigingsmiddelen</li>
-          <li>Optionele coating voor langdurige bescherming</li>
-          <li>Reiniging van omliggende dakgoten</li>
+          {/* <li>Optionele coating voor langdurige bescherming</li> */}
+          {/* <li>Reiniging van omliggende dakgoten</li> */}
         </ul>
       )
     },
@@ -53,7 +53,7 @@ export default function ServiceDetails() {
           <li>Voorbereiding van het werkgebied</li>
           <li>Zachte reiniging met gedemineraliseerd water</li>
           <li>Grondige spoeling</li>
-          <li>Optionele toepassing van beschermende coating</li>
+          {/* <li>Optionele toepassing van beschermende coating</li> */}
           <li>Finale inspectie en efficiëntietest</li>
         </ol>
       )

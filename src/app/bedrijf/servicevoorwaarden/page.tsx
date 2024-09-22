@@ -20,11 +20,11 @@ const termSections: TermSection[] = [
   },
   {
     title: "3. Prijzen en Betaling",
-    content: "3.1 Alle prijzen zijn exclusief BTW, tenzij anders vermeld.\n\n3.2 Betaling dient te geschieden binnen 14 dagen na factuurdatum.\n\n3.3 Bij niet-tijdige betaling is de klant, zonder ingebrekestelling, in verzuim en is Frisspits gerechtigd de wettelijke rente in rekening te brengen."
+    content: "3.1 Alle prijzen zijn exclusief BTW, tenzij anders vermeld.\n\n3.2 Betaling dient te geschieden binnen 30 dagen na factuurdatum.\n\n3.3 Bij niet-tijdige betaling is de klant, zonder ingebrekestelling, in verzuim en is Frisspits gerechtigd de wettelijke rente in rekening te brengen."
   },
   {
     title: "4. Aansprakelijkheid",
-    content: "4.1 Frisspits is aansprakelijk voor schade die het directe gevolg is van een toerekenbare tekortkoming in de uitvoering van de overeenkomst.\n\n4.2 De aansprakelijkheid van Frisspits is beperkt tot het bedrag dat in het desbetreffende geval onder de aansprakelijkheidsverzekering wordt uitbetaald.\n\n4.3 Frisspits is niet aansprakelijk voor indirecte schade, waaronder gevolgschade en gederfde winst."
+    content: "4.1 De aansprakelijkheid van Frisspits is beperkt tot het bedrag dat in het desbetreffende geval onder de aansprakelijkheidsverzekering wordt uitbetaald.\n\n4.2 Frisspits is niet aansprakelijk voor indirecte schade, waaronder gevolgschade en gederfde winst."
   },
   {
     title: "5. Duur en Beëindiging",
@@ -48,7 +48,7 @@ export default function ServicevoorwaardenPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-12">
         <Link href="/" className="inline-flex items-center text-blue-600 hover:text-blue-800 transition duration-300 mb-8">
           <ArrowLeft className="mr-2 h-5 w-5" />

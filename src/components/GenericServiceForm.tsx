@@ -11,31 +11,24 @@ interface Option {
 
 interface GenericServiceFormProps {
   serviceName: string;
-  options: Option[];
   frequencyOptions: Option[];
   quantityLabel: string;
 }
 
-export default function GenericServiceForm({ serviceName, options, frequencyOptions, quantityLabel }: GenericServiceFormProps) {
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([])
+export default function GenericServiceForm({ serviceName, frequencyOptions, quantityLabel }: GenericServiceFormProps) {
   const [frequency, setFrequency] = useState<string>('')
   const [quantity, setQuantity] = useState<string>('')
+  const [phoneNumber, setPhoneNumber] = useState<string>('')
   const [additionalInfo, setAdditionalInfo] = useState<string>('')
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState<string>('')
-
-  const handleOptionToggle = (id: string) => {
-    setSelectedOptions(prev => 
-      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
-    )
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setStatus('submitting')
     setErrorMessage('')
 
-    if (selectedOptions.length === 0 || !frequency || !quantity) {
+    if (!frequency || !quantity || !phoneNumber) {
       setStatus('error')
       setErrorMessage('Vul alstublieft alle verplichte velden in.')
       return
@@ -43,9 +36,9 @@ export default function GenericServiceForm({ serviceName, options, frequencyOpti
 
     const templateParams = {
       serviceName: serviceName,
-      selectedOptions: selectedOptions.map(id => options.find(option => option.id === id)?.label).join(', '),
       frequency: frequencyOptions.find(option => option.id === frequency)?.label,
       quantity: quantity,
+      phoneNumber: phoneNumber,
       additionalInfo: additionalInfo
     }
 
@@ -57,9 +50,9 @@ export default function GenericServiceForm({ serviceName, options, frequencyOpti
         process.env.NEXT_PUBLIC_EMAILJS_USER_ID!
       )
       setStatus('success')
-      setSelectedOptions([])
       setFrequency('')
       setQuantity('')
+      setPhoneNumber('')
       setAdditionalInfo('')
     } catch (error) {
       console.error('EmailJS error:', error)
@@ -77,37 +70,7 @@ export default function GenericServiceForm({ serviceName, options, frequencyOpti
       className="bg-white shadow-2xl rounded-2xl overflow-hidden"
     >
       <div className="p-8 border-b border-gray-200">
-        <h2 className="text-2xl font-semibold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-green-600">
-          Opties
-        </h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {options.map((option) => (
-            <motion.div 
-              key={option.id}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`flex items-center space-x-3 p-3 rounded-lg cursor-pointer ${
-                selectedOptions.includes(option.id) ? 'bg-blue-100' : 'bg-gray-100'
-              }`}
-              onClick={() => handleOptionToggle(option.id)}
-            >
-              <input
-                type="checkbox"
-                id={option.id}
-                checked={selectedOptions.includes(option.id)}
-                onChange={() => {}}
-                className="form-checkbox h-5 w-5 text-blue-600 rounded"
-              />
-              <label htmlFor={option.id} className="text-gray-700 select-none">
-                {option.label}
-              </label>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      <div className="p-8 border-b border-gray-200">
-        <h2 className="text-2xl font-semibold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-green-600">
+        <h2 className="text-2xl font-semibold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-blue-600">
           Frequentie
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -117,7 +80,7 @@ export default function GenericServiceForm({ serviceName, options, frequencyOpti
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className={`flex items-center space-x-3 p-3 rounded-lg cursor-pointer ${
-                frequency === option.id ? 'bg-green-100' : 'bg-gray-100'
+                frequency === option.id ? 'bg-yellow-100' : 'bg-gray-100'
               }`}
               onClick={() => setFrequency(option.id)}
             >
@@ -126,7 +89,7 @@ export default function GenericServiceForm({ serviceName, options, frequencyOpti
                 id={option.id}
                 checked={frequency === option.id}
                 onChange={() => {}}
-                className="form-radio h-5 w-5 text-green-600"
+                className="form-radio h-5 w-5 text-yellow-600"
               />
               <label htmlFor={option.id} className="text-gray-700 select-none">
                 {option.label}
@@ -137,33 +100,47 @@ export default function GenericServiceForm({ serviceName, options, frequencyOpti
       </div>
 
       <div className="p-8 border-b border-gray-200">
-        <h2 className="text-2xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-green-600">
+        <h2 className="text-2xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-blue-600">
           {quantityLabel}
         </h2>
         <input
-          type="text"
+          type="number"
           value={quantity}
           onChange={(e) => setQuantity(e.target.value)}
-          className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
           placeholder={`Voer ${quantityLabel.toLowerCase()} in`}
           required
         />
       </div>
 
       <div className="p-8 border-b border-gray-200">
-        <h2 className="text-2xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-green-600">
+        <h2 className="text-2xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-blue-600">
+          Telefoonnummer
+        </h2>
+        <input
+          type="tel"
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+          className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+          placeholder="Voer uw telefoonnummer in"
+          required
+        />
+      </div>
+
+      <div className="p-8 border-b border-gray-200">
+        <h2 className="text-2xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-blue-600">
           Aanvullende informatie
         </h2>
         <textarea
-          className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
           rows={4}
-          placeholder="Bijv. specifieke aandachtsgebieden, allergieën, of speciale verzoeken"
+          placeholder="Bijv. specifieke aandachtsgebieden of speciale verzoeken"
           value={additionalInfo}
           onChange={(e) => setAdditionalInfo(e.target.value)}
         ></textarea>
       </div>
 
-      <div className="p-8 bg-gradient-to-r from-blue-50 to-green-50">
+      <div className="p-8 bg-gradient-to-r from-yellow-50 to-blue-50">
         {status === 'error' && (
           <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg">
             {errorMessage}
@@ -178,7 +155,7 @@ export default function GenericServiceForm({ serviceName, options, frequencyOpti
           type="submit"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="w-full bg-gradient-to-r from-blue-600 to-green-600 text-white rounded-full px-4 py-3 font-semibold transition duration-300 shadow-lg hover:shadow-xl"
+          className="w-full bg-gradient-to-r from-yellow-600 to-blue-600 text-white rounded-full px-4 py-3 font-semibold transition duration-300 shadow-lg hover:shadow-xl"
           disabled={status === 'submitting'}
         >
           {status === 'submitting' ? 'Bezig met verzenden...' : 'Vraag een offerte aan'}

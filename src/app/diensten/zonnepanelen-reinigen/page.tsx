@@ -4,12 +4,6 @@ import ServiceDetails from './ServiceDetails'
 import Link from 'next/link'
 import { Suspense } from 'react'
 
-const panelOptions = [
-  { id: 'residential', label: 'Residentieel' },
-  { id: 'commercial', label: 'Commercieel' },
-  { id: 'industrial', label: 'Industrieel' },
-]
-
 const frequencyOptions = [
   { id: 'onetime', label: 'Eenmalig' },
   { id: 'biannual', label: 'Halfjaarlijks' },
@@ -36,7 +30,6 @@ export default function ZonnepanelenReinigenPage() {
           <Suspense fallback={<div className="text-center">Formulier laden...</div>}>
             <GenericServiceForm 
               serviceName="Zonnepanelen Reinigen"
-              options={panelOptions}
               frequencyOptions={frequencyOptions}
               quantityLabel="Aantal zonnepanelen"
             />
@@ -55,7 +48,7 @@ export default function ZonnepanelenReinigenPage() {
             Laat uw zonnepanelen professioneel reinigen voor optimale prestaties. Neem vandaag nog contact met ons op voor een vrijblijvende offerte.
           </p>
           <Link href="/#contact" passHref>
-            <button className="bg-white text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-blue-600 rounded-full px-8 py-3 font-semibold hover:bg-gray-100 transition duration-300 shadow-lg hover:shadow-xl">
+            <button className="bg-white text-white bg-clip-text bg-gradient-to-r from-yellow-600 to-blue-600 rounded-full px-8 py-3 font-semibold hover:bg-gray-100 transition duration-300 shadow-lg hover:shadow-xl">
               Contact Opnemen
             </button>
           </Link>

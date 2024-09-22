@@ -1,48 +1,48 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { CheckCircle } from 'lucide-react'
-
 
 const services = [
   {
     title: "Huishoudelijk Schoonmaak",
     description: "Professionele reiniging voor een smetteloos en comfortabel huis.",
-    icon: "🏠",
-    color: "from-blue-400 to-blue-600",
+    img: "/icons/huis.png",
+    color: "from-black to-blue-300",
     slug: "huishoudelijk-schoonmaak"
   },
   {
     title: "Glazenwasser",
     description: "Kristalheldere ramen voor een stralend uitzicht en meer licht in uw ruimte.",
-    icon: "🪟",
-    color: "from-green-400 to-green-600",
+    img: "/icons/raam.png",
+    color: "from-black to-blue-300",
     slug: "glazenwasser"
   },
   {
     title: "Dakgoten Reinigen/boeidelen Reinigen",
     description: "Voorkom waterschade en behoud de integriteit van uw dak met onze grondige reinigingsservice.",
-    icon: "🏡",
-    color: "from-yellow-400 to-yellow-600",
+    img: "/icons/dakgoten.png",
+    color: "from-black to-blue-300",
     slug: "dakgoten-reinigen"
   },
   {
     title: "Zonnepanelen Reinigen",
     description: "Maximaliseer de efficiëntie van uw zonnepanelen met onze specialistische reinigingstechnieken.",
-    icon: "☀️",
-    color: "from-orange-400 to-orange-600",
+    img: "/icons/zonnepanelen.png",
+    color: "from-black to-blue-300",
     slug: "zonnepanelen-reinigen"
   },
   {
     title: "Kantoor Schoonmaak",
     description: "Creëer een hygiënische en productieve werkomgeving voor uw medewerkers.",
-    icon: "🏢",
-    color: "from-purple-400 to-purple-600",
+    img: "/icons/kantoor.png",
+    color: "from-black to-blue-300",
     slug: "kantoor-schoonmaak"
   },
   {
     title: "VVE schoonmaken",
     description: "Professionele schoonmaakdiensten voor gemeenschappelijke ruimtes in appartementencomplexen.",
-    icon: "🏘️",
-    color: "from-pink-400 to-pink-600",
+    img: "/icons/vve.png",
+    color: "from-black to-blue-300",
     slug: "vve-schoonmaken"
   },
 ]
@@ -79,7 +79,16 @@ export default function DienstenPage() {
           <Link key={index} href={`/diensten/${service.slug}`} className={`block relative overflow-hidden rounded-lg bg-gradient-to-r ${service.color} p-1 transition-all duration-300 hover:scale-105 group`}>
             <div className="bg-white p-6 rounded-lg h-full flex flex-col justify-between group-hover:bg-opacity-90 transition-all duration-300">
               <div>
-                <div className="text-5xl mb-4">{service.icon}</div>
+                <div className="mb-4 relative h-40 w-full">
+                  <Image
+                    src={service.img}
+                    alt={service.title}
+                    width={100}
+                    height={100}
+                    objectFit="cover"
+                    className="rounded-lg"
+                  />
+                </div>
                 <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
                 <p className="text-gray-600">{service.description}</p>
               </div>
@@ -97,17 +106,17 @@ export default function DienstenPage() {
       <div className="space-y-12 mb-16">
         {specialties.map((specialty, index) => (
           <div key={index} className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-200 to-green-200 transform -skew-y-3"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-black to-blue-300 transform -skew-y-3"></div>
             <div className="relative bg-white p-8 shadow-xl rounded-lg z-10">
-              <h3 className="text-2xl font-bold mb-4 text-blue-600">{specialty.title}</h3>
+              <h3 className="text-2xl font-bold mb-4 text-black">{specialty.title}</h3>
               <p className="text-gray-600 mb-6">{specialty.description}</p>
               <div className="space-y-4">
                 {specialty.steps.map((step, stepIndex) => (
                   <div key={stepIndex} className="flex items-center">
-                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-green-100 text-green-500 flex items-center justify-center font-bold mr-3">
+                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-300 text-black flex items-center justify-center font-bold mr-3">
                       {stepIndex + 1}
                     </span>
-                    <p className="text-gray-700">{step}</p>
+                    <p className="text-black">{step}</p>
                   </div>
                 ))}
               </div>
@@ -141,9 +150,9 @@ export default function DienstenPage() {
           Of u nu een eenmalige dieptereiniging nodig heeft of regelmatige schoonmaakdiensten, wij staan voor u klaar met op maat gemaakte oplossingen.
         </p>
         <Link href="/#contact" passHref>
-        <button className="bg-blue-600 text-white rounded-md px-6 py-2 hover:bg-blue-700 transition duration-300">
+          <button className="bg-black text-white rounded-md px-6 py-2 hover:scale-105 transition duration-300">
             Vraag een Offerte Aan
-        </button>
+          </button>
         </Link>
       </div>
     </div>

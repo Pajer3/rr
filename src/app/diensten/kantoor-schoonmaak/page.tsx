@@ -39,9 +39,8 @@ export default function KantoorSchoonmaakPage() {
           <Suspense fallback={<div className="text-center">Formulier laden...</div>}>
             <GenericServiceForm 
               serviceName="Kantoor Schoonmaak"
-              options={kantoorOptions}
               frequencyOptions={frequencyOptions}
-              quantityLabel="Oppervlakte in m²"
+              quantityLabel="E-mailadres"
             />
           </Suspense>
         </div>
@@ -58,7 +57,7 @@ export default function KantoorSchoonmaakPage() {
             Creëer een schone en productieve werkomgeving voor uw medewerkers. Neem vandaag nog contact met ons op voor een vrijblijvende offerte.
           </p>
           <Link href="/#contact" passHref>
-            <button className="bg-white text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-gray-600 rounded-full px-8 py-3 font-semibold hover:bg-gray-100 transition duration-300 shadow-lg hover:shadow-xl">
+            <button className="bg-white text-white bg-clip-text bg-gradient-to-r from-blue-600 to-gray-600 rounded-full px-8 py-3 font-semibold hover:bg-gray-100 transition duration-300 shadow-lg hover:shadow-xl">
               Contact Opnemen
             </button>
           </Link>

@@ -67,9 +67,9 @@ export default function ContactForm({ formData, setFormData }: ContactFormProps)
   }
 
   return (
-    <section id="contact" className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-b from-blue-50 to-white">
+    <section id="contact" className="w-full py-12 md:py-24 lg:py-32 bg-[linear-gradient(to_bottom,#97cdd0,#ADD8E6)]">
       <div className="container px-4 md:px-6 mx-auto">
-        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8 text-blue-600">Contact Frisspits</h2>
+        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8 text-black">Contact Frisspits</h2>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -188,7 +188,7 @@ export default function ContactForm({ formData, setFormData }: ContactFormProps)
               <div className="mt-6">
                 <motion.button
                   type="submit"
-                  className="w-full bg-blue-600 text-white rounded-md px-4 py-3 text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out"
+                  className="w-full bg-black text-white rounded-md px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out"
                   disabled={status === 'submitting'}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}

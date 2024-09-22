@@ -4,14 +4,14 @@ import ServiceDetails from './ServiceDetails'
 import Link from 'next/link'
 import { Suspense } from 'react'
 
-const vveOptions = [
-  { id: 'entree', label: 'Entree' },
-  { id: 'trappenhuis', label: 'Trappenhuis' },
-  { id: 'lift', label: 'Lift' },
-  { id: 'galerij', label: 'Galerij' },
-  { id: 'parkeergarage', label: 'Parkeergarage' },
-  { id: 'gemeenschappelijke_ruimtes', label: 'Gemeenschappelijke ruimtes' },
-]
+// const vveOptions = [
+//   { id: 'entree', label: 'Entree' },
+//   { id: 'trappenhuis', label: 'Trappenhuis' },
+//   { id: 'lift', label: 'Lift' },
+//   { id: 'galerij', label: 'Galerij' },
+//   { id: 'parkeergarage', label: 'Parkeergarage' },
+//   { id: 'gemeenschappelijke_ruimtes', label: 'Gemeenschappelijke ruimtes' },
+// ]
 
 const frequencyOptions = [
   { id: 'weekly', label: 'Wekelijks' },
@@ -39,9 +39,9 @@ export default function VVESchoonmakenPage() {
           <Suspense fallback={<div className="text-center">Formulier laden...</div>}>
             <GenericServiceForm 
               serviceName="VVE Schoonmaak"
-              options={vveOptions}
+              //   options={vveOptions}
               frequencyOptions={frequencyOptions}
-              quantityLabel="Aantal verdiepingen"
+              quantityLabel="E-mailadres"
             />
           </Suspense>
         </div>
@@ -58,7 +58,7 @@ export default function VVESchoonmakenPage() {
             Zorg voor een schone en aangename leefomgeving voor alle bewoners. Neem vandaag nog contact met ons op voor een vrijblijvende offerte.
           </p>
           <Link href="/#contact" passHref>
-            <button className="bg-white text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 rounded-full px-8 py-3 font-semibold hover:bg-gray-100 transition duration-300 shadow-lg hover:shadow-xl">
+            <button className="bg-white text-white bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 rounded-full px-8 py-3 font-semibold hover:bg-gray-100 transition duration-300 shadow-lg hover:shadow-xl">
               Contact Opnemen
             </button>
           </Link>

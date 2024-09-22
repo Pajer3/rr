@@ -31,7 +31,7 @@ export default function ServiceDetails() {
       content: (
         <ul className="space-y-2">
           {[
-            "Kristalheldere ramen voor optimaal daglicht",
+            "Stralende ramen voor optimaal daglicht",
             "Professionele uitstraling van uw pand",
             "Veilige reiniging van moeilijk bereikbare ramen",
             "Verlengde levensduur van uw glaswerk",

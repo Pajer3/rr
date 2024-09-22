@@ -5,19 +5,19 @@ import Link from 'next/link'
 import { Suspense } from 'react'
 
 const glazenOptions = [
-  { id: 'ramen', label: 'Ramen' },
-  { id: 'deuren', label: 'Glazen deuren' },
-  { id: 'dakramen', label: 'Dakramen' },
-  { id: 'serres', label: 'Serres' },
-  { id: 'spiegels', label: 'Spiegels' },
-  { id: 'kozijnen', label: 'Kozijnen' },
+  { id: 'Reinigen van ramen, kozijnen en vensterbanken aan de buitenzijde van het gebouw', label: 'Reinigen van ramen, kozijnen en vensterbanken aan de buitenzijde van het gebouw' },
+  { id: 'Reinigen van ramen, kozijnen en vensterbanken aan de binnenzijde van het gebouw', label: 'Reinigen van ramen, kozijnen en vensterbanken aan de binnenzijde van het gebouw' },
+//   { id: 'dakramen', label: 'Dakramen' },
+//   { id: 'serres', label: 'Serres' },
+//   { id: 'spiegels', label: 'Spiegels' },
+//   { id: 'kozijnen', label: 'Kozijnen' },
 ]
 
 const frequencyOptions = [
   { id: 'monthly', label: 'Maandelijks' },
+  { id: 'twee', label: 'Tweemaandelijks' },
   { id: 'quarterly', label: 'Driemaandelijks' },
-  { id: 'biannual', label: 'Halfjaarlijks' },
-  { id: 'annual', label: 'Jaarlijks' },
+  { id: 'aanvraag', label: 'op aanvraag' },
 ]
 
 export default function GlazenwasserPage() {
@@ -42,7 +42,7 @@ export default function GlazenwasserPage() {
               serviceName="Glazenwasser"
               options={glazenOptions}
               frequencyOptions={frequencyOptions}
-              quantityLabel="Aantal ramen"
+              quantityLabel="e-mailadres"
             />
           </Suspense>
         </div>
@@ -54,12 +54,12 @@ export default function GlazenwasserPage() {
         </div>
 
         <div className="max-w-4xl mx-auto mt-16 text-center bg-gradient-to-r from-sky-600 to-indigo-600 text-white p-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300">
-          <h2 className="text-3xl font-bold mb-4">Kristalheldere Ramen</h2>
+          <h2 className="text-3xl font-bold mb-4">Stralende Ramen</h2>
           <p className="text-xl mb-6">
             Geniet van een helder uitzicht en laat uw ramen stralen. Neem vandaag nog contact met ons op voor een vrijblijvende offerte.
           </p>
           <Link href="/#contact" passHref>
-            <button className="bg-white text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-indigo-600 rounded-full px-8 py-3 font-semibold hover:bg-gray-100 transition duration-300 shadow-lg hover:shadow-xl">
+            <button className="bg-white text-white bg-clip-text bg-gradient-to-r from-sky-600 to-indigo-600 rounded-full px-8 py-3 font-semibold hover:bg-gray-100 transition duration-300 shadow-lg hover:shadow-xl">
               Contact Opnemen
             </button>
           </Link>

@@ -5,11 +5,9 @@ import Link from 'next/link'
 import { Suspense } from 'react'
 
 const dakgootOptions = [
-  { id: 'reinigen', label: 'Reinigen' },
-  { id: 'repareren', label: 'Repareren' },
-  { id: 'afvoer_check', label: 'Afvoer controleren' },
-  { id: 'bladvangers', label: 'Bladvangers plaatsen' },
-  { id: 'dakbedekking', label: 'Dakbedekking inspecteren' },
+  { id: 'leeghalen', label: 'Goten leeghalen' },
+  { id: 'leeghalen_regenpijp_check', label: 'Goten leeghalen en regenpijp check' },
+  { id: 'boeien_reinigen', label: 'Reinigen van Boeidelen' },
 ]
 
 const frequencyOptions = [
@@ -54,8 +52,7 @@ export default function DakgotenReinigenPage() {
         <div className="max-w-4xl mx-auto mt-16 text-center bg-gradient-to-r from-green-600 to-yellow-600 text-white p-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300">
           <h2 className="text-3xl font-bold mb-4">Voorkom Waterschade</h2>
           <p className="text-xl mb-6">
-            Houd uw dakgoten vrij en bescherm uw huis tegen waterschade. Neem vandaag nog contact met ons op voor een vrijblij
-vende offerte.
+            Houd uw dakgoten vrij en bescherm uw huis tegen waterschade. Neem vandaag nog contact met ons op voor een vrijblijvende offerte.
           </p>
           <Link href="/#contact" passHref>
             <button className="bg-white text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-yellow-600 rounded-full px-8 py-3 font-semibold hover:bg-gray-100 transition duration-300 shadow-lg hover:shadow-xl">

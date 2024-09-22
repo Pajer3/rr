@@ -19,7 +19,7 @@ export default function ServiceDetails() {
           <li>Onderhoud van gemeenschappelijke ruimtes</li>
           <li>Reiniging van galerijen en balkons</li>
           <li>Glasbewassing van gemeenschappelijke ramen</li>
-          <li>Verwijderen van graffiti en kauwgom</li>
+          {/* <li>Verwijderen van graffiti en kauwgom</li> */}
           <li>Schoonmaken van parkeergarages</li>
           <li>Onderhoud van groenvoorzieningen</li>
         </ul>
