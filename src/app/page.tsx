@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Sparkles, CheckCircle, HelpCircle, PhoneCall, X } from 'lucide-react'
+import { Sparkles, CheckCircle, HelpCircle, X } from 'lucide-react'
 import ContactForm from '@/components/ContactForm'
 import SocialMedia from '@/components/SocialMedia'
 import CTASection from '@/components/CTASection'
@@ -148,17 +148,8 @@ export default function Component() {
     date: '',
     serviceType: '',
   })
-  const [showFloatingCTA, setShowFloatingCTA] = useState(false)
   const [showPopup, setShowPopup] = useState(false)
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowFloatingCTA(window.scrollY > 300)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
 
   useEffect(() => {
     const checkAndSetPopup = () => {

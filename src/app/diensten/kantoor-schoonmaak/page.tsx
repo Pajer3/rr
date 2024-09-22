@@ -4,14 +4,14 @@ import ServiceDetails from './ServiceDetails'
 import Link from 'next/link'
 import { Suspense } from 'react'
 
-const kantoorOptions = [
-  { id: 'werkplekken', label: 'Werkplekken' },
-  { id: 'vergaderruimtes', label: 'Vergaderruimtes' },
-  { id: 'keuken', label: 'Keuken' },
-  { id: 'sanitair', label: 'Sanitair' },
-  { id: 'ontvangstruimte', label: 'Ontvangstruimte' },
-  { id: 'vloeren', label: 'Vloeren' },
-]
+// const kantoorOptions = [
+//   { id: 'werkplekken', label: 'Werkplekken' },
+//   { id: 'vergaderruimtes', label: 'Vergaderruimtes' },
+//   { id: 'keuken', label: 'Keuken' },
+//   { id: 'sanitair', label: 'Sanitair' },
+//   { id: 'ontvangstruimte', label: 'Ontvangstruimte' },
+//   { id: 'vloeren', label: 'Vloeren' },
+// ]
 
 const frequencyOptions = [
   { id: 'daily', label: 'Dagelijks' },
