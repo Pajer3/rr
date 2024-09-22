@@ -4,12 +4,6 @@ import ServiceDetails from './ServiceDetails'
 import Link from 'next/link'
 import { Suspense } from 'react'
 
-const dakgootOptions = [
-  { id: 'leeghalen', label: 'Goten leeghalen' },
-  { id: 'leeghalen_regenpijp_check', label: 'Goten leeghalen en regenpijp check' },
-  { id: 'boeien_reinigen', label: 'Reinigen van Boeidelen' },
-]
-
 const frequencyOptions = [
   { id: 'biannual', label: 'Halfjaarlijks' },
   { id: 'annual', label: 'Jaarlijks' },
@@ -36,7 +30,6 @@ export default function DakgotenReinigenPage() {
           <Suspense fallback={<div className="text-center">Formulier laden...</div>}>
             <GenericServiceForm 
               serviceName="Dakgoten Reinigen"
-              options={dakgootOptions}
               frequencyOptions={frequencyOptions}
               quantityLabel="Lengte dakgoot in meters"
             />

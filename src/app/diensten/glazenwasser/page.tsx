@@ -4,14 +4,6 @@ import ServiceDetails from './ServiceDetails'
 import Link from 'next/link'
 import { Suspense } from 'react'
 
-const glazenOptions = [
-  { id: 'Reinigen van ramen, kozijnen en vensterbanken aan de buitenzijde van het gebouw', label: 'Reinigen van ramen, kozijnen en vensterbanken aan de buitenzijde van het gebouw' },
-  { id: 'Reinigen van ramen, kozijnen en vensterbanken aan de binnenzijde van het gebouw', label: 'Reinigen van ramen, kozijnen en vensterbanken aan de binnenzijde van het gebouw' },
-//   { id: 'dakramen', label: 'Dakramen' },
-//   { id: 'serres', label: 'Serres' },
-//   { id: 'spiegels', label: 'Spiegels' },
-//   { id: 'kozijnen', label: 'Kozijnen' },
-]
 
 const frequencyOptions = [
   { id: 'monthly', label: 'Maandelijks' },
@@ -40,7 +32,6 @@ export default function GlazenwasserPage() {
           <Suspense fallback={<div className="text-center">Formulier laden...</div>}>
             <GenericServiceForm 
               serviceName="Glazenwasser"
-              options={glazenOptions}
               frequencyOptions={frequencyOptions}
               quantityLabel="e-mailadres"
             />

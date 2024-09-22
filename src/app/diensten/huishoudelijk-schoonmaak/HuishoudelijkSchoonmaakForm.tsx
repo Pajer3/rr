@@ -4,15 +4,6 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import emailjs from '@emailjs/browser'
 
-// const cleaningOptions = [
-//   { id: 'Huishoudelijk reiniging', label: 'Huishoudelijk reiniging' },
-//   { id: 'Schoonmaak bij Verhuizen', label: 'Schoonmaak bij Verhuizen' },
-//   { id: 'Schoonmaak bij Nieuwbouw', label: 'Schoonmaak bij Nieuwbouw' },
-//   { id: 'Schoonmaak bij Verhuizen', label: 'Schoonmaak bij Verhuizen' },
-//   { id: 'Gadagelijkse schoonmaakng', label: 'Gadagelijkse schoonmaakng' },
-//   { id: 'weeklijkse schoonmaak', label: 'weeklijkse schoonmaak' },
-//   { id: 'maandelijkse schoonmaak', label: 'maandelijkse schoonmaak' },
-// ]
 
 const frequencyOptions = [
   { id: 'daily', label: 'Dagelijks' },
@@ -47,7 +38,7 @@ export default function HuishoudelijkSchoonmaakForm() {
     }
 
     const templateParams = {
-      selectedOptions: selectedOptions.map(id => cleaningOptions.find(option => option.id === id)?.label).join(', '),
+      selectedOptions: selectedOptions.map(id => frequencyOptions.find(option => option.id === id)?.label).join(', '),
       frequency: frequencyOptions.find(option => option.id === frequency)?.label,
       additionalInfo: additionalInfo
     }
@@ -83,7 +74,7 @@ export default function HuishoudelijkSchoonmaakForm() {
           Wat zou u graag willen laten schoonmaken?
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {cleaningOptions.map((option) => (
+          {frequencyOptions.map((option) => (
             <motion.div 
               key={option.id}
               whileHover={{ scale: 1.05 }}
