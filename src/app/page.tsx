@@ -78,7 +78,7 @@ const ExampleWork: React.FC<ExampleWorkProps> = ({ title, images }) => {
   return (
     <section className="py-12 bg-background">
       <div className="container mx-auto px-4">
-        <motion.h2 
+        <motion.h2
           className="text-3xl font-bold mb-8 text-center relative inline-block"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -96,8 +96,8 @@ const ExampleWork: React.FC<ExampleWorkProps> = ({ title, images }) => {
         </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {images.map((image, index) => (
-            <motion.div 
-              key={index} 
+            <motion.div
+              key={index}
               className="relative h-64 rounded-lg overflow-hidden cursor-pointer"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -115,13 +115,13 @@ const ExampleWork: React.FC<ExampleWorkProps> = ({ title, images }) => {
               />
               <AnimatePresence>
                 {hoveredIndex === index && (
-                  <motion.div 
+                  <motion.div
                     className="absolute inset-0 bg-gradient-to-t from-black to-transparent flex items-end justify-center p-4"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                   >
-                    <motion.span 
+                    <motion.span
                       className="text-white text-lg font-semibold text-center"
                       initial={{ y: 20 }}
                       animate={{ y: 0 }}
@@ -155,7 +155,7 @@ export default function Component() {
     const checkAndSetPopup = () => {
       const lastPopupTime = localStorage.getItem('lastPopupTime')
       const currentTime = new Date().getTime()
-      
+
       if (!lastPopupTime || currentTime - parseInt(lastPopupTime) > 3600000) { // 3600000 ms = 1 hour
         setShowPopup(true)
         localStorage.setItem('lastPopupTime', currentTime.toString())
@@ -184,7 +184,7 @@ export default function Component() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div className="text-center lg:text-left">
                 <h2 className="text-2xl md:text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-6">Klaar voor een Stralend Schone Ruimte?</h2>
-                <p className="text-base md:text-xl mb-8 max-w-md mx-auto lg:mx-0">
+                <p className="hidden md:block text-base md:text-xl mb-8 max-w-md mx-auto lg:mx-0">
                   Laat Frisspits u helpen met het creëren van een schone, gezonde en aangename omgeving. Vraag vandaag nog een gratis offerte aan!
                 </p>
                 <motion.button
@@ -328,7 +328,7 @@ export default function Component() {
                 animate={{ scale: 1, y: 0 }}
                 exit={{ scale: 0.9, y: 20 }}
                 className="bg-white rounded-lg max-w-md w-full shadow-2xl relative overflow-hidden"
-              >     
+              >
                 <button
                   onClick={() => setShowPopup(false)}
                   className="absolute top-2 right-2 text-black transition-colors z-10"
@@ -420,7 +420,7 @@ export default function Component() {
           right: 0;
           display: flex;
           align-items: center;
-          justify-center: center;
+          justify-content: center;
           z-index: -1;
         }
 
