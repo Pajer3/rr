@@ -50,7 +50,7 @@ export default function Header() {
       >
         <Link href="/" className="flex items-center justify-center hover:opacity-80 transition-opacity">
           <Sparkles className="h-6 w-6 mr-2 text-primary" />
-          <span className="font-bold text-lg text-primary">Frisspits</span>
+          <span className="font-bold text-lg text-sky-400 text-primary" style={{ fontFamily: 'var(--font-go3)' }}>Frisspits</span>
         </Link>
         <nav className="hidden md:flex items-center gap-2 bg-black">
           <div className="flex p-1 rounded-2xl shadow-inner bg-black">
@@ -87,7 +87,7 @@ export default function Header() {
           >
             <nav className="flex flex-col p-4">
               {menuItems.map((item) => (
-                <Link   
+                <Link
                   key={item.href}
                   href={item.href}
                   className="flex items-center text-gray-400 hover:text-white py-3 px-4 rounded-xl transition-all duration-200 hover:bg-gray-800"
