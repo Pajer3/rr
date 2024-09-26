@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-import { go3Font } from "@/fonts";
+import { go3Font } from "@/app/fonts";
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -13,7 +13,7 @@ const config: Config = {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        go3: ['var(--font-go3)'],
+        go3: [go3Font.style.fontFamily],
       },
     },
   },
