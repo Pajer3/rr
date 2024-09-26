@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-import { go3Font } from "./src/app/fonts";
+import { go3Font } from "/src/app/fonts";
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
