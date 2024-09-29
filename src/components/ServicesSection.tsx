@@ -58,13 +58,13 @@ export default function ServicesSection() {
               </motion.div>
               <h3 className="text-xl font-bold mb-3">{service.title}</h3>
               <p className="text-gray-600">{service.description}</p>
-              <motion.button
+              {/* <motion.button
                 className={`mt-6 px-4 py-2 rounded-full text-white bg-black ${service.color.replace('text', 'bg')} hover:opacity-90`}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
                 Meer Info
-              </motion.button>
+              </motion.button> */}
             </motion.div>
           ))}
         </div>

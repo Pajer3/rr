@@ -185,12 +185,18 @@ export default function Component() {
               <div className="text-center lg:text-left">
                 <h2 className="text-2xl md:text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-6">Klaar voor een Stralend Schone Ruimte?</h2>
                 <p className="hidden md:block text-base md:text-xl mb-8 max-w-md mx-auto lg:mx-0">
-                  Laat Frisspits u helpen met het creëren van een schone, gezonde en aangename omgeving. Vraag vandaag nog een gratis offerte aan!
+                  {/* Laat Frisspits u helpen met het creëren van een schone, gezonde en aangename omgeving. Vraag vandaag nog een gratis offerte aan! */}
                 </p>
                 <motion.button
                   className="inline-flex items-center justify-center rounded-full text-base md:text-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background bg-black text-white h-12 md:h-14 px-6 md:px-8 py-2 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    const contactForm = document.getElementById('contact')
+                    if (contactForm) {
+                      contactForm.scrollIntoView({ behavior: 'smooth' })
+                    }
+                  }}
                 >
                   Vraag een Gratis Offerte Aan
                 </motion.button>
@@ -219,32 +225,41 @@ export default function Component() {
           images={exampleImages}
         />
         <CTASection />
-        <section id="why-choose-us" className="w-full py-12 md:py-24 lg:py-32 bg-background">
-          <div className="container px-4 md:px-6 mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-12">Waarom Kiezen voor Frisspits?</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-              {[
-                { title: "Professioneel & Betrouwbaar", content: "Ons team bestaat uit ervaren en gescreende professionals die uw vertrouwen waardig zijn." },
-                { title: "Milieuvriendelijk", content: "We gebruiken eco-vriendelijke producten die veilig zijn voor uw gezin en het milieu." },
-                { title: "Flexibele Diensten", content: "Van eenmalige schoonmaak tot regelmatig onderhoud, we passen ons aan uw behoeften aan." },
-                { title: "100% Tevredenheidsgarantie", content: "Niet tevreden? We komen terug en maken het opnieuw schoon, gratis." },
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  className="flex flex-col items-center text-center p-4 md:p-6 bg-gray-50 rounded-lg"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <CheckCircle className="h-10 w-10 md:h-12 md:w-12 mb-4 text-green-500" />
-                  <h3 className="text-lg md:text-xl font-bold mb-2">{item.title}</h3>
-                  <p className="text-sm md:text-base text-gray-600">{item.content}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
+<section id="why-choose-us" className="w-full py-12 md:py-24 lg:py-32 bg-background flex items-center justify-center min-h-screen">
+      <div className="container px-4 md:px-6 mx-auto">
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-12">
+          Waarom Kiezen voor Frisspits?
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 justify-center mt-20">
+          {[
+            {
+              title: "Professioneel & Betrouwbaar",
+              content: "Ons team bestaat uit ervaren en gescreende professionals die uw vertrouwen waardig zijn."
+            },
+            {
+              title: "Milieuvriendelijk",
+              content: "We gebruiken eco-vriendelijke producten die veilig zijn voor uw gezin en het milieu."
+            },
+            {
+              title: "Flexibele Diensten",
+              content: "Van eenmalige schoonmaak tot regelmatig onderhoud, we passen ons aan uw behoeften aan."
+            },
+          ].map((item, index) => (
+            <motion.div
+              key={index}
+              className="flex flex-col items-center text-center p-4 md:p-6 bg-gray-50 rounded-lg shadow-md"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <CheckCircle className="h-10 w-10 md:h-12 md:w-12 mb-4 text-green-500" />
+              <h3 className="text-lg md:text-xl font-bold mb-2">{item.title}</h3>
+              <p className="text-sm md:text-base text-gray-600">{item.content}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
         <section id="faq" className="w-full py-12 md:py-24 lg:py-32 bg-background">
           <div className="container px-4 md:px-6 mx-auto">
             <h2 className="text-2xl md:text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-12">Veelgestelde Vragen</h2>
@@ -282,18 +297,25 @@ export default function Component() {
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                 <motion.button
                   className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background bg-black text-background h-10 py-2 px-4"
+                  onClick={() => {
+                    const contactForm = document.getElementById('contact')
+                    if (contactForm) {
+                      contactForm.scrollIntoView({ behavior: 'smooth' })
+                    }
+                  }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   Gratis Offerte Aanvragen
                 </motion.button>
-                <motion.button
+                <motion.a
+                  href="/diensten"
                   className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background border border-white text-white h-10 py-2 px-4"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   Onze Diensten Bekijken
-                </motion.button>
+                </motion.a>
               </div>
             </div>
           </div>

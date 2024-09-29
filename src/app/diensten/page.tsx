@@ -102,7 +102,7 @@ export default function DienstenPage() {
         ))}
       </div>
 
-      <h2 className="text-3xl font-bold text-center mb-8">Onze Specialiteiten</h2>
+      {/* <h2 className="text-3xl font-bold text-center mb-8">Onze Specialiteiten</h2>
       <div className="space-y-12 mb-16">
         {specialties.map((specialty, index) => (
           <div key={index} className="relative">
@@ -123,7 +123,7 @@ export default function DienstenPage() {
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
 
       <div className="bg-blue-50 p-8 rounded-lg">
         <h2 className="text-2xl font-bold text-center mb-6">Waarom Kiezen voor Frisspits?</h2>

@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <h3 className="font-bold text-lg mb-4">Frisspits</h3>
-            <p className="text-sm mb-4">Professionele schoonmaakdiensten voor bedrijven en huizen.</p>
+            <p className="text-sm mb-4">Professionele schoonmaakdiensten voor bedrijven en woningen.</p>
             <SocialMedia />
           </div>
           <div>
