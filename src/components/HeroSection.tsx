@@ -17,33 +17,12 @@ const cleaningServices = [
 ]
 
 export default function HeroSection() {
-  const splineRef = useRef<any>(null);
-
-  useEffect(() => {
-    const handleLoad = () => {
-      if (splineRef.current) {
-        // Start de animatie
-        splineRef.current.play();
-
-        // Luister naar het einde van de animatie en speel opnieuw
-        splineRef.current.on('animationEnd', () => {
-          splineRef.current.play();
-        });
-      }
-    };
-
-    // Event listener voor wanneer de scène is geladen
-    if (splineRef.current) {
-      splineRef.current.onLoad = handleLoad;
-    }
-  }, []);
 
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 mt-16 relative overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Spline 
           scene="/images/scene-one.splinecode"
-          ref={splineRef}
         />
       </div>
       <div className="container px-4 md:px-6 mx-auto relative z-10">
