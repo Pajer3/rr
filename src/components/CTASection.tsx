@@ -23,7 +23,7 @@ const CTASection: React.FC = () => {
       },
       {
         label: 'Na inhuren',
-        data: [80, 90, 75, 85, 95],
+        data: [80, 90, 70, 80, 90],
         backgroundColor: backgroundColor,
         borderColor: 'rgba(0, 0, 0, 0.3)',
         borderWidth: 1,
@@ -35,8 +35,23 @@ const CTASection: React.FC = () => {
     responsive: true,
     maintainAspectRatio: false,
     scales: {
-      x: { stacked: true },
-      y: { stacked: true, max: 100 },
+      x: { 
+        stacked: true,
+        title: {
+          display: true,
+          text: 'Aspecten',
+          font: { size: 14 },
+        },
+      },
+      y: { 
+        stacked: true,
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: 'Waarde',
+          font: { size: 14 },
+        },
+      },
     },
     plugins: {
       legend: {
@@ -52,7 +67,7 @@ const CTASection: React.FC = () => {
   }
 
   return (
-    <section className="w-full py-16" style={{ backgroundColor }}>
+    <section className="w-full mt-40" style={{ backgroundColor }}>
       <div className="container mx-auto px-4 md:px-6">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -97,7 +112,7 @@ const CTASection: React.FC = () => {
                   </li>
                 </ul>
                 <motion.a
-                  href="/contact"
+                  href="#contact"
                   className="inline-block bg-black hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-lg text-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105 shadow-lg"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
