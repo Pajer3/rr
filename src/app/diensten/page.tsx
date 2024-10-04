@@ -47,29 +47,6 @@ const services = [
   },
 ]
 
-const specialties = [
-  {
-    title: "Badkamer Gelukzaligheid",
-    description: "Transformeer uw badkamer in een ongerepte oase met onze dieptereinigingstechnieken die elke tegel laten stralen.",
-    steps: [
-      "Grondige reiniging van alle oppervlakken",
-      "Ontkalking van kranen en douchekoppen",
-      "Desinfectie van toilet en bidet",
-      "Stoomreiniging van voegen en naden",
-    ],
-  },
-  {
-    title: "Keuken Magie",
-    description: "Zeg vaarwel tegen vette kookplaten en hallo tegen sprankelende werkbladen met onze professionele keukenschoonmaakdiensten.",
-    steps: [
-      "Dieptereiniging van oven en kookplaat",
-      "Ontsmetting van alle werkoppervlakken",
-      "Reiniging en organisatie van kasten en lades",
-      "Polijsten van roestvrijstalen apparatuur",
-    ],
-  },
-]
-
 export default function DienstenPage() {
   return (
     <div className="container mx-auto px-4 py-12">
@@ -102,7 +79,7 @@ export default function DienstenPage() {
         ))}
       </div>
 
-      <h2 className="text-3xl font-bold text-center mb-8">Onze Specialiteiten</h2>
+      {/* <h2 className="text-3xl font-bold text-center mb-8">Onze Specialiteiten</h2>
       <div className="space-y-12 mb-16">
         {specialties.map((specialty, index) => (
           <div key={index} className="relative">
@@ -123,7 +100,7 @@ export default function DienstenPage() {
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
 
       <div className="bg-blue-50 p-8 rounded-lg">
         <h2 className="text-2xl font-bold text-center mb-6">Waarom Kiezen voor Frisspits?</h2>
