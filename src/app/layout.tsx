@@ -5,7 +5,7 @@ import "./globals.css";
 import { go3Font } from './fonts';
 
 export const metadata: Metadata = {
-  title: "Frisspits - Professionele Schoonmaakdiensten",
+  title: "Frisspits",
   description: "Welkom bij Frisspits – uw allround schoonmaakpartner! Van glazenwassen en het reinigen van dakgoten tot het schoonmaken van zonnepanelen en complete bedrijfsruimtes, wij staan voor u klaar. Of het nu gaat om dagelijkse schoonmaak voor bedrijven, het reinigen van vloeren en gevels, of specialistische klussen zoals bouwschoonmaak, Frisspits levert altijd een stralend resultaat. Kwaliteit, betrouwbaarheid en zorg voor uw pand staan bij ons voorop. Vertrouw op Frisspits voor een frisse, grondige aanpak, binnen én buiten!",
   keywords: "schoonmaakbedrijf, glazenwassen, dakgoten reinigen, zonnepanelen schoonmaken, bedrijfsschoonmaak, vloerreiniging, gevelreiniging, bouwschoonmaak, professionele schoonmaak, schoonmaakdiensten Friesland, Amersfoort, Utrecht",
   openGraph: {
