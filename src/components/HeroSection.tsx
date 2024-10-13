@@ -22,14 +22,14 @@ export default function HeroSection() {
 
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 mt-16 relative overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <Spline 
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <Spline
           scene="/images/scene-one.splinecode"
         />
       </div>
       <div className="container px-4 md:px-6 mx-auto relative z-10">
         <div className="flex flex-col items-center space-y-8 text-center">
-          <motion.h1 
+          <motion.h1
             className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -37,7 +37,7 @@ export default function HeroSection() {
           >
             Frisspits: Uitstekende Schoonmaak
           </motion.h1>
-          <motion.p 
+          <motion.p
             className="mx-auto max-w-[700px] text-black text-sm sm:text-base md:text-xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

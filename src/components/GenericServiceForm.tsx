@@ -104,7 +104,7 @@ export default function GenericServiceForm({ serviceName, frequencyOptions, quan
           {quantityLabel}
         </h2>
         <input
-          type="number"
+          type="text"
           value={quantity}
           onChange={(e) => setQuantity(e.target.value)}
           className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
