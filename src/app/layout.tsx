@@ -68,6 +68,7 @@ export default function RootLayout({
   return (
     <html lang="nl" className={go3Font.variable}>
       <head>
+        <link rel="icon" href="/icons/fs.ico" />
         <link rel="alternate" hrefLang="nl-NL" href="https://frisspits.nl" />
         <link rel="alternate" hrefLang="en-US" href="https://frisspits.nl/en" />
         <script
