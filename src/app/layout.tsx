@@ -5,17 +5,17 @@ import "./globals.css";
 import { go3Font } from './fonts';
 
 export const metadata: Metadata = {
-  title: "Frisspits",
-  description: "Welkom bij Frisspits – uw allround schoonmaakpartner! Van glazenwassen en het reinigen van dakgoten tot het schoonmaken van zonnepanelen en complete bedrijfsruimtes, wij staan voor u klaar. Of het nu gaat om dagelijkse schoonmaak voor bedrijven, het reinigen van vloeren en gevels, of specialistische klussen zoals bouwschoonmaak, Frisspits levert altijd een stralend resultaat. Kwaliteit, betrouwbaarheid en zorg voor uw pand staan bij ons voorop. Vertrouw op Frisspits voor een frisse, grondige aanpak, binnen én buiten!",
+  title: "Frisspits - Professionele Schoonmaakdiensten",
+  description: "Frisspits: uw allround schoonmaakpartner in Friesland en omstreken. Specialisten in glazenwassen, dakgoten reinigen, zonnepanelen schoonmaken en bedrijfsschoonmaak. Kwaliteit en betrouwbaarheid gegarandeerd.",
   keywords: "schoonmaakbedrijf, glazenwassen, dakgoten reinigen, zonnepanelen schoonmaken, bedrijfsschoonmaak, vloerreiniging, gevelreiniging, bouwschoonmaak, professionele schoonmaak, schoonmaakdiensten Friesland, Amersfoort, Utrecht",
   openGraph: {
     title: "Frisspits - Uw Allround Schoonmaakpartner",
-    description: "Frisspits biedt professionele schoonmaakdiensten voor bedrijven en particulieren. Van glazenwassen en dakgoten reinigen tot zonnepanelen schoonmaken en complete bedrijfsruimtes. Wij leveren kwaliteit, betrouwbaarheid en een frisse aanpak voor al uw schoonmaakbehoeften in Friesland en omstreken.",
+    description: "Professionele schoonmaakdiensten voor bedrijven en particulieren. Van glazenwassen tot complete bedrijfsruimtes. Kwaliteit en betrouwbaarheid in Friesland en omstreken.",
     url: "https://frisspits.nl",
     siteName: "Frisspits",
     images: [
       {
-        url: "https://frisspits.nl/icons/fs.jpg",
+        url: "/fs.jpg",
         width: 1200,
         height: 630,
         alt: "Frisspits Professionele Schoonmaakdiensten",
@@ -26,12 +26,12 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: "/fs.ico", sizes: "any" },
       { url: "/icons/fs-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/icons/fs-32x32.png", sizes: "32x32", type: "image/png" },
       { url: "/icons/fs-48x48.png", sizes: "48x48", type: "image/png" },
       { url: "/icons/fs-64x64.png", sizes: "64x64", type: "image/png" },
     ],
-    shortcut: "/icons/fs.ico",
     apple: [
       { url: "/icons/fs-180x180.png", sizes: "180x180", type: "image/png" },
     ],
