@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/fs.ico", sizes: "any" },
+      { url: "/icons/fs.ico", sizes: "any" },
       { url: "/icons/fs-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/icons/fs-32x32.png", sizes: "32x32", type: "image/png" },
       { url: "/icons/fs-48x48.png", sizes: "48x48", type: "image/png" },
