@@ -27,15 +27,38 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/icons/fs.ico", sizes: "any" },
+      { 
+        url: "/icons/fs.ico",
+        sizes: "32x32",
+        type: "image/x-icon"
+      },
+      {
+        url: "/icons/fs-32x32.png",
+        sizes: "32x32",
+        type: "image/png"
+      },
+      {
+        url: "/icons/fs-192x192.png",
+        sizes: "192x192",
+        type: "image/png"
+      },
+      {
+        url: "/icons/fs-512x512.png",
+        sizes: "512x512",
+        type: "image/png"
+      },
     ],
     shortcut: ["/icons/fs.ico"],
     apple: [
-      { url: "/icons/fs.ico" },
+      { 
+        url: "/icons/fs.ico",
+        sizes: "32x32",
+        type: "image/x-icon"
+      }
     ],
     other: [
       {
-        rel: "apple-touch-icon-precomposed",
+        rel: "mask-icon",
         url: "/icons/fs.ico",
       },
     ],
@@ -76,6 +99,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="nl" className={go3Font.variable}>
+      <head>
+        <link rel="icon" href="/icons/fs.ico" sizes="32x32" />
+      </head>
       <body className={`flex flex-col min-h-screen bg-background font-go3`}>
         <Header />
         <main className="flex-1">{children}</main>
@@ -120,7 +146,6 @@ export default function RootLayout({
               "sameAs": [
                 "https://www.facebook.com/frisspits",
                 "https://www.instagram.com/frisspits",
-                "https://www.linkedin.com/company/frisspits"
               ],
               "logo": "https://frisspits.nl/icons/fs.ico",
               "contactPoint": {
