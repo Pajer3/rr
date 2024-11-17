@@ -10,7 +10,6 @@ import CTASection from '@/components/CTASection'
 import ServicesSection from '@/components/ServicesSection'
 import HeroSection from '@/components/HeroSection'
 import CallButton from '@/components/CallButton'
-import Head from 'next/head' // Import Head component
 
 interface ImageData {
   src: string;
