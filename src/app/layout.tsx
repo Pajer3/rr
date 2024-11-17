@@ -8,6 +8,9 @@ import { go3Font } from './fonts';
 export const metadata: Metadata = {
   title: "Frisspits - Professionele Schoonmaakdiensten",
   description: "Frisspits: uw allround schoonmaakpartner in Friesland en omstreken.",
+  icons: {
+    icon: "/icons/favicon.ico",
+  },
 };
 
 export default function RootLayout({

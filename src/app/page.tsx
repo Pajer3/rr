@@ -179,13 +179,6 @@ export default function Component() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Head>
-        <title>Frisspits</title> {/* Set the page title */}
-        <meta name="description" content="Frisspits biedt professionele schoonmaakdiensten voor een schone en gezonde leefomgeving." />
-        <meta name="keywords" content="schoonmaak, professioneel, milieuvriendelijk, diensten" />
-        <meta name="author" content="Frisspits" />
-        <link rel="canonical" href="https://www.frisspits.nl" />
-      </Head>
       <main className="flex-1">
         <section id="cta" className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-b from-black from-50% via-[#ADE6E6] via-100% to-[#ADE6E6] to-100% text-white overflow-hidden">
           <div className="container px-4 md:px-6 mx-auto relative">
