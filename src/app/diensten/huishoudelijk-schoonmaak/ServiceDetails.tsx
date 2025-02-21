@@ -59,7 +59,32 @@ export default function ServiceDetails() {
           <li>Regelmatige evaluatie en aanpassing van de dienstverlening</li>
         </ol>
       )
-    }
+    },
+    {
+      title: 'Waarom kiezen voor onze opleveringsschoonmaak?',
+      id: 'oplevering',
+      content: (
+        <div className="space-y-6">
+          <ul className="space-y-2">
+            {[
+              "Grondige reiniging van alle ruimtes",
+              "Verwijdering van bouwresten en stof",
+              "Aandacht voor details en moeilijk bereikbare plekken",
+              "Flexibele planning volgens uw opleveringsdatum",
+            ].map((feature, index) => (
+              <li key={index} className="flex items-start">
+                <CheckCircle className="text-green-500 mr-2 flex-shrink-0 mt-1" size={20} />
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="text-gray-700 italic">
+            Neem vandaag nog contact met ons op voor meer informatie of om een afspraak te maken. 
+            Wij staan klaar om uw nieuwe of gerenoveerde woning perfect schoon op te leveren!
+          </p>
+        </div>
+      )
+    },
   ]
 
   return (

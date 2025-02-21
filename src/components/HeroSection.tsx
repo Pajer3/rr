@@ -43,7 +43,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Professionele schoonmaakdiensten voor huizen en bedrijven. Laat Frisspits de rommel opruimen terwijl u zich concentreert op wat belangrijk is.
+            Professionele schoonmaakdiensten voor bedrijven, nieuwbouw en gerenoveerde woningen. Laat Frisspits de rommel opruimen terwijl u zich concentreert op wat belangrijk is.
           </motion.p>
           <div className="flex flex-wrap justify-center gap-4 mt-8">
             <Link href="/#contact" passHref legacyBehavior>

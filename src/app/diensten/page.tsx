@@ -4,8 +4,8 @@ import { CheckCircle } from 'lucide-react'
 
 const services = [
   {
-    title: "Huishoudelijk Schoonmaak",
-    description: "Professionele reiniging voor een smetteloos en comfortabel huis.",
+    title: "Professionele Opleveringsschoonmaak voor Nieuwe en Gerenoveerde Woningen",
+    description: "Bij ons kunt u rekenen op een grondige en professionele opleveringsschoonmaak, speciaal gericht op nieuw gebouwde of gerenoveerde woningen. Wij zorgen ervoor dat uw huis er perfect uitziet en klaar is voor bewoning. Onze ervaren schoonmaakploeg verwijdert alle bouwresten, stof en vlekken, zodat u kunt genieten van een smetteloos en comfortabel huis.",
     img: "/icons/huis.png",
     color: "from-black to-blue-300",
     slug: "huishoudelijk-schoonmaak"

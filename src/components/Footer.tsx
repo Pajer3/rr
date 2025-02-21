@@ -15,7 +15,7 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold text-sm uppercase mb-4">Diensten</h4>
             <ul className="space-y-2">
-              <li><Link href="/diensten/huishoudelijk-schoonmaak" className="text-sm hover:underline">Huishoudelijke Schoonmaak</Link></li>
+              <li><Link href="/diensten/huishoudelijk-schoonmaak" className="text-sm hover:underline">Oplevering schoonmaak</Link></li>
               <li><Link href="/diensten/kantoor-schoonmaak" className="text-sm hover:underline">Kantoor Schoonmaak</Link></li>
               <li><Link href="/diensten/glazenwasser" className="text-sm hover:underline">Glazenwasser</Link></li>
               <li><Link href="/diensten/dakgoten-reinigen" className="text-sm hover:underline">Dakgoten Reinigen</Link></li>

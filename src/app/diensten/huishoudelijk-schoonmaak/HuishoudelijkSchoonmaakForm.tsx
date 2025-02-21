@@ -6,11 +6,11 @@ import emailjs from '@emailjs/browser'
 
 
 const frequencyOptions = [
-  { id: 'daily', label: 'Dagelijks' },
-  { id: 'weekly', label: 'Wekelijks' },
-  { id: 'biweekly', label: 'Tweewekelijks' },
+  // { id: 'daily', label: 'Dagelijks' },
+  // { id: 'weekly', label: 'Wekelijks' },
+  // { id: 'biweekly', label: 'Tweewekelijks' },
 //   { id: 'monthly', label: 'Maandelijks' },
-  { id: 'onetime', label: 'Eenmalig' },
+  { id: 'onetime', label: 'Op aanvraag' },
 ]
 
 export default function HuishoudelijkSchoonmaakForm() {

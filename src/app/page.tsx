@@ -7,7 +7,7 @@ import { Sparkles, CheckCircle, HelpCircle, X } from 'lucide-react'
 import ContactForm from '@/components/ContactForm'
 import SocialMedia from '@/components/SocialMedia'
 import CTASection from '@/components/CTASection'
-import ServicesSection from '@/components/ServicesSection'
+// import ServicesSection from '@/components/ServicesSection'
 import HeroSection from '@/components/HeroSection'
 import CallButton from '@/components/CallButton'
 
@@ -54,10 +54,10 @@ const exampleImages = [
 ]
 
 const faqs = [
-  {
-    question: "Hoe vaak moet ik mijn huis laten schoonmaken?",
-    answer: "De frequentie hangt af van uw levensstijl en voorkeuren. Wekelijks of tweewekelijks is gebruikelijk voor de meeste huishoudens, maar we kunnen een schema op maat maken dat bij uw behoeften past."
-  },
+  // {
+  //   question: "Hoe vaak moet ik mijn huis laten schoonmaken?",
+  //   answer: "De frequentie hangt af van uw levensstijl en voorkeuren. Wekelijks of tweewekelijks is gebruikelijk voor de meeste huishoudens, maar we kunnen een schema op maat maken dat bij uw behoeften past."
+  // },
   {
     question: "Gebruiken jullie milieuvriendelijke schoonmaakmiddelen?",
     answer: "Ja, we gebruiken eco-vriendelijke en niet-toxische schoonmaakmiddelen die veilig zijn voor uw gezin en huisdieren, zonder in te boeten aan effectiviteit."
@@ -219,7 +219,7 @@ export default function Component() {
           </div>
         </section>
         <HeroSection />
-        <ServicesSection />
+        {/* <ServicesSection /> */}
         <ExampleWork
           title="Ons Werk in Beeld"
           images={exampleImages}
