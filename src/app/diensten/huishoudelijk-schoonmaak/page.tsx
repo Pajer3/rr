@@ -11,11 +11,11 @@ import { Suspense } from 'react'
 // ]
 
 const frequencyOptions = [
-  { id: 'daily', label: 'Dagelijks' },
-  { id: 'weekly', label: 'Wekelijks' },
-  { id: 'biweekly', label: 'Tweewekelijks' },
-  { id: 'monthly', label: 'Maandelijks' },
-  { id: 'onetime', label: 'Eenmalig' },
+  { id: 'Op aanvraag', label: 'Op aanvraag' },
+  // { id: 'weekly', label: 'Wekelijks' },
+  // { id: 'biweekly', label: 'Tweewekelijks' },
+  // { id: 'monthly', label: 'Maandelijks' },
+  // { id: 'onetime', label: 'Eenmalig' },
 ]
 
 export default function HuishoudelijkSchoonmaakPage() {
@@ -31,7 +31,7 @@ export default function HuishoudelijkSchoonmaakPage() {
         </div>
 
         <h1 className="text-5xl font-extrabold text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-green-600">
-          Huishoudelijk Schoonmaak
+         Oplevering schoonmaak
         </h1>
         
         <div className="max-w-4xl mx-auto">

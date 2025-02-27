@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Sparkles, CheckCircle, HelpCircle, X } from 'lucide-react'
 import ContactForm from '@/components/ContactForm'
 import SocialMedia from '@/components/SocialMedia'
-import CTASection from '@/components/CTASection'
+// import CTASection from '@/components/CTASection'
 // import ServicesSection from '@/components/ServicesSection'
 import HeroSection from '@/components/HeroSection'
 import CallButton from '@/components/CallButton'
@@ -224,7 +224,7 @@ export default function Component() {
           title="Ons Werk in Beeld"
           images={exampleImages}
         />
-        <CTASection />
+        {/* <CTASection /> */}
 <section id="why-choose-us" className="w-full py-12 md:py-24 lg:py-32 bg-background flex items-center justify-center min-h-screen">
       <div className="container px-4 md:px-6 mx-auto">
         <h2 className="text-2xl md:text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-12">
