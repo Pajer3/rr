@@ -1,9 +1,9 @@
 'use client'
 
-import React, { useRef, useEffect } from 'react'
-import { motion } from 'framer-motion'
 import emailjs, { init } from '@emailjs/browser'
-import { Calendar, MapPin, FileText, Briefcase } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Briefcase, Calendar, FileText, MapPin } from 'lucide-react'
+import React, { useEffect, useRef } from 'react'
 
 // Initialize EmailJS with your User ID
 init(process.env.NEXT_PUBLIC_EMAILJS_USER_ID!);
@@ -14,6 +14,8 @@ interface FormData {
   location: string;
   date: string;
   serviceType: string;
+  phoneNumber: string;
+  email: string;
 }
 
 interface ContactFormProps {
@@ -58,6 +60,8 @@ export default function ContactForm({ formData, setFormData }: ContactFormProps)
         location: '',
         date: '',
         serviceType: '',
+        phoneNumber: '',
+        email: '',
       })
     } catch (error) {
       console.error('EmailJS error:', error)
@@ -171,6 +175,33 @@ export default function ContactForm({ formData, setFormData }: ContactFormProps)
                     required
                   />
                 </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="phoneNumber">Telefoonnummer</label>
+                <input
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  type="tel"
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
+                  placeholder="Voer uw telefoonnummer in"
+                  className="w-full bg-gray-50 rounded-md border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="email">E-mailadres</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Voer uw e-mailadres in"
+                  className="w-full bg-gray-50 rounded-md border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out"
+                  required
+                />
               </div>
 
               {status === 'error' && (

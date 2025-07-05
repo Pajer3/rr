@@ -1,15 +1,15 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
-import Image from 'next/image'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Sparkles, CheckCircle, HelpCircle, X } from 'lucide-react'
 import ContactForm from '@/components/ContactForm'
 import SocialMedia from '@/components/SocialMedia'
+import { AnimatePresence, motion } from 'framer-motion'
+import { CheckCircle, HelpCircle, Sparkles, X } from 'lucide-react'
+import Image from 'next/image'
+import React, { useEffect, useState } from 'react'
 // import CTASection from '@/components/CTASection'
 // import ServicesSection from '@/components/ServicesSection'
-import HeroSection from '@/components/HeroSection'
 import CallButton from '@/components/CallButton'
+import HeroSection from '@/components/HeroSection'
 
 interface ImageData {
   src: string;
@@ -28,6 +28,8 @@ interface FormData {
   location: string;
   date: string;
   serviceType: string;
+  phoneNumber: string;
+  email: string;
 }
 
 const exampleImages = [
@@ -147,6 +149,8 @@ export default function Component() {
     location: '',
     date: '',
     serviceType: '',
+    phoneNumber: '',
+    email: '',
   })
   const [showPopup, setShowPopup] = useState(false)
 

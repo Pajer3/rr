@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
-import emailjs from '@emailjs/browser'
+import emailjs from '@emailjs/browser';
+import { motion } from 'framer-motion';
+import React, { useState } from 'react';
 
 interface Option {
   id: string;
@@ -19,6 +19,7 @@ export default function GenericServiceForm({ serviceName, frequencyOptions, quan
   const [frequency, setFrequency] = useState<string>('')
   const [quantity, setQuantity] = useState<string>('')
   const [phoneNumber, setPhoneNumber] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
   const [additionalInfo, setAdditionalInfo] = useState<string>('')
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState<string>('')
@@ -28,9 +29,9 @@ export default function GenericServiceForm({ serviceName, frequencyOptions, quan
     setStatus('submitting')
     setErrorMessage('')
 
-    if (!frequency || !quantity || !phoneNumber) {
+    if (!frequency || !quantity || !phoneNumber || !email) {
       setStatus('error')
-      setErrorMessage('Vul alstublieft alle verplichte velden in.')
+      setErrorMessage('Vul alstublieft alle verplichte velden in, inclusief telefoonnummer en e-mailadres.')
       return
     }
 
@@ -39,6 +40,7 @@ export default function GenericServiceForm({ serviceName, frequencyOptions, quan
       frequency: frequencyOptions.find(option => option.id === frequency)?.label,
       quantity: quantity,
       phoneNumber: phoneNumber,
+      email: email,
       additionalInfo: additionalInfo
     }
 
@@ -53,6 +55,7 @@ export default function GenericServiceForm({ serviceName, frequencyOptions, quan
       setFrequency('')
       setQuantity('')
       setPhoneNumber('')
+      setEmail('')
       setAdditionalInfo('')
     } catch (error) {
       console.error('EmailJS error:', error)
@@ -62,7 +65,7 @@ export default function GenericServiceForm({ serviceName, frequencyOptions, quan
   }
 
   return (
-    <motion.form 
+    <motion.form
       onSubmit={handleSubmit}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -75,7 +78,7 @@ export default function GenericServiceForm({ serviceName, frequencyOptions, quan
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {frequencyOptions.map((option) => (
-            <motion.div 
+            <motion.div
               key={option.id}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -97,6 +100,20 @@ export default function GenericServiceForm({ serviceName, frequencyOptions, quan
             </motion.div>
           ))}
         </div>
+      </div>
+
+      <div className="p-8 border-b border-gray-200">
+        <h2 className="text-2xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-blue-600">
+          E-mailadres
+        </h2>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+          placeholder="Voer uw e-mailadres in"
+          required
+        />
       </div>
 
       <div className="p-8 border-b border-gray-200">
@@ -151,7 +168,7 @@ export default function GenericServiceForm({ serviceName, frequencyOptions, quan
             Uw aanvraag is succesvol verzonden. We nemen zo snel mogelijk contact met u op.
           </div>
         )}
-        <motion.button 
+        <motion.button
           type="submit"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}

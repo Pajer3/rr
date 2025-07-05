@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
 import emailjs from '@emailjs/browser'
+import { motion } from 'framer-motion'
+import React, { useState } from 'react'
 
 
 const frequencyOptions = [
@@ -17,11 +17,13 @@ export default function HuishoudelijkSchoonmaakForm() {
   const [selectedOptions, setSelectedOptions] = useState<string[]>([])
   const [frequency, setFrequency] = useState<string>('')
   const [additionalInfo, setAdditionalInfo] = useState<string>('')
+  const [phoneNumber, setPhoneNumber] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState<string>('')
 
   const handleOptionToggle = (id: string) => {
-    setSelectedOptions(prev => 
+    setSelectedOptions(prev =>
       prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
     )
   }
@@ -31,15 +33,17 @@ export default function HuishoudelijkSchoonmaakForm() {
     setStatus('submitting')
     setErrorMessage('')
 
-    if (selectedOptions.length === 0 || !frequency) {
+    if (selectedOptions.length === 0 || !frequency || !phoneNumber || !email) {
       setStatus('error')
-      setErrorMessage('Selecteer alstublieft minstens één schoonmaakoptie en een frequentie.')
+      setErrorMessage('Selecteer alstublieft minstens één schoonmaakoptie, een frequentie, een telefoonnummer en een e-mailadres.')
       return
     }
 
     const templateParams = {
       selectedOptions: selectedOptions.map(id => frequencyOptions.find(option => option.id === id)?.label).join(', '),
       frequency: frequencyOptions.find(option => option.id === frequency)?.label,
+      phoneNumber: phoneNumber,
+      email: email,
       additionalInfo: additionalInfo
     }
 
@@ -53,6 +57,8 @@ export default function HuishoudelijkSchoonmaakForm() {
       setStatus('success')
       setSelectedOptions([])
       setFrequency('')
+      setPhoneNumber('')
+      setEmail('')
       setAdditionalInfo('')
     } catch (error) {
       console.error('EmailJS error:', error)
@@ -62,7 +68,7 @@ export default function HuishoudelijkSchoonmaakForm() {
   }
 
   return (
-    <motion.form 
+    <motion.form
       onSubmit={handleSubmit}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -75,7 +81,7 @@ export default function HuishoudelijkSchoonmaakForm() {
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {frequencyOptions.map((option) => (
-            <motion.div 
+            <motion.div
               key={option.id}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -105,7 +111,7 @@ export default function HuishoudelijkSchoonmaakForm() {
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {frequencyOptions.map((option) => (
-            <motion.div 
+            <motion.div
               key={option.id}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -127,6 +133,33 @@ export default function HuishoudelijkSchoonmaakForm() {
             </motion.div>
           ))}
         </div>
+      </div>
+
+      <div className="p-8 border-b border-gray-200">
+        <h2 className="text-2xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-green-600">
+          Telefoonnummer
+        </h2>
+        <input
+          type="tel"
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+          className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Voer uw telefoonnummer in"
+          required
+        />
+      </div>
+      <div className="p-8 border-b border-gray-200">
+        <h2 className="text-2xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-green-600">
+          E-mailadres
+        </h2>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Voer uw e-mailadres in"
+          required
+        />
       </div>
 
       <div className="p-8 border-b border-gray-200">
@@ -153,7 +186,7 @@ export default function HuishoudelijkSchoonmaakForm() {
             Uw aanvraag is succesvol verzonden. We nemen zo snel mogelijk contact met u op.
           </div>
         )}
-        <motion.button 
+        <motion.button
           type="submit"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}

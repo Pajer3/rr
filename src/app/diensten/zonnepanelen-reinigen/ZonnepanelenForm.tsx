@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
 import emailjs from '@emailjs/browser'
+import { motion } from 'framer-motion'
+import React, { useState } from 'react'
 
 const panelOptions = [
   { id: 'residential', label: 'Residentieel' },
@@ -21,6 +21,8 @@ export default function ZonnepanelenForm() {
   const [frequency, setFrequency] = useState<string>('')
   const [panelCount, setPanelCount] = useState<string>('')
   const [additionalInfo, setAdditionalInfo] = useState<string>('')
+  const [phoneNumber, setPhoneNumber] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState<string>('')
 
@@ -29,9 +31,9 @@ export default function ZonnepanelenForm() {
     setStatus('submitting')
     setErrorMessage('')
 
-    if (!panelType || !frequency || !panelCount) {
+    if (!panelType || !frequency || !panelCount || !phoneNumber || !email) {
       setStatus('error')
-      setErrorMessage('Vul alstublieft alle verplichte velden in.')
+      setErrorMessage('Vul alstublieft alle verplichte velden in, inclusief telefoonnummer en e-mailadres.')
       return
     }
 
@@ -39,6 +41,8 @@ export default function ZonnepanelenForm() {
       panelType: panelOptions.find(option => option.id === panelType)?.label,
       frequency: frequencyOptions.find(option => option.id === frequency)?.label,
       panelCount: panelCount,
+      phoneNumber: phoneNumber,
+      email: email,
       additionalInfo: additionalInfo
     }
 
@@ -53,6 +57,8 @@ export default function ZonnepanelenForm() {
       setPanelType('')
       setFrequency('')
       setPanelCount('')
+      setPhoneNumber('')
+      setEmail('')
       setAdditionalInfo('')
     } catch (error) {
       console.error('EmailJS error:', error)
@@ -62,7 +68,7 @@ export default function ZonnepanelenForm() {
   }
 
   return (
-    <motion.form 
+    <motion.form
       onSubmit={handleSubmit}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -75,7 +81,7 @@ export default function ZonnepanelenForm() {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {panelOptions.map((option) => (
-            <motion.div 
+            <motion.div
               key={option.id}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -105,7 +111,7 @@ export default function ZonnepanelenForm() {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {frequencyOptions.map((option) => (
-            <motion.div 
+            <motion.div
               key={option.id}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -157,6 +163,33 @@ export default function ZonnepanelenForm() {
         ></textarea>
       </div>
 
+      <div className="p-8 border-b border-gray-200">
+        <h2 className="text-2xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-blue-600">
+          Telefoonnummer
+        </h2>
+        <input
+          type="tel"
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+          className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+          placeholder="Voer uw telefoonnummer in"
+          required
+        />
+      </div>
+      <div className="p-8 border-b border-gray-200">
+        <h2 className="text-2xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-blue-600">
+          E-mailadres
+        </h2>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+          placeholder="Voer uw e-mailadres in"
+          required
+        />
+      </div>
+
       <div className="p-8 bg-gradient-to-r from-yellow-50 to-blue-50">
         {status === 'error' && (
           <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg">
@@ -168,7 +201,7 @@ export default function ZonnepanelenForm() {
             Uw aanvraag is succesvol verzonden. We nemen zo snel mogelijk contact met u op.
           </div>
         )}
-        <motion.button 
+        <motion.button
           type="submit"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
