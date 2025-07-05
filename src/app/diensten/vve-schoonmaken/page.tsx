@@ -1,8 +1,8 @@
 "use client"
 import GenericServiceForm from '@/components/GenericServiceForm'
-import ServiceDetails from './ServiceDetails'
 import Link from 'next/link'
 import { Suspense } from 'react'
+import ServiceDetails from './ServiceDetails'
 
 // const vveOptions = [
 //   { id: 'entree', label: 'Entree' },
@@ -34,14 +34,14 @@ export default function VVESchoonmakenPage() {
         <h1 className="text-5xl font-extrabold text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
           VVE Schoonmaak
         </h1>
-        
+
         <div className="max-w-4xl mx-auto">
           <Suspense fallback={<div className="text-center">Formulier laden...</div>}>
-            <GenericServiceForm 
+            <GenericServiceForm
               serviceName="VVE Schoonmaak"
               //   options={vveOptions}
               frequencyOptions={frequencyOptions}
-              quantityLabel="E-mailadres"
+              quantityLabel="Aantal verdiepingen"
             />
           </Suspense>
         </div>
