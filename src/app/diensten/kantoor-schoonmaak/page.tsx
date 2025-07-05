@@ -1,8 +1,8 @@
 "use client"
 import GenericServiceForm from '@/components/GenericServiceForm'
-import ServiceDetails from './ServiceDetails'
 import Link from 'next/link'
 import { Suspense } from 'react'
+import ServiceDetails from './ServiceDetails'
 
 // const kantoorOptions = [
 //   { id: 'werkplekken', label: 'Werkplekken' },
@@ -34,13 +34,13 @@ export default function KantoorSchoonmaakPage() {
         <h1 className="text-5xl font-extrabold text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-gray-600">
           Kantoor Schoonmaak
         </h1>
-        
+
         <div className="max-w-4xl mx-auto">
           <Suspense fallback={<div className="text-center">Formulier laden...</div>}>
-            <GenericServiceForm 
+            <GenericServiceForm
               serviceName="Kantoor Schoonmaak"
               frequencyOptions={frequencyOptions}
-              quantityLabel="E-mailadres"
+              quantityLabel="Oppervlakte kantoor in m²"
             />
           </Suspense>
         </div>

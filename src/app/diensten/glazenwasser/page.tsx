@@ -1,8 +1,8 @@
 "use client"
 import GenericServiceForm from '@/components/GenericServiceForm'
-import ServiceDetails from './ServiceDetails'
 import Link from 'next/link'
 import { Suspense } from 'react'
+import ServiceDetails from './ServiceDetails'
 
 
 const frequencyOptions = [
@@ -27,13 +27,13 @@ export default function GlazenwasserPage() {
         <h1 className="text-5xl font-extrabold text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-indigo-600">
           Glazenwasser
         </h1>
-        
+
         <div className="max-w-4xl mx-auto">
           <Suspense fallback={<div className="text-center">Formulier laden...</div>}>
-            <GenericServiceForm 
+            <GenericServiceForm
               serviceName="Glazenwasser"
               frequencyOptions={frequencyOptions}
-              quantityLabel="e-mailadres"
+              quantityLabel="Aantal ramen"
             />
           </Suspense>
         </div>
