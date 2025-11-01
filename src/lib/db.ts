@@ -1,8 +1,4 @@
-import { promises as fs } from 'fs'
-import path from 'path'
-
-// Fallback to JSON storage for serverless environments (Vercel)
-const jsonPath = path.join(process.cwd(), 'data', 'visitor-logs.json')
+import { put } from '@vercel/blob'
 
 export interface VisitorLog {
   id: string
@@ -19,28 +15,41 @@ export interface VisitorLog {
   created_at?: number
 }
 
-async function ensureDataDirectory() {
-  const dataDir = path.join(process.cwd(), 'data')
-  try {
-    await fs.access(dataDir)
-  } catch {
-    await fs.mkdir(dataDir, { recursive: true })
-  }
-}
+const BLOB_PATHNAME = 'visitor-logs.json'
 
 async function readLogs(): Promise<VisitorLog[]> {
   try {
-    await ensureDataDirectory()
-    const data = await fs.readFile(jsonPath, 'utf-8')
-    return JSON.parse(data)
-  } catch {
+    // Try to fetch the blob
+    const response = await fetch(`https://blob.vercel-storage.com/${BLOB_PATHNAME}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${process.env.BLOB_READ_WRITE_TOKEN}`,
+      },
+    })
+
+    if (!response.ok) {
+      // Blob doesn't exist yet, return empty array
+      return []
+    }
+
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.error('Error reading logs from blob:', error)
     return []
   }
 }
 
 async function writeLogs(logs: VisitorLog[]) {
-  await ensureDataDirectory()
-  await fs.writeFile(jsonPath, JSON.stringify(logs, null, 2))
+  try {
+    await put(BLOB_PATHNAME, JSON.stringify(logs, null, 2), {
+      access: 'public',
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    })
+  } catch (error) {
+    console.error('Error writing logs to blob:', error)
+    throw error
+  }
 }
 
 export async function insertVisitorLog(log: Omit<VisitorLog, 'created_at'>) {
