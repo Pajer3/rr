@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from 'next/script';
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import CookieConsent from "@/components/CookieConsent";
 import "./globals.css";
 import { go3Font } from './fonts';
 
@@ -24,6 +25,7 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <CookieConsent />
         <Script
           id="schema-org"
           type="application/ld+json"

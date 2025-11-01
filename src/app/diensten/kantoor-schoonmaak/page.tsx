@@ -3,6 +3,7 @@ import GenericServiceForm from '@/components/GenericServiceForm'
 import Link from 'next/link'
 import { Suspense } from 'react'
 import ServiceDetails from './ServiceDetails'
+import { useVisitorTracking } from '@/hooks/useVisitorTracking'
 
 // const kantoorOptions = [
 //   { id: 'werkplekken', label: 'Werkplekken' },
@@ -20,6 +21,8 @@ const frequencyOptions = [
 ]
 
 export default function KantoorSchoonmaakPage() {
+  useVisitorTracking('Kantoor Schoonmaak')
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-gray-100">
       <div className="container mx-auto px-4 py-12">

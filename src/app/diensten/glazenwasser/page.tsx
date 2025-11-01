@@ -3,6 +3,7 @@ import GenericServiceForm from '@/components/GenericServiceForm'
 import Link from 'next/link'
 import { Suspense } from 'react'
 import ServiceDetails from './ServiceDetails'
+import { useVisitorTracking } from '@/hooks/useVisitorTracking'
 
 
 const frequencyOptions = [
@@ -13,6 +14,8 @@ const frequencyOptions = [
 ]
 
 export default function GlazenwasserPage() {
+  useVisitorTracking('Glazenwasser')
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-sky-100 via-white to-indigo-100">
       <div className="container mx-auto px-4 py-12">

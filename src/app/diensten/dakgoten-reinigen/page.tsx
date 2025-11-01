@@ -3,6 +3,7 @@ import GenericServiceForm from '@/components/GenericServiceForm'
 import ServiceDetails from './ServiceDetails'
 import Link from 'next/link'
 import { Suspense } from 'react'
+import { useVisitorTracking } from '@/hooks/useVisitorTracking'
 
 const frequencyOptions = [
   { id: 'biannual', label: 'Halfjaarlijks' },
@@ -11,6 +12,8 @@ const frequencyOptions = [
 ]
 
 export default function DakgotenReinigenPage() {
+  useVisitorTracking('Dakgoten Reinigen')
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-100 via-white to-yellow-100">
       <div className="container mx-auto px-4 py-12">
