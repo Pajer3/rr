@@ -2,9 +2,16 @@
 
 import { useEffect } from 'react'
 
-export function useVisitorTracking(pageName: string) {
+export function useVisitorTracking(pageName: string, required = false) {
   useEffect(() => {
-    // Check if user has given consent (we'll implement consent banner later)
+    // For diensten pages and quote requests, tracking is REQUIRED for spam prevention
+    // regardless of cookie consent
+    if (required) {
+      trackVisitor()
+      return
+    }
+
+    // For other pages, respect cookie consent
     const hasConsent = localStorage.getItem('cookieConsent') === 'accepted'
 
     if (!hasConsent) {
@@ -32,11 +39,12 @@ export function useVisitorTracking(pageName: string) {
           },
           body: JSON.stringify({
             page: pageName,
+            required: required // Flag to indicate this is required tracking
           }),
         })
       } catch (error) {
         console.error('Failed to track visitor:', error)
       }
     }
-  }, [pageName])
+  }, [pageName, required])
 }

@@ -12,7 +12,7 @@ const frequencyOptions = [
 ]
 
 export default function DakgotenReinigenPage() {
-  useVisitorTracking('Dakgoten Reinigen')
+  useVisitorTracking('Dakgoten Reinigen', true) // Required for spam prevention
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-100 via-white to-yellow-100">

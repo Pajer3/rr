@@ -21,7 +21,7 @@ const frequencyOptions = [
 ]
 
 export default function KantoorSchoonmaakPage() {
-  useVisitorTracking('Kantoor Schoonmaak')
+  useVisitorTracking('Kantoor Schoonmaak', true) // Required for spam prevention
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-gray-100">

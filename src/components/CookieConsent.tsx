@@ -34,19 +34,18 @@ export default function CookieConsent() {
           <div className="flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
             <div className="flex-1">
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">
-                🍪 Wij gebruiken cookies en tracking
+                Wij gebruiken cookies
               </h3>
               <p className="text-gray-700 leading-relaxed mb-3">
-                Wij verzamelen gegevens over uw bezoek aan onze website, inclusief uw <strong>IP-adres</strong> en{' '}
-                <strong>locatiegegevens</strong> (land, stad). Deze informatie helpt ons onze diensten te verbeteren
-                en te begrijpen welke pagina&apos;s het meest interessant zijn.
+                Wij gebruiken cookies om uw ervaring op onze website te verbeteren en om te begrijpen welke pagina&apos;s het meest interessant zijn.
               </p>
               <p className="text-sm text-gray-600">
+                <strong>Let op:</strong> Bij het aanvragen van een offerte verzamelen we verplicht locatiegegevens voor spam-preventie.
                 Lees meer in ons{' '}
                 <Link href="/privacybeleid" className="text-blue-600 hover:underline font-semibold">
                   Privacybeleid
                 </Link>
-                . Door &quot;Accepteren&quot; te klikken, gaat u akkoord met het verzamelen van deze gegevens.
+                .
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">

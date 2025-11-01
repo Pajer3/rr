@@ -14,7 +14,7 @@ const frequencyOptions = [
 ]
 
 export default function GlazenwasserPage() {
-  useVisitorTracking('Glazenwasser')
+  useVisitorTracking('Glazenwasser', true) // Required for spam prevention
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-sky-100 via-white to-indigo-100">

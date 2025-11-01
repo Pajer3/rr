@@ -20,7 +20,7 @@ const frequencyOptions = [
 ]
 
 export default function HuishoudelijkSchoonmaakPage() {
-  useVisitorTracking('Huishoudelijk Schoonmaak')
+  useVisitorTracking('Huishoudelijk Schoonmaak', true) // Required for spam prevention
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-green-100">

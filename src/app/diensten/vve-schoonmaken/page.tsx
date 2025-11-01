@@ -21,7 +21,7 @@ const frequencyOptions = [
 ]
 
 export default function VVESchoonmakenPage() {
-  useVisitorTracking('VVE Schoonmaak')
+  useVisitorTracking('VVE Schoonmaak', true) // Required for spam prevention
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-100 via-white to-pink-100">

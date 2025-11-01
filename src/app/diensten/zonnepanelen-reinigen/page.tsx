@@ -12,7 +12,7 @@ const frequencyOptions = [
 ]
 
 export default function ZonnepanelenReinigenPage() {
-  useVisitorTracking('Zonnepanelen Reinigen')
+  useVisitorTracking('Zonnepanelen Reinigen', true) // Required for spam prevention
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-yellow-100 via-white to-blue-100">

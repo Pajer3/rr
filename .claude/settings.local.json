@@ -4,7 +4,12 @@
       "Bash(touch:*)",
       "Bash(CLAUDE.md)",
       "Bash(npm run build:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(for dir in */)",
+      "Bash(do if [ -f \"$dir/page.tsx\" ])",
+      "Bash(then sed -i \"s/useVisitorTracking(''\\([^'']*\\)'')/useVisitorTracking(''\\1'', true) \\/\\/ Required for spam prevention/\" \"$dir/page.tsx\")",
+      "Bash(fi)",
+      "Bash(done)"
     ],
     "deny": [],
     "ask": []

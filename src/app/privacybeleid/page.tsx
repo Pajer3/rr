@@ -90,10 +90,30 @@ export default function PrivacybeleidPage() {
               <p className="text-gray-700 leading-relaxed mb-4">
                 Onze website maakt gebruik van cookies en tracking technologie:
               </p>
-              <div className="bg-yellow-50 rounded-lg p-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">Tracking van bezoekersgedrag:</h3>
+
+              <div className="bg-red-50 rounded-lg p-6 mb-4 border-2 border-red-200">
+                <h3 className="text-xl font-semibold text-red-900 mb-3">⚠️ Verplichte Tracking (Spam-preventie)</h3>
                 <p className="text-gray-700 leading-relaxed mb-3">
-                  Wij volgen welke diensten pagina&apos;s u bezoekt en verzamelen uw IP-adres en locatiegegevens.
+                  <strong>Wanneer u een diensten pagina bezoekt of een offerte aanvraagt, verzamelen wij VERPLICHT de volgende gegevens:</strong>
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-gray-700 mb-3">
+                  <li><strong>IP-adres</strong> - Voor identificatie van uw locatie</li>
+                  <li><strong>Exacte locatiegegevens</strong> - Land, stad, regio</li>
+                  <li><strong>Tijdstip van bezoek</strong> - Wanneer u de pagina bezocht</li>
+                  <li><strong>Browser informatie</strong> - Type en versie van uw browser</li>
+                </ul>
+                <p className="text-gray-700 leading-relaxed">
+                  <strong>Rechtsgrondslag:</strong> Gerechtvaardigd belang - Deze gegevens zijn noodzakelijk om spam en frauduleuze aanvragen te detecteren en te voorkomen. Dit beschermt zowel ons bedrijf als legitieme klanten.
+                </p>
+                <p className="text-red-700 font-semibold mt-3">
+                  Deze tracking kan NIET worden geweigerd bij het bezoeken van diensten pagina&apos;s of het aanvragen van een offerte.
+                </p>
+              </div>
+
+              <div className="bg-yellow-50 rounded-lg p-6">
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Optionele Tracking (Overige pagina&apos;s)</h3>
+                <p className="text-gray-700 leading-relaxed mb-3">
+                  Op andere pagina&apos;s van onze website volgen we uw bezoek alleen met uw toestemming.
                   Deze informatie wordt gebruikt om:
                 </p>
                 <ul className="list-disc list-inside space-y-2 text-gray-700">
@@ -102,7 +122,7 @@ export default function PrivacybeleidPage() {
                   <li>De gebruikerservaring te optimaliseren</li>
                 </ul>
                 <p className="text-gray-700 leading-relaxed mt-3">
-                  <strong>U kunt deze tracking accepteren of weigeren via de cookie banner op onze website.</strong>
+                  <strong>U kunt deze optionele tracking accepteren of weigeren via de cookie banner op onze website.</strong>
                 </p>
               </div>
             </section>
