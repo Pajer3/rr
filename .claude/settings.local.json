@@ -9,7 +9,8 @@
       "Bash(do if [ -f \"$dir/page.tsx\" ])",
       "Bash(then sed -i \"s/useVisitorTracking(''\\([^'']*\\)'')/useVisitorTracking(''\\1'', true) \\/\\/ Required for spam prevention/\" \"$dir/page.tsx\")",
       "Bash(fi)",
-      "Bash(done)"
+      "Bash(done)",
+      "Bash(npm uninstall:*)"
     ],
     "deny": [],
     "ask": []

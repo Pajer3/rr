@@ -53,10 +53,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Insert log into database
-    insertVisitorLog(log)
+    await insertVisitorLog(log)
 
     // Cleanup old logs (keep only last 100)
-    cleanupOldLogs(100)
+    await cleanupOldLogs(100)
 
     return NextResponse.json({ success: true, log })
   } catch (error) {
@@ -69,7 +69,8 @@ export async function GET(request: NextRequest) {
   try {
     // Simple authentication check
     const authHeader = request.headers.get('authorization')
-    const adminPassword = process.env.ADMIN_PASSWORD || 'changeme123'
+    // Hardcoded password - no environment variable needed
+    const adminPassword = '2kG4|IUA:£LLnV?]vN?-wwO&\\qnCgH<0NZ}£!36Td£\\PhGkP*N'
 
     if (!authHeader || authHeader !== `Bearer ${adminPassword}`) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -81,10 +82,10 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '20')
     const offset = (page - 1) * limit
 
-    // Get logs with pagination
-    const logs = getVisitorLogs(limit, offset)
-    const total = getTotalLogsCount()
-    const stats = getStats()
+    // Get logs with pagination (await the promises)
+    const logs = await getVisitorLogs(limit, offset)
+    const total = await getTotalLogsCount()
+    const stats = await getStats()
 
     return NextResponse.json({
       logs,

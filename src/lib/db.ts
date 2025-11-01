@@ -1,45 +1,8 @@
-import Database from 'better-sqlite3'
+import { promises as fs } from 'fs'
 import path from 'path'
 
-const dbPath = path.join(process.cwd(), 'data', 'visitors.db')
-
-let db: Database.Database | null = null
-
-export function getDatabase() {
-  if (!db) {
-    db = new Database(dbPath)
-    db.pragma('journal_mode = WAL')
-
-    // Create table if it doesn't exist
-    db.exec(`
-      CREATE TABLE IF NOT EXISTS visitor_logs (
-        id TEXT PRIMARY KEY,
-        timestamp TEXT NOT NULL,
-        page TEXT NOT NULL,
-        ip TEXT NOT NULL,
-        user_agent TEXT NOT NULL,
-        country TEXT,
-        city TEXT,
-        region TEXT,
-        timezone TEXT,
-        latitude REAL,
-        longitude REAL,
-        created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now'))
-      )
-    `)
-
-    // Create index on timestamp for faster queries
-    db.exec(`
-      CREATE INDEX IF NOT EXISTS idx_timestamp ON visitor_logs(timestamp DESC)
-    `)
-
-    db.exec(`
-      CREATE INDEX IF NOT EXISTS idx_created_at ON visitor_logs(created_at DESC)
-    `)
-  }
-
-  return db
-}
+// Fallback to JSON storage for serverless environments (Vercel)
+const jsonPath = path.join(process.cwd(), 'data', 'visitor-logs.json')
 
 export interface VisitorLog {
   id: string
@@ -56,78 +19,81 @@ export interface VisitorLog {
   created_at?: number
 }
 
-export function insertVisitorLog(log: Omit<VisitorLog, 'created_at'>) {
-  const db = getDatabase()
+async function ensureDataDirectory() {
+  const dataDir = path.join(process.cwd(), 'data')
+  try {
+    await fs.access(dataDir)
+  } catch {
+    await fs.mkdir(dataDir, { recursive: true })
+  }
+}
 
-  const stmt = db.prepare(`
-    INSERT INTO visitor_logs (id, timestamp, page, ip, user_agent, country, city, region, timezone, latitude, longitude)
-    VALUES (@id, @timestamp, @page, @ip, @user_agent, @country, @city, @region, @timezone, @latitude, @longitude)
-  `)
+async function readLogs(): Promise<VisitorLog[]> {
+  try {
+    await ensureDataDirectory()
+    const data = await fs.readFile(jsonPath, 'utf-8')
+    return JSON.parse(data)
+  } catch {
+    return []
+  }
+}
 
-  stmt.run({
-    id: log.id,
-    timestamp: log.timestamp,
-    page: log.page,
-    ip: log.ip,
-    user_agent: log.user_agent,
-    country: log.country || null,
-    city: log.city || null,
-    region: log.region || null,
-    timezone: log.timezone || null,
-    latitude: log.latitude || null,
-    longitude: log.longitude || null,
+async function writeLogs(logs: VisitorLog[]) {
+  await ensureDataDirectory()
+  await fs.writeFile(jsonPath, JSON.stringify(logs, null, 2))
+}
+
+export async function insertVisitorLog(log: Omit<VisitorLog, 'created_at'>) {
+  const logs = await readLogs()
+
+  const newLog = {
+    ...log,
+    created_at: Date.now()
+  }
+
+  logs.unshift(newLog)
+  await writeLogs(logs)
+}
+
+export async function getVisitorLogs(limit = 20, offset = 0): Promise<VisitorLog[]> {
+  const logs = await readLogs()
+  return logs.slice(offset, offset + limit)
+}
+
+export async function getTotalLogsCount(): Promise<number> {
+  const logs = await readLogs()
+  return logs.length
+}
+
+export async function cleanupOldLogs(keepCount = 100) {
+  const logs = await readLogs()
+
+  if (logs.length > keepCount) {
+    const trimmedLogs = logs.slice(0, keepCount)
+    await writeLogs(trimmedLogs)
+  }
+}
+
+export async function getStats() {
+  const logs = await readLogs()
+
+  const pageViewsMap: { [key: string]: number } = {}
+  const countriesMap: { [key: string]: number } = {}
+
+  logs.forEach(log => {
+    pageViewsMap[log.page] = (pageViewsMap[log.page] || 0) + 1
+    if (log.country) {
+      countriesMap[log.country] = (countriesMap[log.country] || 0) + 1
+    }
   })
-}
 
-export function getVisitorLogs(limit = 20, offset = 0): VisitorLog[] {
-  const db = getDatabase()
+  const pageViews = Object.entries(pageViewsMap)
+    .map(([page, count]) => ({ page, count }))
+    .sort((a, b) => b.count - a.count)
 
-  const stmt = db.prepare(`
-    SELECT * FROM visitor_logs
-    ORDER BY created_at DESC
-    LIMIT ? OFFSET ?
-  `)
-
-  return stmt.all(limit, offset) as VisitorLog[]
-}
-
-export function getTotalLogsCount(): number {
-  const db = getDatabase()
-  const result = db.prepare('SELECT COUNT(*) as count FROM visitor_logs').get() as { count: number }
-  return result.count
-}
-
-export function cleanupOldLogs(keepCount = 100) {
-  const db = getDatabase()
-
-  // Delete all logs except the most recent keepCount
-  db.prepare(`
-    DELETE FROM visitor_logs
-    WHERE id NOT IN (
-      SELECT id FROM visitor_logs
-      ORDER BY created_at DESC
-      LIMIT ?
-    )
-  `).run(keepCount)
-}
-
-export function getStats() {
-  const db = getDatabase()
-
-  const pageViews = db.prepare(`
-    SELECT page, COUNT(*) as count
-    FROM visitor_logs
-    GROUP BY page
-    ORDER BY count DESC
-  `).all() as Array<{ page: string; count: number }>
-
-  const countries = db.prepare(`
-    SELECT country, COUNT(*) as count
-    FROM visitor_logs
-    WHERE country IS NOT NULL
-    GROUP BY country
-    ORDER BY count DESC
-  `).all() as Array<{ country: string; count: number }>
+  const countries = Object.entries(countriesMap)
+    .map(([country, count]) => ({ country, count }))
+    .sort((a, b) => b.count - a.count)
 
   return { pageViews, countries }
 }

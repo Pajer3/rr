@@ -12,7 +12,6 @@
     "@emailjs/browser": "^4.4.1",
     "@next/font": "^14.2.13",
     "@splinetool/react-spline": "^4.0.0",
-    "better-sqlite3": "^12.4.1",
     "chart.js": "^4.4.4",
     "framer-motion": "^12.23.0",
     "lucide-react": "^0.441.0",
@@ -23,7 +22,6 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^20",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
