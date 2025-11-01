@@ -69,8 +69,8 @@ export async function GET(request: NextRequest) {
   try {
     // Simple authentication check
     const authHeader = request.headers.get('authorization')
-    // Hardcoded password - no environment variable needed
-    const adminPassword = '2kG4|IUA:£LLnV?]vN?-wwO&\\qnCgH<0NZ}£!36Td£\\PhGkP*N'
+    // Hardcoded password - use simple characters to avoid URL encoding issues
+    const adminPassword = 'Frisspits2025AdminSecurePassword123'
 
     if (!authHeader || authHeader !== `Bearer ${adminPassword}`) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
