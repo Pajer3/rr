@@ -1,4 +1,4 @@
-import { put } from '@vercel/blob'
+import { put, list } from '@vercel/blob'
 
 export interface VisitorLog {
   id: string
@@ -19,16 +19,22 @@ const BLOB_PATHNAME = 'visitor-logs.json'
 
 async function readLogs(): Promise<VisitorLog[]> {
   try {
-    // Try to fetch the blob
-    const response = await fetch(`https://blob.vercel-storage.com/${BLOB_PATHNAME}`, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${process.env.BLOB_READ_WRITE_TOKEN}`,
-      },
+    // List blobs to find our file
+    const { blobs } = await list({
+      token: process.env.BLOB_READ_WRITE_TOKEN,
     })
 
-    if (!response.ok) {
+    const logBlob = blobs.find(blob => blob.pathname === BLOB_PATHNAME)
+
+    if (!logBlob) {
       // Blob doesn't exist yet, return empty array
+      return []
+    }
+
+    // Fetch the blob content using the URL
+    const response = await fetch(logBlob.url)
+
+    if (!response.ok) {
       return []
     }
 
@@ -42,10 +48,12 @@ async function readLogs(): Promise<VisitorLog[]> {
 
 async function writeLogs(logs: VisitorLog[]) {
   try {
-    await put(BLOB_PATHNAME, JSON.stringify(logs, null, 2), {
+    const blob = await put(BLOB_PATHNAME, JSON.stringify(logs, null, 2), {
       access: 'public',
       token: process.env.BLOB_READ_WRITE_TOKEN,
+      addRandomSuffix: false, // Important: keep the same filename
     })
+    console.log('Blob written successfully:', blob.url)
   } catch (error) {
     console.error('Error writing logs to blob:', error)
     throw error
