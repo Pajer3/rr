@@ -341,7 +341,7 @@ export default function Component() {
 
         <CallButton />
 
-        <AnimatePresence>
+        {/* <AnimatePresence>
           {showPopup && (
             <motion.div
               initial={{ opacity: 0 }}
@@ -400,7 +400,7 @@ export default function Component() {
               </motion.div>
             </motion.div>
           )}
-        </AnimatePresence>
+        </AnimatePresence> */}
       </main>
 
       <style jsx>{`

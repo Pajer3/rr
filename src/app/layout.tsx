@@ -25,7 +25,7 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
-        <CookieConsent />
+        {/* <CookieConsent /> */}
         <Script
           id="schema-org"
           type="application/ld+json"
