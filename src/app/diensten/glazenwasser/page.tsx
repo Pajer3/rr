@@ -36,7 +36,7 @@ export default function GlazenwasserPage() {
             <GenericServiceForm
               serviceName="Glazenwasser"
               frequencyOptions={frequencyOptions}
-              quantityLabel="Aantal ramen"
+              quantityLabel="Locatie"
             />
           </Suspense>
         </div>

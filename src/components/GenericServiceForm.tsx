@@ -38,7 +38,8 @@ export default function GenericServiceForm({ serviceName, frequencyOptions, quan
     const templateParams = {
       serviceName: serviceName,
       frequency: frequencyOptions.find(option => option.id === frequency)?.label,
-      quantity: quantity,
+      infoLabel: quantityLabel,
+      infoValue: quantity,
       phoneNumber: phoneNumber,
       email: email,
       additionalInfo: additionalInfo
@@ -82,16 +83,15 @@ export default function GenericServiceForm({ serviceName, frequencyOptions, quan
               key={option.id}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={`flex items-center space-x-3 p-3 rounded-lg cursor-pointer ${
-                frequency === option.id ? 'bg-yellow-100' : 'bg-gray-100'
-              }`}
+              className={`flex items-center space-x-3 p-3 rounded-lg cursor-pointer ${frequency === option.id ? 'bg-yellow-100' : 'bg-gray-100'
+                }`}
               onClick={() => setFrequency(option.id)}
             >
               <input
                 type="radio"
                 id={option.id}
                 checked={frequency === option.id}
-                onChange={() => {}}
+                onChange={() => { }}
                 className="form-radio h-5 w-5 text-yellow-600"
               />
               <label htmlFor={option.id} className="text-gray-700 select-none">
