@@ -2,6 +2,7 @@
 
 import emailjs from '@emailjs/browser';
 import { motion } from 'framer-motion';
+import { MapPin } from 'lucide-react';
 import React, { useState } from 'react';
 
 interface Option {
@@ -18,6 +19,7 @@ interface GenericServiceFormProps {
 export default function GenericServiceForm({ serviceName, frequencyOptions, quantityLabel }: GenericServiceFormProps) {
   const [frequency, setFrequency] = useState<string>('')
   const [quantity, setQuantity] = useState<string>('')
+  const [location, setLocation] = useState<string>('')
   const [phoneNumber, setPhoneNumber] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const [additionalInfo, setAdditionalInfo] = useState<string>('')
@@ -29,17 +31,18 @@ export default function GenericServiceForm({ serviceName, frequencyOptions, quan
     setStatus('submitting')
     setErrorMessage('')
 
-    if (!frequency || !quantity || !phoneNumber || !email) {
+    if (!frequency || !quantity || !location || !phoneNumber || !email) {
       setStatus('error')
-      setErrorMessage('Vul alstublieft alle verplichte velden in, inclusief telefoonnummer en e-mailadres.')
+      setErrorMessage('Vul alstublieft alle verplichte velden in, inclusief locatie, telefoonnummer en e-mailadres.')
       return
     }
 
     const templateParams = {
       serviceName: serviceName,
       frequency: frequencyOptions.find(option => option.id === frequency)?.label,
-      infoLabel: quantityLabel,
-      infoValue: quantity,
+      location: location,
+      quantityLabel: quantityLabel,
+      quantity: quantity,
       phoneNumber: phoneNumber,
       email: email,
       additionalInfo: additionalInfo
@@ -55,6 +58,7 @@ export default function GenericServiceForm({ serviceName, frequencyOptions, quan
       setStatus('success')
       setFrequency('')
       setQuantity('')
+      setLocation('')
       setPhoneNumber('')
       setEmail('')
       setAdditionalInfo('')
@@ -114,6 +118,23 @@ export default function GenericServiceForm({ serviceName, frequencyOptions, quan
           placeholder="Voer uw e-mailadres in"
           required
         />
+      </div>
+
+      <div className="p-8 border-b border-gray-200">
+        <h2 className="text-2xl font-semibold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-blue-600">
+          Locatie
+        </h2>
+        <div className="relative">
+          <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+          <input
+            type="text"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            className="w-full pl-10 pr-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            placeholder="Waar moet er schoongemaakt worden?"
+            required
+          />
+        </div>
       </div>
 
       <div className="p-8 border-b border-gray-200">
