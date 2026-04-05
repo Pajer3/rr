@@ -14,11 +14,11 @@ export default function ServiceDetails() {
       id: 'services',
       content: (
         <ul className="list-disc pl-5 space-y-2">
-          <li>Verwijderen van groene aanslag, algen en mos</li>
-          <li>Professionele zandstraling en softwash technieken</li>
-          <li>Graffiti en verfbeschadigingen verwijderen</li>
-          <li>Reinigen van metselwerk, beton of beplating</li>
-          <li>Impregneren van de gevel voor langdurige bescherming</li>
+          <li>Verwijderen van algen, mos en groene aanslag</li>
+          <li>Reiniging met softwash of andere professionele technieken</li>
+          <li>Verwijderen van graffiti en vervuiling</li>
+          <li>Reiniging van metselwerk, beton en beplating</li>
+          <li>Impregneren voor langdurige bescherming</li>
         </ul>
       )
     },
@@ -28,13 +28,13 @@ export default function ServiceDetails() {
       content: (
         <ul className="space-y-2">
           {[
-            "Geeft uw woning of bedrijfspand direct een vernieuwde uitstraling",
-            "Voorkomt blijvende vocht- en vorstschade aan de steen",
-            "Verhoogt de levensduur en waarde van uw vastgoed",
-            "Behoud van ademende eigenschappen van de gevel",
-            "Veilige en milieuvriendelijke behandelmethodes",
-            "Snelle transformatie zonder grote verbouwingen",
-            "Optimale bescherming na impregneren"
+            <><strong key="1">Frisse uitstraling</strong> &ndash; Uw pand ziet er weer als nieuw uit</>,
+            <><strong key="2">Voorkomt schade</strong> &ndash; Beschermt tegen slijtage</>,
+            <><strong key="3">Waardeverhoging</strong> &ndash; Verhoogt de waarde van uw woning</>,
+            <><strong key="4">Ademend vermogen</strong> &ndash; Behoud van de kwaliteit van de gevel</>,
+            <><strong key="5">Veilige werkwijze</strong> &ndash; Veilige en verantwoorde methodes</>,
+            <><strong key="6">Snelle verbetering</strong> &ndash; Direct zichtbaar resultaat</>,
+            <><strong key="7">Extra bescherming</strong> &ndash; Mogelijkheid tot impregneren</>
           ].map((benefit, index) => (
             <li key={index} className="flex items-start">
               <CheckCircle className="text-blue-500 mr-2 flex-shrink-0 mt-1" size={20} />

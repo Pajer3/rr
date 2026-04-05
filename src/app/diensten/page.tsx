@@ -47,7 +47,7 @@ const services = [
   },
   {
     title: "Gevel/houtwerk reinigen",
-    description: "Herstel de uitstraling van uw pand met onze veilige en grondige gevelreiniging.",
+    description: "Geef uw woning of pand weer een frisse uitstraling met onze professionele reiniging van gevels en houtwerk. Wij verwijderen vervuiling zoals algen, aanslag en vuil, en zorgen voor een duurzaam en verzorgd resultaat.",
     img: "/icons/Gevelhoutwerkreinigen.png",
     color: "from-black to-blue-300",
     slug: "gevel-reiniging"
