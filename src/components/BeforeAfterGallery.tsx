@@ -58,14 +58,21 @@ function SliderCard({
       {/* ── Drag zone ── */}
       <div
         ref={wrapRef}
-        className="relative h-[420px] sm:h-[520px] md:h-[600px] w-full cursor-col-resize select-none"
-        onMouseDown={e  => { setDragging(true); setTouched(true); update(e.clientX) }}
-        onMouseMove={e  => { if (dragging) update(e.clientX) }}
-        onMouseUp={()   => setDragging(false)}
-        onMouseLeave={() => setDragging(false)}
-        onTouchStart={e => { setDragging(true); setTouched(true); update(e.touches[0].clientX) }}
-        onTouchMove={e  => { if (dragging) update(e.touches[0].clientX) }}
-        onTouchEnd={() => setDragging(false)}
+        className="relative h-[420px] sm:h-[520px] md:h-[600px] w-full cursor-col-resize select-none touch-pan-y"
+        onPointerDown={e => {
+          setDragging(true)
+          setTouched(true)
+          update(e.clientX)
+          e.currentTarget.setPointerCapture(e.pointerId)
+        }}
+        onPointerMove={e => {
+          if (dragging) update(e.clientX)
+        }}
+        onPointerUp={e => {
+          setDragging(false)
+          e.currentTarget.releasePointerCapture(e.pointerId)
+        }}
+        onPointerCancel={() => setDragging(false)}
       >
         {/* AFTER — base */}
         <div className="absolute inset-0">

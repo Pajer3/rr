@@ -74,18 +74,19 @@ export default function HeroSection() {
             </Link>
           </div>
         </div>
-        <div className="mt-12 flex justify-center">
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+        <div className="mt-16 flex flex-col items-center">
+          <p className="text-sm font-bold text-black/60 uppercase tracking-widest mb-5">
+            Kies een dienst voor meer info
+          </p>
+          <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-6 lg:gap-8">
             {cleaningServices.map((service, index) => (
-              <Link key={index} href={`/diensten/${service.slug}`}>
-                {/* @next-codemod-error This Link previously used the now removed `legacyBehavior` prop, and has a child that might not be an anchor. The codemod bailed out of lifting the child props to the Link. Check that the child component does not render an anchor, and potentially move the props manually to Link. */
-                }
-                <motion.a
-                  className="relative cursor-pointer"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
+              <Link key={index} href={`/diensten/${service.slug}`} className="group flex flex-col items-center cursor-pointer">
+                <motion.div
+                  className="flex flex-col items-center"
+                  whileHover={{ y: -6 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <div className="bg-black rounded-full p-2 shadow-lg">
+                  <div className="bg-black rounded-full p-2 shadow-lg transition-shadow duration-300 group-hover:shadow-[0_0_25px_rgba(173,230,230,0.6)] group-hover:ring-2 ring-[#ADE6E6]/50 ring-offset-2">
                     <Image
                       src={service.src}
                       alt={service.alt}
@@ -94,7 +95,10 @@ export default function HeroSection() {
                       className={service.large ? 'w-16 h-16 object-contain p-1' : 'w-16 h-16 object-contain p-3'}
                     />
                   </div>
-                </motion.a>
+                  <span className="mt-3 text-xs md:text-sm font-bold text-black/70 text-center max-w-[110px] leading-snug group-hover:text-black transition-colors">
+                    {service.alt}
+                  </span>
+                </motion.div>
               </Link>
             ))}
           </div>

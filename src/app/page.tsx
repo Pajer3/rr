@@ -125,13 +125,13 @@ export default function Component() {
                 src="/images/car_brand.jpeg"
                 alt="Frisspits bedrijfsauto"
                 fill
-                className="object-cover object-[center_35%] lg:object-[right_center] opacity-50 lg:opacity-[0.85] mix-blend-lighten"
+                className="object-cover object-[center_35%] lg:object-[right_center] opacity-80 lg:opacity-100 brightness-125 mix-blend-screen drop-shadow-2xl"
                 priority
               />
               {/* Fades voor een naadloze blend met de zwarte achtergrond */}
-              {/* Mobiel: Harde fade naar zwart aan de onderkant */}
-              <div className="absolute inset-0 lg:hidden bg-gradient-to-t from-black via-black/60 to-transparent" />
-              <div className="absolute top-0 inset-x-0 h-32 lg:hidden bg-gradient-to-b from-black to-transparent" />
+              {/* Mobiel: Harde fade naar zwart aan de onderkant, maar minder donker zodat de stervormen etc. eruit poppen */}
+              <div className="absolute inset-0 lg:hidden bg-gradient-to-t from-black via-black/40 to-transparent" />
+              <div className="absolute top-0 inset-x-0 h-32 lg:hidden bg-gradient-to-b from-black/80 to-transparent" />
               
               {/* Desktop: Fade links (tekst) en rechts/border */}
               <div className="absolute inset-0 hidden lg:block bg-gradient-to-l from-black via-transparent to-transparent" />
@@ -148,11 +148,6 @@ export default function Component() {
               {/* Glassmorphism Card op Mobiel / Naadloos text-block op Desktop */}
               <div className="bg-black/60 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none p-7 sm:p-10 lg:p-0 rounded-[2rem] border border-white/10 lg:border-none shadow-[0_30px_60px_rgba(0,0,0,0.6)] lg:shadow-none">
                 
-                {/* Eyebrow */}
-                <div className="inline-flex items-center gap-3 mb-6">
-                  <span className="w-10 h-[2px] bg-[#ADE6E6]" />
-                  <span className="text-[#ADE6E6] text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] drop-shadow-md">Frisspits</span>
-                </div>
 
                 <h2 className="text-[2.5rem] leading-[1.1] sm:text-6xl lg:text-[4.5rem] font-extrabold tracking-tight text-white mb-6">
                   Glasbewassing<br />& Schoonmaak<br />
