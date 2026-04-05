@@ -46,7 +46,7 @@ const services = [
     slug: "vve-schoonmaken"
   },
   {
-    title: "Gevel/houtwerk reinigen",
+    title: "Gevel / houtwerk reinigen",
     description: "Geef uw woning of pand weer een frisse uitstraling met onze professionele reiniging van gevels en houtwerk. Wij verwijderen vervuiling zoals algen, aanslag en vuil, en zorgen voor een duurzaam en verzorgd resultaat.",
     img: "/icons/Gevelhoutwerkreinigen.png",
     color: "from-black to-blue-300",

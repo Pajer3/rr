@@ -23,7 +23,7 @@ export default function ServiceDetails() {
       )
     },
     {
-      title: 'Voordelen van Gevel/houtwerk reinigen',
+      title: 'Voordelen van Gevel / houtwerk reinigen',
       id: 'benefits',
       content: (
         <ul className="space-y-2">
