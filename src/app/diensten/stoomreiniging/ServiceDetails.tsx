@@ -54,7 +54,6 @@ export default function ServiceDetails() {
           <li>Grondig stomen met inzet van gespecialiseerde opzetstukken</li>
           <li>Losgemaakt vuil en verontreiniging direct afnemen/afzuigen</li>
           <li>Zorgen voor eventuele nabehandeling en nacontrole</li>
-          <li>Frist en zuiver achterlaten van uw ruimte</li>
         </ol>
       )
     }
