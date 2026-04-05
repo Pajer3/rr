@@ -16,9 +16,9 @@ const cleaningServices = [
   { src: '/icons/zonnepanelen.png', alt: 'Zonnepanelen Reinigen', slug: 'zonnepanelen-reinigen' },
   { src: '/icons/kantoor.png', alt: 'Kantoor Schoonmaak', slug: 'kantoor-schoonmaak' },
   { src: '/icons/vve.png', alt: 'VVE schoonmaken', slug: 'vve-schoonmaken' },
-  { src: '/icons/Gevelhoutwerkreinigen.png', alt: 'Professionele Gevel Reiniging', slug: 'gevel-reiniging', large: true },
-  { src: '/icons/Professionele stoomreiniging.png', alt: 'Professionele Stoomreiniging', slug: 'stoomreiniging', large: true },
-  { src: '/icons/Professionele terras reiniging..png', alt: 'Professionele Terras Reiniging', slug: 'terras-reiniging', large: true },
+  { src: '/icons/Gevelhoutwerkreinigen.png', alt: 'Gevel Reiniging', slug: 'gevel-reiniging', large: true },
+  { src: '/icons/Professionele stoomreiniging.png', alt: 'Stoomreiniging', slug: 'stoomreiniging', large: true },
+  { src: '/icons/Professionele terras reiniging..png', alt: 'Terras Reiniging', slug: 'terras-reiniging', large: true },
 ]
 
 export default function HeroSection() {

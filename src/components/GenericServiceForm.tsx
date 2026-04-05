@@ -81,13 +81,13 @@ export default function GenericServiceForm({ serviceName, frequencyOptions, quan
         <h2 className="text-2xl font-semibold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-blue-600">
           Frequentie
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
           {frequencyOptions.map((option) => (
             <motion.div
               key={option.id}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`flex items-center space-x-3 p-3 rounded-lg cursor-pointer ${frequency === option.id ? 'bg-yellow-100' : 'bg-gray-100'
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className={`flex items-center space-x-3 p-3 sm:p-4 rounded-lg cursor-pointer transition-colors duration-200 ${frequency === option.id ? 'bg-yellow-100 ring-2 ring-yellow-400' : 'bg-gray-100 hover:bg-gray-200'
                 }`}
               onClick={() => setFrequency(option.id)}
             >
@@ -96,9 +96,9 @@ export default function GenericServiceForm({ serviceName, frequencyOptions, quan
                 id={option.id}
                 checked={frequency === option.id}
                 onChange={() => { }}
-                className="form-radio h-5 w-5 text-yellow-600"
+                className="form-radio h-5 w-5 flex-shrink-0 text-yellow-600 focus:ring-yellow-500"
               />
-              <label htmlFor={option.id} className="text-gray-700 select-none">
+              <label htmlFor={option.id} className="text-gray-700 select-none text-sm font-medium w-full break-words leading-tight cursor-pointer">
                 {option.label}
               </label>
             </motion.div>

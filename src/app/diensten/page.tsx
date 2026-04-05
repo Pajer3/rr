@@ -5,13 +5,13 @@ import { CheckCircle } from 'lucide-react'
 const services = [
   {
     title: "Grondige opleveringsschoonmaak voor nieuwbouw, renovatie en verhuizing",
-    description: "Bij Frisspits verzorgen wij opleveringsschoonmaak voor nieuwbouw, renovaties, verhuizingen én zwaar vervuilde woningen. Of het nu gaat om een nette oplevering of een woning die lange tijd niet is schoongemaakt, wij pakken het grondig aan. Wij verwijderen bouwresten, stof, vet, aanslag en hardnekkig vuil, zodat de woning weer fris, schoon en direct klaar voor gebruik is. Geen klus is ons te groot of te vies. Wij zorgen ervoor dat elke woning weer in topconditie wordt opgeleverd.",
+    description: "Bij Frisspits verzorgen wij opleveringsschoonmaak voor nieuwbouw, renovaties, verhuizingen én zwaar vervuilde woningen.",
     img: "/icons/huis.png",
     color: "from-black to-blue-300",
     slug: "huishoudelijk-schoonmaak"
   },
   {
-    title: "Professionele Glazenwasser",
+    title: "Glazenwasser",
     description: "Voor streeploos schone ramen en een representatieve uitstraling van uw woning of bedrijfspand. Wij werken snel, professioneel en met oog voor detail.",
     img: "/icons/raam.png",
     color: "from-black to-blue-300",
@@ -25,7 +25,7 @@ const services = [
     slug: "dakgoten-reinigen"
   },
   {
-    title: "Professionele zonnepanelen reiniging",
+    title: "Zonnepanelen reiniging",
     description: "Behaal maximaal rendement uit uw zonnepanelen met onze professionele en veilige reinigingsmethode.",
     img: "/icons/zonnepanelen.png",
     color: "from-black to-blue-300",
@@ -46,21 +46,21 @@ const services = [
     slug: "vve-schoonmaken"
   },
   {
-    title: "Professionele Gevel Reiniging",
+    title: "Gevel Reiniging",
     description: "Herstel de uitstraling van uw pand met onze veilige en grondige gevelreiniging.",
     img: "/icons/Gevelhoutwerkreinigen.png",
     color: "from-black to-blue-300",
     slug: "gevel-reiniging"
   },
   {
-    title: "Professionele Stoomreiniging",
+    title: "Stoomreiniging",
     description: "Dieptereiniging voor diverse oppervlakken, milieuvriendelijk en uiterst effectief.",
     img: "/icons/Professionele stoomreiniging.png",
     color: "from-black to-blue-300",
     slug: "stoomreiniging"
   },
   {
-    title: "Professionele Terras Reiniging",
+    title: "Terras Reiniging",
     description: "Uw terras weer als nieuw door het professioneel verwijderen van aanslag en vuil.",
     img: "/icons/Professionele terras reiniging..png",
     color: "from-black to-blue-300",

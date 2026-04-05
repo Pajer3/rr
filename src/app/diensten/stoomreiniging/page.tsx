@@ -12,7 +12,7 @@ const frequencyOptions = [
 ]
 
 export default function StoomreinigingPage() {
-  useVisitorTracking('Professionele Stoomreiniging', true) // Required for spam prevention
+  useVisitorTracking('Stoomreiniging', true) // Required for spam prevention
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-100 via-white to-yellow-100">
@@ -26,13 +26,13 @@ export default function StoomreinigingPage() {
         </div>
 
         <h1 className="text-5xl font-extrabold text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">
-          Professionele Stoomreiniging
+          Stoomreiniging
         </h1>
         
         <div className="max-w-4xl mx-auto">
           <Suspense fallback={<div className="text-center">Formulier laden...</div>}>
             <GenericServiceForm 
-              serviceName="Professionele Stoomreiniging"
+              serviceName="Stoomreiniging"
               frequencyOptions={frequencyOptions}
               quantityLabel="Aantal stuks of m²"
             />

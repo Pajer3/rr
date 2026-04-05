@@ -119,23 +119,24 @@ export default function Component() {
           
           {/* ── Achtergrond & Overlay Afbeelding ── */}
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-            {/* Mobiel: afbeelding bovenaan (55vh). Desktop: overlay aan de rechterkant (65% breed) */}
-            <div className="absolute top-0 left-0 right-0 h-[55vh] lg:h-full lg:w-[65%] lg:left-auto lg:right-0">
+            {/* Mobiel: 55vh hoog. Desktop: 100% breedte (landscape), waardoor de auto véél meer uitzoomt! */}
+            <div className="absolute top-0 left-0 right-0 h-[55vh] lg:h-full lg:w-full lg:left-0 lg:right-0">
               <Image
                 src="/images/car_brand.jpeg"
                 alt="Frisspits bedrijfsauto"
                 fill
-                className="object-cover object-[center_35%] lg:object-[right_center] opacity-80 lg:opacity-100 brightness-125 mix-blend-screen drop-shadow-2xl"
+                className="object-cover object-[center_35%] lg:object-[80%_center] opacity-80 lg:opacity-100 brightness-125 mix-blend-screen drop-shadow-2xl"
                 priority
               />
               {/* Fades voor een naadloze blend met de zwarte achtergrond */}
-              {/* Mobiel: Harde fade naar zwart aan de onderkant, maar minder donker zodat de stervormen etc. eruit poppen */}
+              {/* Mobiel: Harde fade naar zwart aan de onderkant */}
               <div className="absolute inset-0 lg:hidden bg-gradient-to-t from-black via-black/40 to-transparent" />
               <div className="absolute top-0 inset-x-0 h-32 lg:hidden bg-gradient-to-b from-black/80 to-transparent" />
               
-              {/* Desktop: Fade links (tekst) en rechts/border */}
-              <div className="absolute inset-0 hidden lg:block bg-gradient-to-l from-black via-transparent to-transparent" />
-              <div className="absolute inset-0 hidden lg:block w-32 bg-gradient-to-r from-black to-transparent" />
+              {/* Desktop: Enorme fade op de linkerhelft (65% breed) zodat de tekst leesbaar is, en kleine fades onder/boven voor de randen */}
+              <div className="absolute inset-y-0 left-0 hidden lg:block bg-gradient-to-r from-black via-black/90 to-transparent w-[65%]" />
+              <div className="absolute inset-x-0 top-0 hidden lg:block bg-gradient-to-b from-black via-transparent to-transparent h-48" />
+              <div className="absolute inset-x-0 bottom-0 hidden lg:block bg-gradient-to-t from-black via-transparent to-transparent h-48" />
               
               {/* Unieke mobiele touch: "laser" accentlijn op de afscheiding */}
               <div className="absolute bottom-16 inset-x-0 h-px lg:hidden bg-gradient-to-r from-transparent via-[#ADE6E6]/80 to-transparent shadow-[0_0_20px_1px_#ADE6E6]" />

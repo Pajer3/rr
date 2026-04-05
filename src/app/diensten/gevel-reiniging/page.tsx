@@ -12,7 +12,7 @@ const frequencyOptions = [
 ]
 
 export default function GevelReinigingPage() {
-  useVisitorTracking('Professionele Gevel Reiniging', true) // Required for spam prevention
+  useVisitorTracking('Gevel Reiniging', true) // Required for spam prevention
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-100 via-white to-yellow-100">
@@ -26,13 +26,13 @@ export default function GevelReinigingPage() {
         </div>
 
         <h1 className="text-5xl font-extrabold text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600">
-          Professionele Gevel Reiniging
+          Gevel Reiniging
         </h1>
         
         <div className="max-w-4xl mx-auto">
           <Suspense fallback={<div className="text-center">Formulier laden...</div>}>
             <GenericServiceForm 
-              serviceName="Professionele Gevel Reiniging"
+              serviceName="Gevel Reiniging"
               frequencyOptions={frequencyOptions}
               quantityLabel="Oppervlakte (m²)"
             />
