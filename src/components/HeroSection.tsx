@@ -16,6 +16,9 @@ const cleaningServices = [
   { src: '/icons/zonnepanelen.png', alt: 'Zonnepanelen Reinigen', slug: 'zonnepanelen-reinigen' },
   { src: '/icons/kantoor.png', alt: 'Kantoor Schoonmaak', slug: 'kantoor-schoonmaak' },
   { src: '/icons/vve.png', alt: 'VVE schoonmaken', slug: 'vve-schoonmaken' },
+  { src: '/icons/Gevelhoutwerkreinigen.png', alt: 'Professionele Gevel Reiniging', slug: 'gevel-reiniging', large: true },
+  { src: '/icons/Professionele stoomreiniging.png', alt: 'Professionele Stoomreiniging', slug: 'stoomreiniging', large: true },
+  { src: '/icons/Professionele terras reiniging..png', alt: 'Professionele Terras Reiniging', slug: 'terras-reiniging', large: true },
 ]
 
 export default function HeroSection() {
@@ -43,10 +46,12 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Professionele schoonmaakdiensten voor bedrijven, nieuwbouw en gerenoveerde woningen. Laat Frisspits de rommel opruimen terwijl u zich concentreert op wat belangrijk is.
+            Voor bedrijven, particulieren en opleveringen. Snel geregeld, duidelijke prijs en altijd strak schoon.
           </motion.p>
           <div className="flex flex-wrap justify-center gap-4 mt-8">
-            <Link href="/#contact" passHref legacyBehavior>
+            <Link href="/#contact">
+              {/* @next-codemod-error This Link previously used the now removed `legacyBehavior` prop, and has a child that might not be an anchor. The codemod bailed out of lifting the child props to the Link. Check that the child component does not render an anchor, and potentially move the props manually to Link. */
+              }
               <motion.a
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -56,7 +61,9 @@ export default function HeroSection() {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </motion.a>
             </Link>
-            <Link href="/diensten" passHref legacyBehavior>
+            <Link href="/diensten">
+              {/* @next-codemod-error This Link previously used the now removed `legacyBehavior` prop, and has a child that might not be an anchor. The codemod bailed out of lifting the child props to the Link. Check that the child component does not render an anchor, and potentially move the props manually to Link. */
+              }
               <motion.a
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -70,7 +77,9 @@ export default function HeroSection() {
         <div className="mt-12 flex justify-center">
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
             {cleaningServices.map((service, index) => (
-              <Link key={index} href={`/diensten/${service.slug}`} passHref legacyBehavior>
+              <Link key={index} href={`/diensten/${service.slug}`}>
+                {/* @next-codemod-error This Link previously used the now removed `legacyBehavior` prop, and has a child that might not be an anchor. The codemod bailed out of lifting the child props to the Link. Check that the child component does not render an anchor, and potentially move the props manually to Link. */
+                }
                 <motion.a
                   className="relative cursor-pointer"
                   whileHover={{ scale: 1.1 }}
@@ -80,9 +89,9 @@ export default function HeroSection() {
                     <Image
                       src={service.src}
                       alt={service.alt}
-                      width={64}
-                      height={64}
-                      className="w-16 h-16 object-contain p-3"
+                      width={service.large ? 80 : 64}
+                      height={service.large ? 80 : 64}
+                      className={service.large ? 'w-16 h-16 object-contain p-1' : 'w-16 h-16 object-contain p-3'}
                     />
                   </div>
                 </motion.a>
@@ -93,5 +102,5 @@ export default function HeroSection() {
       </div>
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/20 pointer-events-none" />
     </section>
-  )
+  );
 }

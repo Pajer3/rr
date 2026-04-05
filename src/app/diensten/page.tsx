@@ -4,29 +4,29 @@ import { CheckCircle } from 'lucide-react'
 
 const services = [
   {
-    title: "Professionele Opleveringsschoonmaak voor Nieuwe en Gerenoveerde Woningen",
-    description: "Bij ons kunt u rekenen op een grondige en professionele opleveringsschoonmaak, speciaal gericht op nieuw gebouwde of gerenoveerde woningen. Wij zorgen ervoor dat uw huis er perfect uitziet en klaar is voor bewoning. Onze ervaren schoonmaakploeg verwijdert alle bouwresten, stof en vlekken, zodat u kunt genieten van een smetteloos en comfortabel huis.",
+    title: "Grondige opleveringsschoonmaak voor nieuwbouw, renovatie en verhuizing",
+    description: "Bij Frisspits verzorgen wij opleveringsschoonmaak voor nieuwbouw, renovaties, verhuizingen én zwaar vervuilde woningen. Of het nu gaat om een nette oplevering of een woning die lange tijd niet is schoongemaakt, wij pakken het grondig aan. Wij verwijderen bouwresten, stof, vet, aanslag en hardnekkig vuil, zodat de woning weer fris, schoon en direct klaar voor gebruik is. Geen klus is ons te groot of te vies. Wij zorgen ervoor dat elke woning weer in topconditie wordt opgeleverd.",
     img: "/icons/huis.png",
     color: "from-black to-blue-300",
     slug: "huishoudelijk-schoonmaak"
   },
   {
-    title: "Glazenwasser",
-    description: "Kristalheldere ramen voor een stralend uitzicht en meer licht in uw ruimte.",
+    title: "Professionele Glazenwasser",
+    description: "Voor streeploos schone ramen en een representatieve uitstraling van uw woning of bedrijfspand. Wij werken snel, professioneel en met oog voor detail.",
     img: "/icons/raam.png",
     color: "from-black to-blue-300",
     slug: "glazenwasser"
   },
   {
-    title: "Dakgoten Reinigen/boeidelen Reinigen",
-    description: "Voorkom waterschade en behoud de integriteit van uw dak met onze grondige reinigingsservice.",
+    title: "Professioneel Dakgoten Legen",
+    description: "Voorkom verstoppingen en waterschade door uw dakgoten tijdig te laten legen. Wij werken met een professioneel dakgoot stofzuigsysteem. Veilig, snel en zonder rommel.",
     img: "/icons/dakgoten.png",
     color: "from-black to-blue-300",
     slug: "dakgoten-reinigen"
   },
   {
-    title: "Zonnepanelen Reinigen",
-    description: "Maximaliseer de efficiëntie van uw zonnepanelen met onze specialistische reinigingstechnieken.",
+    title: "Professionele zonnepanelen reiniging",
+    description: "Behaal maximaal rendement uit uw zonnepanelen met onze professionele en veilige reinigingsmethode.",
     img: "/icons/zonnepanelen.png",
     color: "from-black to-blue-300",
     slug: "zonnepanelen-reinigen"
@@ -44,6 +44,27 @@ const services = [
     img: "/icons/vve.png",
     color: "from-black to-blue-300",
     slug: "vve-schoonmaken"
+  },
+  {
+    title: "Professionele Gevel Reiniging",
+    description: "Herstel de uitstraling van uw pand met onze veilige en grondige gevelreiniging.",
+    img: "/icons/Gevelhoutwerkreinigen.png",
+    color: "from-black to-blue-300",
+    slug: "gevel-reiniging"
+  },
+  {
+    title: "Professionele Stoomreiniging",
+    description: "Dieptereiniging voor diverse oppervlakken, milieuvriendelijk en uiterst effectief.",
+    img: "/icons/Professionele stoomreiniging.png",
+    color: "from-black to-blue-300",
+    slug: "stoomreiniging"
+  },
+  {
+    title: "Professionele Terras Reiniging",
+    description: "Uw terras weer als nieuw door het professioneel verwijderen van aanslag en vuil.",
+    img: "/icons/Professionele terras reiniging..png",
+    color: "from-black to-blue-300",
+    slug: "terras-reiniging"
   },
 ]
 
@@ -78,7 +99,6 @@ export default function DienstenPage() {
           </Link>
         ))}
       </div>
-
       {/* <h2 className="text-3xl font-bold text-center mb-8">Onze Specialiteiten</h2>
       <div className="space-y-12 mb-16">
         {specialties.map((specialty, index) => (
@@ -101,7 +121,6 @@ export default function DienstenPage() {
           </div>
         ))}
       </div> */}
-
       <div className="bg-blue-50 p-8 rounded-lg">
         <h2 className="text-2xl font-bold text-center mb-6">Waarom Kiezen voor Frisspits?</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -120,18 +139,17 @@ export default function DienstenPage() {
           ))}
         </div>
       </div>
-
       <div className="text-center mt-12">
         <h2 className="text-2xl font-semibold mb-4">Klaar om uw ruimte te laten stralen?</h2>
         <p className="max-w-2xl mx-auto text-gray-600 mb-6">
           Of u nu een eenmalige dieptereiniging nodig heeft of regelmatige schoonmaakdiensten, wij staan voor u klaar met op maat gemaakte oplossingen.
         </p>
-        <Link href="/#contact" passHref>
+        <Link href="/#contact">
           <button className="bg-black text-white rounded-md px-6 py-2 hover:scale-105 transition duration-300">
             Vraag een Offerte Aan
           </button>
         </Link>
       </div>
     </div>
-  )
+  );
 }

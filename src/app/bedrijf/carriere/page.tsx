@@ -60,9 +60,7 @@ export default function CareerPage() {
         <ArrowLeft className="mr-2 h-5 w-5" />
         <span className="font-semibold">Terug naar Home</span>
       </Link>
-
       <h1 className="text-4xl font-bold text-center mb-12">Carrière bij Frisspits</h1>
-
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
         <div className="bg-gradient-to-r from-blue-400 to-blue-600 p-1 rounded-lg">
           <div className="bg-white p-6 rounded-lg h-full flex flex-col justify-between">
@@ -88,7 +86,6 @@ export default function CareerPage() {
           </div>
         </div>
       </div>
-
       <div className="relative mb-16">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-200 to-green-200 transform -skew-y-3"></div>
         <div className="relative bg-white p-8 shadow-xl rounded-lg z-10">
@@ -103,7 +100,6 @@ export default function CareerPage() {
           </div>
         </div>
       </div>
-
       <div className="bg-blue-50 p-8 rounded-lg mb-16">
         <h2 className="text-2xl font-bold text-center mb-6">Sollicitatieformulier</h2>
         {status === 'success' ? (
@@ -192,18 +188,17 @@ export default function CareerPage() {
           </form>
         )}
       </div>
-
       <div className="text-center">
         <h2 className="text-2xl font-semibold mb-4">Klaar om uw carrière een boost te geven?</h2>
         <p className="max-w-2xl mx-auto text-gray-600 mb-6">
           Of u nu een ervaren professional bent of net begint in de schoonmaakbranche, bij Frisspits vindt u uitdagende mogelijkheden om te groeien en uit te blinken.
         </p>
-        <Link href="/#contact" passHref>
+        <Link href="/#contact">
           <button className="bg-blue-600 text-white rounded-md px-6 py-2 hover:bg-blue-700 transition duration-300">
             Neem Contact Op
           </button>
         </Link>
       </div>
     </div>
-  )
+  );
 }

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Building facade -->
+  <rect x="10" y="18" width="44" height="36" rx="2" stroke="white" stroke-width="3" fill="none"/>
+  <!-- Roof / gable -->
+  <polyline points="7,20 32,6 57,20" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Windows -->
+  <rect x="18" y="26" width="8" height="8" rx="1" stroke="white" stroke-width="2" fill="none"/>
+  <rect x="38" y="26" width="8" height="8" rx="1" stroke="white" stroke-width="2" fill="none"/>
+  <!-- Door -->
+  <rect x="26" y="38" width="12" height="16" rx="1" stroke="white" stroke-width="2" fill="none"/>
+  <!-- Spray / water drops to left -->
+  <circle cx="5" cy="30" r="1.5" fill="#ADE6E6"/>
+  <circle cx="3" cy="36" r="1.5" fill="#ADE6E6"/>
+  <circle cx="6" cy="42" r="1.5" fill="#ADE6E6"/>
+</svg>

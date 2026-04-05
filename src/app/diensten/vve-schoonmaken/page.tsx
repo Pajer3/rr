@@ -27,7 +27,7 @@ export default function VVESchoonmakenPage() {
     <div className="min-h-screen bg-gradient-to-br from-purple-100 via-white to-pink-100">
       <div className="container mx-auto px-4 py-12">
         <div className="mb-8">
-          <Link href="/diensten" passHref>
+          <Link href="/diensten">
             <button className="bg-white text-purple-600 rounded-full px-6 py-2 font-semibold hover:bg-purple-50 transition duration-300 shadow-md hover:shadow-lg">
               ← Terug naar Diensten
             </button>
@@ -60,7 +60,7 @@ export default function VVESchoonmakenPage() {
           <p className="text-xl mb-6">
             Zorg voor een schone en aangename leefomgeving voor alle bewoners. Neem vandaag nog contact met ons op voor een vrijblijvende offerte.
           </p>
-          <Link href="/#contact" passHref>
+          <Link href="/#contact">
             <button className="bg-white text-white bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 rounded-full px-8 py-3 font-semibold hover:bg-gray-100 transition duration-300 shadow-lg hover:shadow-xl">
               Contact Opnemen
             </button>
@@ -68,5 +68,5 @@ export default function VVESchoonmakenPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

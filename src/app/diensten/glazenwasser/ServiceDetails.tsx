@@ -48,22 +48,6 @@ export default function ServiceDetails() {
         </ul>
       )
     },
-    {
-      title: 'Ons Glazenwassersproces',
-      id: 'process',
-      content: (
-        <ol className="list-decimal pl-5 space-y-2">
-          <li>Initiële inspectie en inventarisatie van het glaswerk</li>
-          <li>Ontwikkeling van een op maat gemaakt reinigingsplan</li>
-          <li>Selectie van de juiste reinigingsmethode en -middelen</li>
-          <li>Veilige uitvoering van de glazenwasserswerkzaamheden</li>
-          <li>Reiniging van kozijnen en vensterbanken</li>
-          <li>Controle op beschadigingen of gebreken aan het glaswerk</li>
-          <li>Finale inspectie en eventuele nabehandeling</li>
-          <li>Regelmatige evaluatie en optimalisatie van de dienstverlening</li>
-        </ol>
-      )
-    }
   ]
 
   return (

@@ -10,18 +10,15 @@ export default function ServiceDetails() {
 
   const sections = [
     {
-      title: 'Onze Dakgoten Reinigingsdiensten',
+      title: 'Onze Dakgoten Diensten',
       id: 'services',
       content: (
         <ul className="list-disc pl-5 space-y-2">
-          <li>Verwijderen van bladeren, takjes en ander vuil uit dakgoten</li>
-          <li>Reinigen van regenpijpen en afvoeren</li>
-          <li>Controle op lekkages en beschadigingen</li>
-          <li>Kleine reparaties aan dakgoten en bevestigingen</li>
-          <li>Plaatsen van bladvangers of roosters</li>
-          <li>Behandeling tegen mosgroei en algen</li>
-          <li>Inspectie van dakbedekking rondom de goten</li>
-          <li>Advies over preventief onderhoud</li>
+          <li>Professioneel legen van dakgoten met dakgoot stofzuiger</li>
+          <li>Verwijderen van bladeren, slib en vuil</li>
+          <li>Controleren van afvoer en doorstroming</li>
+          <li>Signaleren van eventuele verstoppingen</li>
+          <li>Netjes en schoon achterlaten van de werkplek</li>
         </ul>
       )
     },
@@ -49,18 +46,16 @@ export default function ServiceDetails() {
       )
     },
     {
-      title: 'Ons Dakgoten Reinigingsproces',
+      title: 'Ons Werkproces',
       id: 'process',
       content: (
         <ol className="list-decimal pl-5 space-y-2">
-          <li>Visuele inspectie van dakgoten en afvoersysteem</li>
-          <li>Veilige opstelling van ladders of hoogwerkers</li>
-          <li>Handmatig verwijderen van grof vuil uit de goten</li>
-          <li>Spoelen van dakgoten met water onder lage druk</li>
-          <li>Controle en reiniging van regenpijpen en afvoeren</li>
-          <li>Kleine reparaties en aanpassingen indien nodig</li>
-          <li>Finale controle op doorstroming en lekkages</li>
-          <li>Opruimen en schoonmaken van de werkplek</li>
+          <li>Korte controle van de dakgoot en bereikbaarheid</li>
+          <li>Opstellen van het dakgoot stofzuigsysteem</li>
+          <li>Leegzuigen van de dakgoot vanaf de grond (veilig en zonder rommel)</li>
+          <li>Controleren of de afvoer goed doorloopt</li>
+          <li>Indien nodig verwijderen van laatste restvuil</li>
+          <li>Opruimen en netjes achterlaten van de werkplek</li>
         </ol>
       )
     }

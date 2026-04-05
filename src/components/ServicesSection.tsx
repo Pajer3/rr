@@ -69,7 +69,9 @@ export default function ServicesSection() {
           ))}
         </div>
         <div className="text-center">
-          <Link href="/diensten" passHref legacyBehavior>
+          <Link href="/diensten">
+            {/* @next-codemod-error This Link previously used the now removed `legacyBehavior` prop, and has a child that might not be an anchor. The codemod bailed out of lifting the child props to the Link. Check that the child component does not render an anchor, and potentially move the props manually to Link. */
+            }
             <motion.a
               className="inline-flex items-center justify-center rounded-full text-lg font-medium bg-black text-white hover:bg-black-700 px-8 py-3 shadow-lg hover:shadow-xl transition-all duration-300"
               whileHover={{ scale: 1.05 }}
@@ -82,5 +84,5 @@ export default function ServicesSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

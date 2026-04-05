@@ -5,7 +5,7 @@ export default function PrivacybeleidPage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       <div className="container mx-auto px-4 py-12 max-w-4xl">
         <div className="mb-8">
-          <Link href="/" passHref>
+          <Link href="/">
             <button className="bg-white text-blue-600 rounded-full px-6 py-2 font-semibold hover:bg-blue-50 transition duration-300 shadow-md hover:shadow-lg">
               ← Terug naar Home
             </button>
@@ -225,5 +225,5 @@ export default function PrivacybeleidPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
