@@ -46,7 +46,7 @@ const services = [
     slug: "vve-schoonmaken"
   },
   {
-    title: "Gevel Reiniging",
+    title: "Gevel/houtwerk reinigen",
     description: "Herstel de uitstraling van uw pand met onze veilige en grondige gevelreiniging.",
     img: "/icons/Gevelhoutwerkreinigen.png",
     color: "from-black to-blue-300",
