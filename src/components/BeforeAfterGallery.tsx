@@ -8,25 +8,25 @@ const pairs = [
   {
     before: '/images/before/first_upscayl_2x_upscayl-standard-4x.png',
     after:  '/images/after/firstpair_upscayl_2x_upscayl-standard-4x.png',
-    label:  'Woonkamer',
+    label:  'Dakgoten',
     num:    '01',
   },
   {
     before: '/images/before/second_upscayl_2x_upscayl-standard-4x.png',
     after:  '/images/after/secondpair_upscayl_2x_upscayl-standard-4x.png',
-    label:  'Badkamer',
+    label:  'Terras',
     num:    '02',
   },
   {
     before: '/images/before/third_upscayl_2x_upscayl-standard-4x.png',
     after:  '/images/after/thirdpair_upscayl_2x_upscayl-standard-4x.png',
-    label:  'Keuken',
+    label:  'Toilet',
     num:    '03',
   },
   {
     before: '/images/before/forth_upscayl_2x_upscayl-standard-4x.png',
     after:  '/images/after/forthpair_upscayl_2x_upscayl-standard-4x.png',
-    label:  'Kantoor',
+    label:  'Glazen Overkapping',
     num:    '04',
   },
 ]
