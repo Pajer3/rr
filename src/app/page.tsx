@@ -115,96 +115,79 @@ export default function Component() {
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1">
-        <section id="cta" className="w-full bg-black text-white pt-24 md:pt-28">
-          <div className="container px-4 md:px-6 mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start min-h-[80vh]">
+        <section id="cta" className="relative w-full bg-black text-white min-h-[90vh] lg:min-h-screen flex items-center overflow-hidden pt-12 md:pt-0">
+          
+          {/* ── Achtergrond & Overlay Afbeelding ── */}
+          <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            {/* Mobiel: afbeelding bovenaan (55vh). Desktop: overlay aan de rechterkant (65% breed) */}
+            <div className="absolute top-0 left-0 right-0 h-[55vh] lg:h-full lg:w-[65%] lg:left-auto lg:right-0">
+              <Image
+                src="/images/car_brand.jpeg"
+                alt="Frisspits bedrijfsauto"
+                fill
+                className="object-cover object-[center_35%] lg:object-[right_center] opacity-50 lg:opacity-[0.85] mix-blend-lighten"
+                priority
+              />
+              {/* Fades voor een naadloze blend met de zwarte achtergrond */}
+              {/* Mobiel: Harde fade naar zwart aan de onderkant */}
+              <div className="absolute inset-0 lg:hidden bg-gradient-to-t from-black via-black/60 to-transparent" />
+              <div className="absolute top-0 inset-x-0 h-32 lg:hidden bg-gradient-to-b from-black to-transparent" />
+              
+              {/* Desktop: Fade links (tekst) en rechts/border */}
+              <div className="absolute inset-0 hidden lg:block bg-gradient-to-l from-black via-transparent to-transparent" />
+              <div className="absolute inset-0 hidden lg:block w-32 bg-gradient-to-r from-black to-transparent" />
+              
+              {/* Unieke mobiele touch: "laser" accentlijn op de afscheiding */}
+              <div className="absolute bottom-16 inset-x-0 h-px lg:hidden bg-gradient-to-r from-transparent via-[#ADE6E6]/80 to-transparent shadow-[0_0_20px_1px_#ADE6E6]" />
+            </div>
+          </div>
 
-              {/* ── Links: tekst ── */}
-              <div className="flex flex-col justify-start pt-8 lg:pt-12 pb-12 pr-0 lg:pr-8">
+          <div className="container relative z-20 px-4 md:px-8 mx-auto mt-[30vh] pb-16 lg:mt-0 lg:pb-0">
+            <div className="max-w-xl lg:max-w-2xl relative">
+              
+              {/* Glassmorphism Card op Mobiel / Naadloos text-block op Desktop */}
+              <div className="bg-black/60 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none p-7 sm:p-10 lg:p-0 rounded-[2rem] border border-white/10 lg:border-none shadow-[0_30px_60px_rgba(0,0,0,0.6)] lg:shadow-none">
+                
                 {/* Eyebrow */}
-                <div className="inline-flex items-center gap-2 mb-6">
-                  <span className="w-8 h-[2px] bg-[#ADE6E6]" />
-                  <span className="text-[#ADE6E6] text-xs font-semibold uppercase tracking-[0.2em]">Frisspits</span>
+                <div className="inline-flex items-center gap-3 mb-6">
+                  <span className="w-10 h-[2px] bg-[#ADE6E6]" />
+                  <span className="text-[#ADE6E6] text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] drop-shadow-md">Frisspits</span>
                 </div>
 
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.05] mb-6">
+                <h2 className="text-[2.5rem] leading-[1.1] sm:text-6xl lg:text-[4.5rem] font-extrabold tracking-tight text-white mb-6">
                   Glasbewassing<br />& Schoonmaak<br />
-                  <span className="text-[#ADE6E6]">zonder Gedoe</span>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ADE6E6] to-white">
+                    Zonder Gedoe
+                  </span>
                 </h2>
 
-                <p className="text-white/70 text-lg md:text-xl mb-10 max-w-lg leading-relaxed">
-                  Wij zijn Frisspits. Een servicegerichte schoonmaakpartner met een professionele en grondige aanpak. Betrouwbaar & Snel.
+                <p className="text-white/80 text-lg md:text-2xl mb-10 max-w-lg leading-relaxed font-light">
+                  Wij zijn Frisspits. Een servicegerichte partner met een professionele & grondige aanpak. Betrouwbaar & Snel.
                 </p>
 
-                <div className="flex flex-wrap gap-4">
+                <div className="flex flex-col sm:flex-row gap-4">
                   <motion.button
-                    className="inline-flex items-center gap-2 rounded-full bg-[#ADE6E6] text-black font-bold text-base px-8 py-3.5 hover:bg-white transition-colors duration-200 shadow-lg"
-                    whileHover={{ scale: 1.04 }}
-                    whileTap={{ scale: 0.96 }}
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#ADE6E6] text-black font-bold text-base px-8 py-4 hover:bg-white hover:shadow-[0_0_25px_rgba(173,230,230,0.6)] transition-all duration-300 shadow-xl"
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
                     onClick={() => {
                       const contactForm = document.getElementById('contact')
                       if (contactForm) contactForm.scrollIntoView({ behavior: 'smooth' })
                     }}
                   >
-                    Gratis Offerte Aanvragen
+                    Offerte Aanvragen
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
                   </motion.button>
                   <motion.a
                     href="/diensten"
-                    className="inline-flex items-center gap-2 rounded-full border border-white/25 text-white font-medium text-base px-8 py-3.5 hover:border-white/60 hover:bg-white/5 transition-all duration-200"
-                    whileHover={{ scale: 1.04 }}
-                    whileTap={{ scale: 0.96 }}
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-[#ADE6E6]/40 text-white font-medium text-base px-8 py-4 hover:border-[#ADE6E6] hover:bg-[#ADE6E6]/10 transition-all duration-300"
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
                   >
                     Onze Diensten
                   </motion.a>
-                </div>
-
-                {/* Stats strip */}
-                <div className="flex gap-8 mt-12 pt-8 border-t border-white/10">
-                  {[
-                    { num: '100%', label: 'Tevredenheidsgarantie' },
-                    { num: '24u', label: 'Responstijd' },
-                    { num: '5★', label: 'Klantbeoordeling' },
-                  ].map((s) => (
-                    <div key={s.label}>
-                      <div className="text-2xl font-bold text-white">{s.num}</div>
-                      <div className="text-xs text-white/50 mt-0.5">{s.label}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* ── Rechts: auto foto ── */}
-              <div className="flex items-start justify-center lg:justify-end pt-8 lg:pt-12 pb-0">
-                <div className="relative w-full">
-                  {/* Ambient teal glow */}
-                  <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-3/4 h-20 bg-[#ADE6E6]/25 blur-3xl rounded-full pointer-events-none z-0" />
-
-                  {/* Image frame card */}
-                  <div className="relative rounded-2xl border border-[#ADE6E6]/30 bg-gradient-to-b from-white/5 to-transparent p-2 pb-0 shadow-[0_0_60px_rgba(173,230,230,0.08)] overflow-hidden">
-                    {/* Top accent line */}
-                    <div className="absolute top-0 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-[#ADE6E6]/60 to-transparent" />
-
-                    <Image
-                      src="/images/car_brand.jpeg"
-                      alt="Frisspits bedrijfsauto"
-                      width={780}
-                      height={520}
-                      className="w-full h-auto object-contain rounded-xl"
-                      priority
-                    />
-
-                    {/* Bottom fade into black */}
-                    <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-black to-transparent rounded-b-xl" />
-
-                    {/* Corner badge */}
-                    <div className="absolute bottom-4 right-4 flex items-center gap-1.5 bg-black/70 backdrop-blur-sm border border-white/10 rounded-full px-3 py-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#ADE6E6] animate-pulse" />
-                      <span className="text-white/80 text-[11px] font-medium">Frisspits</span>
-                    </div>
-                  </div>
                 </div>
               </div>
 
