@@ -20,7 +20,7 @@ const frequencyOptions = [
 ]
 
 export default function HuishoudelijkSchoonmaakPage() {
-  useVisitorTracking('Huishoudelijk Schoonmaak', true) // Required for spam prevention
+  useVisitorTracking('Oplevering schoonmaak', true) // Required for spam prevention
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-green-100">
@@ -40,7 +40,7 @@ export default function HuishoudelijkSchoonmaakPage() {
         <div className="max-w-4xl mx-auto">
           <Suspense fallback={<div className="text-center">Formulier laden...</div>}>
             <GenericServiceForm
-              serviceName="Huishoudelijke Schoonmaak"
+              serviceName="Oplevering schoonmaak"
             //   options={cleaningOptions}
               frequencyOptions={frequencyOptions}
               quantityLabel="Oppervlakte in m²"

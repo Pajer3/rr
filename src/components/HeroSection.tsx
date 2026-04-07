@@ -10,7 +10,7 @@ import { ArrowRight } from 'lucide-react';
 import Spline from '@splinetool/react-spline';
 
 const cleaningServices = [
-  { src: '/icons/huis.png', alt: 'Huishoudelijk Schoonmaak', slug: 'huishoudelijk-schoonmaak' },
+  { src: '/icons/huis.png', alt: 'Oplevering schoonmaak', slug: 'huishoudelijk-schoonmaak' },
   { src: '/icons/raam.png', alt: 'Glazenwasser', slug: 'glazenwasser' },
   { src: '/icons/dakgoten.png', alt: 'Dakgoten Reinigen', slug: 'dakgoten-reinigen' },
   { src: '/icons/zonnepanelen.png', alt: 'Zonnepanelen Reinigen', slug: 'zonnepanelen-reinigen' },
