@@ -11,6 +11,7 @@ import React, { useEffect, useState } from 'react'
 import CallButton from '@/components/CallButton'
 import HeroSection from '@/components/HeroSection'
 import BeforeAfterGallery from '@/components/BeforeAfterGallery'
+import BrandSection from '@/components/BrandSection'
 
 interface ImageData {
   src: string;
@@ -201,6 +202,7 @@ export default function Component() {
         <HeroSection />
         {/* <ServicesSection /> */}
         <BeforeAfterGallery />
+        <BrandSection />
         {/* <CTASection /> */}
 <section id="why-choose-us" className="w-full py-12 md:py-24 lg:py-32 bg-background flex items-center justify-center min-h-screen">
       <div className="container px-4 md:px-6 mx-auto">
