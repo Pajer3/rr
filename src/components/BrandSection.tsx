@@ -30,7 +30,7 @@ export default function BrandSection() {
   return (
     <section
       id="samenwerkingen"
-      className="relative w-full py-20 md:py-28 bg-white overflow-hidden"
+      className="relative w-full py-20 md:py-28 bg-background overflow-hidden"
     >
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#ADE6E6]/60 to-transparent" />
       <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[60rem] h-[60rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(173,230,230,0.14),transparent_60%)] pointer-events-none" />
@@ -45,7 +45,7 @@ export default function BrandSection() {
         >
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#ADE6E6]/20 text-slate-700 text-xs md:text-sm font-semibold tracking-wider uppercase mb-5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#2aa39e] animate-pulse" />
-            Onze samenwerkingen
+            Onze klanten
           </span>
           <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-4">
             Vertrouwd door sterke{' '}
@@ -54,7 +54,7 @@ export default function BrandSection() {
             </span>
           </h2>
           <p className="text-slate-600 text-base md:text-lg leading-relaxed">
-            Van lokale retailers tot landelijke ketens — we werken samen met partners die net als wij geloven in kwaliteit, betrouwbaarheid en vakmanschap.
+            Van winkels tot kantoren, klanten kiezen Frisspits voor kwaliteit, snelheid en duidelijke afspraken.
           </p>
         </motion.div>
 
@@ -62,8 +62,8 @@ export default function BrandSection() {
 
       {/* Marquee — breekt uit de container voor full-width scroll */}
       <div className="relative mt-2">
-        <div className="absolute inset-y-0 left-0 w-20 md:w-40 bg-gradient-to-r from-white via-white/90 to-transparent z-10 pointer-events-none" />
-        <div className="absolute inset-y-0 right-0 w-20 md:w-40 bg-gradient-to-l from-white via-white/90 to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 left-0 w-20 md:w-40 bg-gradient-to-r from-background via-background/90 to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-20 md:w-40 bg-gradient-to-l from-background via-background/90 to-transparent z-10 pointer-events-none" />
 
         <div className="marquee flex gap-6 md:gap-10 py-4">
           {loop.map((brand, i) => (
@@ -83,26 +83,6 @@ export default function BrandSection() {
             </div>
           ))}
         </div>
-      </div>
-
-      <div className="container relative px-4 md:px-6 mx-auto">
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-          className="text-center text-sm md:text-base text-slate-500 mt-12 md:mt-16"
-        >
-          Ook samenwerken?{' '}
-          <a
-            href="#contact"
-            className="font-semibold text-slate-900 underline-offset-4 hover:underline hover:text-[#2aa39e] transition-colors"
-          >
-            Neem contact op
-          </a>
-          .
-        </motion.p>
       </div>
 
       <style jsx>{`
