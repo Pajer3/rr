@@ -51,7 +51,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center">
-          <p className="text-xs text-gray-500 mb-4 sm:mb-0">©Frisspits. Alle rechten voorbehouden.</p>
+          <p className="text-xs text-gray-500 mb-4 sm:mb-0">©Frisspits. Alle rechten voorbehouden. Site by Syntarie.</p>
           <nav className="flex gap-4">
             <Link className="text-xs hover:underline underline-offset-4" href="/bedrijf/servicevoorwaarden">
               Servicevoorwaarden
