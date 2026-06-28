@@ -8,6 +8,8 @@ import type { Company, Customer, InvoiceItem, InvoiceLog } from '@/lib/factuur/t
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+// PDF maken (Chromium opstarten) mag wat langer duren op de server.
+export const maxDuration = 60;
 
 function formatToday() {
   const d = new Date();
