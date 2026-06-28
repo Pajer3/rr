@@ -10,6 +10,10 @@ const nextConfig = {
   transpilePackages: ['lucide-react'],
   // niet meebundelen (gebruikt door het factuursysteem voor PDF's op de server)
   serverExternalPackages: ['puppeteer-core', '@sparticuz/chromium'],
+  // De Chromium-binaries meekopiëren naar de factuur-functie (anders niet gevonden).
+  outputFileTracingIncludes: {
+    '/api/factuur/invoice': ['./node_modules/@sparticuz/chromium/bin/**'],
+  },
   images: {
     domains: ['images.pexels.com', 'images.unsplash.com'],
   },
