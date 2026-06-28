@@ -8,6 +8,8 @@ const nextConfig = {
     NEXT_PUBLIC_EMAILJS_USER_ID: process.env.NEXT_PUBLIC_EMAILJS_USER_ID,
   },
   transpilePackages: ['lucide-react'],
+  // niet meebundelen (gebruikt door het factuursysteem voor PDF's op de server)
+  serverExternalPackages: ['puppeteer-core', '@sparticuz/chromium'],
   images: {
     domains: ['images.pexels.com', 'images.unsplash.com'],
   },
