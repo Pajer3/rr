@@ -19,20 +19,19 @@ export async function POST(req: Request) {
 
   for (const it of items) {
     if (!it || !it.address) continue;
-    const idx = lijst.findIndex((x) =>
-      x.id === it.id || (it.nr != null && x.nr != null && x.nr === it.nr),
-    );
+    const idx = lijst.findIndex((x) => x.id === it.id);
     if (idx >= 0) {
       const oud = lijst[idx];
       const history = Array.from(new Set([...(oud.history || []), ...(it.history || [])])).sort();
       lijst[idx] = {
         ...oud,
-        nr: it.nr ?? oud.nr,
+        phone: it.phone ?? oud.phone,
         address: it.address || oud.address,
         every: it.every ?? oud.every,
         unit: it.unit || oud.unit,
         lastDone: [oud.lastDone, it.lastDone].filter(Boolean).sort().pop() || null,
         history,
+        note: it.note ?? oud.note,
       };
       bijgewerkt++;
     } else {

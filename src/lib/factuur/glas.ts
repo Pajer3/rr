@@ -4,13 +4,13 @@
 
 export interface GlasAdres {
   id: string;
-  nr: number | null;          // het eigen nummer uit de notitie
+  phone: string | null;       // telefoonnummer uit de notitie
   address: string;
   every: number | null;       // om de hoeveel (bijv. 2)
   unit: 'weken' | 'maanden';  // ...weken of maanden
   lastDone: string | null;    // 'YYYY-MM-DD'
   history: string[];          // eerdere uitvoerdatums
-  note?: string;
+  note?: string;              // bijzonderheden (bijv. "op vakantie", "€32")
 }
 
 const MONTHS: Record<string, number> = {
@@ -77,10 +77,6 @@ export function weekNummer(d: Date): number {
 }
 
 // In welke groep valt dit adres, gerekend vanaf vandaag?
-//  'nu'       = deze week aan de beurt of te laat
-//  'volgende' = volgende week
-//  'later'    = daarna
-//  'onbekend' = frequentie of laatste datum ontbreekt
 export function groep(a: GlasAdres, vandaag: Date): 'nu' | 'volgende' | 'later' | 'onbekend' {
   const next = volgendeKeer(a);
   if (!next) return 'onbekend';
@@ -95,6 +91,7 @@ export function groep(a: GlasAdres, vandaag: Date): 'nu' | 'volgende' | 'later' 
 
 export function frequentieTekst(a: GlasAdres): string {
   if (!a.every) return 'geen frequentie';
+  if (a.unit === 'maanden' && a.every === 12) return '1x per jaar';
   if (a.every === 1) return a.unit === 'weken' ? '1x per week' : '1x per maand';
   return `1x per ${a.every} ${a.unit}`;
 }
@@ -105,74 +102,206 @@ export interface GlasParseResult {
   skipped: string[];
 }
 
-// Leest regels zoals:
-//   "7 Nijverheidsweg Noord 130-13 Amersfoort 1x 2 maanden 13 mei"
-//   "12 Vleessteeg 1 Putten 1x per maand 4 april 2 juni"
-// nummer + adres + frequentie + (laatste) uitvoerdatum.
+// Onzichtbare tekens (uit WhatsApp/iPhone-notities) opruimen.
+function schoon(s: string): string {
+  return s
+    .replace(/[​-‏‪-‮⁦-⁩﻿]/g, '')
+    .replace(/ /g, ' ');
+}
+
+// Telefoonnummer zoals 0612345678, +31 6 12345678, +31612345678
+const PHONE_RE = /(?:\+31|0031)[\s\-]?6[\s\-]?(?:\d[\s\-]?){8}|06[\s\-]?(?:\d[\s\-]?){8}/;
+
+// Frequentie zoals "1x 2 maanden", "1 keer per maand", "elke 6 weken",
+// "1 x per kwartaal", "1 keer per jaar", "1x3 maanden"
+const FREQ_RE = /(?:(?<!\d)(\d{1,2})\s*(?:x|keer)\s*)?(?:per\s+|elke\s+|om\s+de\s+)?(\d{1,2})?\s*(weken|week|maanden|maand|kwartaal|jaar)(?![a-z])/gi;
+
+// Datum zoals "13 mei", "10nov", "13nov 2025", "2 april 2026" (ook na een €-typfout)
+const DATE_SRC = '(?:^|[\\s,;:.€(])(\\d{1,2})\\s*(' + MONTH_RE + ')(?![a-z])(?:\\s*(\\d{4}))?';
+
+function vindDatums(tekst: string, vandaag: Date): Date[] {
+  const re = new RegExp(DATE_SRC, 'gi');
+  const uit: Date[] = [];
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(tekst)) !== null) {
+    const dag = parseInt(m[1], 10);
+    const maand = MONTHS[m[2].toLowerCase()];
+    if (!maand || dag < 1 || dag > 31) continue;
+    const jaar = m[3] ? parseInt(m[3], 10) : vandaag.getFullYear();
+    let d = new Date(jaar, maand - 1, dag);
+    // een uitvoerdatum ligt niet (ver) in de toekomst: dan was het vorig jaar
+    if (!m[3] && d.getTime() > vandaag.getTime() + 7 * 86400000) {
+      d = new Date(jaar - 1, maand - 1, dag);
+    }
+    uit.push(d);
+  }
+  return uit;
+}
+
+function schuif(vanaf: Date, every: number, unit: 'weken' | 'maanden', richting: -1 | 1): Date {
+  const d = new Date(vanaf.getFullYear(), vanaf.getMonth(), vanaf.getDate());
+  if (unit === 'weken') d.setDate(d.getDate() + richting * every * 7);
+  else d.setMonth(d.getMonth() + richting * every);
+  return d;
+}
+
+function opruimen(s: string): string {
+  return s
+    .replace(new RegExp(DATE_SRC, 'gi'), ' ')
+    .replace(/§[dv]w§/g, ' ')
+    .replace(/\s+/g, ' ')
+    .replace(/^[\s,;:.\-–—€?]+|[\s,;:.\-–—€?]+$/g, '')
+    .trim();
+}
+
+interface FreqMatch { index: number; end: number; every: number; unit: 'weken' | 'maanden' }
+
+function vindFrequenties(tekst: string): FreqMatch[] {
+  const uit: FreqMatch[] = [];
+  FREQ_RE.lastIndex = 0;
+  let m: RegExpExecArray | null;
+  while ((m = FREQ_RE.exec(tekst)) !== null) {
+    let every = m[2] ? parseInt(m[2], 10) : 1;
+    let unit: 'weken' | 'maanden' = 'maanden';
+    const woord = m[3].toLowerCase();
+    // let op: "weken" bevat het woord "week" niet (w-e-k-e-n), dus op "wek" toetsen
+    if (woord.startsWith('wek') || woord === 'week') unit = 'weken';
+    else if (woord === 'kwartaal') every = every * 3;
+    else if (woord === 'jaar') every = every * 12;
+    uit.push({ index: m.index, end: m.index + m[0].length, every: Math.max(1, every), unit });
+  }
+  return uit;
+}
+
+// Waar knippen we tussen twee klussen? Bij voorkeur op een nieuwe regel,
+// anders na een punt, anders na de laatste datum.
+function knippunt(tussen: string): number {
+  const nl = tussen.lastIndexOf('\n');
+  if (nl >= 0) return nl + 1;
+  const punt = tussen.lastIndexOf('.');
+  if (punt >= 0) return punt + 1;
+  const re = new RegExp(DATE_SRC, 'gi');
+  let laatste = -1;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(tussen)) !== null) laatste = m.index + m[0].length;
+  if (laatste >= 0) return laatste;
+  return tussen.length;
+}
+
+// Leest een notitie zoals Joshua die bijhoudt: per adres (gescheiden door lege
+// regels) een telefoonnummer, adres, frequentie en datum of "deze week".
+// Extra klussen (zonnepanelen, dakgoot, ...) met een eigen frequentie worden
+// aparte regels in de lijst.
 export function parseGlasNotes(text: string, vandaag: Date): GlasParseResult {
   const items: GlasAdres[] = [];
   const skipped: string[] = [];
 
-  for (const raw of String(text || '').split(/\r?\n/)) {
+  // 1) regels in blokken verdelen: leeg = nieuw blok; telefoonnummer = nieuw blok
+  const blokken: string[][] = [];
+  let huidig: string[] = [];
+  for (const raw of schoon(String(text || '')).split(/\r?\n/)) {
     const line = raw.trim();
-    if (!line) continue;
-    if (/^\d+\s*#$/.test(line)) { skipped.push(line); continue; }
+    if (!line) { if (huidig.length) { blokken.push(huidig); huidig = []; } continue; }
+    if (PHONE_RE.test(line) && huidig.length) { blokken.push(huidig); huidig = []; }
+    huidig.push(line);
+  }
+  if (huidig.length) blokken.push(huidig);
 
-    // eigen nummer aan het begin (optioneel)
-    let rest = line;
-    let nr: number | null = null;
-    const nrM = rest.match(/^\s*(\d{1,4})\s*[-.:]?\s+(?=\D)/);
-    if (nrM) { nr = parseInt(nrM[1], 10); rest = rest.slice(nrM[0].length); }
+  const voegToe = (item: GlasAdres) => {
+    const bestaand = items.find((x) => x.id === item.id);
+    if (bestaand) {
+      bestaand.history = Array.from(new Set([...bestaand.history, ...item.history])).sort();
+      bestaand.lastDone = [bestaand.lastDone, item.lastDone].filter(Boolean).sort().pop() || null;
+      if (item.every) { bestaand.every = item.every; bestaand.unit = item.unit; }
+    } else {
+      items.push(item);
+    }
+  };
 
-    // frequentie: "1x 2 maanden", "1x per maand", "elke 6 weken", "om de 2 maanden"
-    const freqRe = /(?:(\d+)\s*x\s*)?(?:per\s+|elke\s+|om\s+de\s+)?(\d+)?\s*(weken|week|maanden|maand)(?![a-z])/i;
-    const freqM = rest.match(freqRe);
-    let every: number | null = null;
-    let unit: 'weken' | 'maanden' = 'maanden';
-    if (freqM) {
-      every = freqM[2] ? parseInt(freqM[2], 10) : 1;
-      // let op: "weken" bevat het woord "week" niet (w-e-k-e-n), dus op "wek" toetsen
-      unit = /^wek|^week/i.test(freqM[3]) ? 'weken' : 'maanden';
+  for (const blok of blokken) {
+    let tekst = blok.join('\n');
+
+    // telefoonnummer eruit halen
+    let phone: string | null = null;
+    const pm = tekst.match(PHONE_RE);
+    if (pm) {
+      phone = pm[0].replace(/[\s\-]/g, '');
+      tekst = tekst.replace(pm[0], ' ');
     }
 
-    // datums: "13 mei", "4 april 2026" (kan er meerdere hebben; de laatste telt)
-    const dateRe = new RegExp('(?:^|[\\s,;])(\\d{1,2})\\s+(' + MONTH_RE + ')(?![a-z])(?:\\s+(\\d{4}))?', 'gi');
-    const dates: Date[] = [];
-    let dm: RegExpExecArray | null;
-    while ((dm = dateRe.exec(rest)) !== null) {
-      const dag = parseInt(dm[1], 10);
-      const maand = MONTHS[dm[2].toLowerCase()];
-      if (!maand || dag < 1 || dag > 31) continue;
-      let jaar = dm[3] ? parseInt(dm[3], 10) : vandaag.getFullYear();
-      let d = new Date(jaar, maand - 1, dag);
-      // een uitvoerdatum ligt niet in de toekomst: dan was het vorig jaar
-      if (!dm[3] && d.getTime() > vandaag.getTime() + 7 * 86400000) {
-        d = new Date(jaar - 1, maand - 1, dag);
+    // "deze week" / "volgende week" markeren (anders leest de frequentie-lezer
+    // het woord "week" verkeerd)
+    tekst = tekst.replace(/deze\s+week/gi, '§dw§').replace(/volgende\s+week/gi, '§vw§');
+
+    const freqs = vindFrequenties(tekst);
+
+    // in stukken knippen: elk stuk is één klus met eigen frequentie
+    const stukken: { van: number; tot: number; freq: FreqMatch | null }[] = [];
+    if (freqs.length <= 1) {
+      stukken.push({ van: 0, tot: tekst.length, freq: freqs[0] || null });
+    } else {
+      let van = 0;
+      for (let k = 0; k < freqs.length; k++) {
+        const eind = k + 1 < freqs.length
+          ? freqs[k].end + knippunt(tekst.slice(freqs[k].end, freqs[k + 1].index))
+          : tekst.length;
+        stukken.push({ van, tot: eind, freq: freqs[k] });
+        van = eind;
       }
-      dates.push(d);
     }
 
-    // adres = het stuk vóór de frequentie (of vóór de eerste datum)
-    let adresEind = rest.length;
-    if (freqM && freqM.index != null) adresEind = Math.min(adresEind, freqM.index);
-    const firstDate = rest.search(new RegExp('(?:^|[\\s,;])\\d{1,2}\\s+(?:' + MONTH_RE + ')(?![a-z])', 'i'));
-    if (firstDate >= 0) adresEind = Math.min(adresEind, firstDate);
-    const address = rest.slice(0, adresEind).replace(/[\s,;\-–]+$/, '').trim();
+    let hoofdAdres = '';
+    for (let k = 0; k < stukken.length; k++) {
+      const st = stukken[k];
+      const seg = tekst.slice(st.van, st.tot);
+      const dezeWeek = /§dw§/.test(seg);
+      const volgendeWeek = /§vw§/.test(seg);
+      const datums = vindDatums(seg, vandaag).sort((a, b) => a.getTime() - b.getTime());
 
-    if (!address) { skipped.push(line); continue; }
+      const every = st.freq ? st.freq.every : null;
+      const unit = st.freq ? st.freq.unit : 'maanden';
 
-    dates.sort((a, b) => a.getTime() - b.getTime());
-    const lastDone = dates.length ? iso(dates[dates.length - 1]) : null;
+      // laatst gedaan bepalen
+      let lastDone: string | null = datums.length ? iso(datums[datums.length - 1]) : null;
+      const history = datums.map(iso);
+      if ((dezeWeek || volgendeWeek) && every) {
+        const doel = dezeWeek ? vandaag : schuif(vandaag, 1, 'weken', 1);
+        lastDone = iso(schuif(doel, every, unit, -1));
+        if (!history.includes(lastDone)) history.push(lastDone);
+        history.sort();
+      }
 
-    items.push({
-      id: glasSlug((nr != null ? nr + '-' : '') + address),
-      nr,
-      address,
-      every,
-      unit,
-      lastDone,
-      history: dates.map(iso),
-    });
+      if (k === 0) {
+        // hoofdklus: adres = tekst vóór de frequentie; de rest wordt notitie
+        let voorFreq = st.freq ? tekst.slice(st.van, st.freq.index) : seg;
+        const naFreq = st.freq ? tekst.slice(st.freq.end, st.tot) : '';
+        // een prijs zoals "€32" hoort in de notitie, niet in het adres
+        let prijs = '';
+        voorFreq = voorFreq.replace(/€\s?\d\S*/g, (m) => { prijs = m.trim(); return ' '; });
+        hoofdAdres = opruimen(voorFreq);
+        if (!hoofdAdres) { skipped.push(blok.join(' | ')); break; }
+        const note = [opruimen(naFreq), prijs].filter(Boolean).join(' · ');
+        voegToe({
+          id: glasSlug(hoofdAdres),
+          phone,
+          address: hoofdAdres,
+          every, unit, lastDone, history,
+          note: note || undefined,
+        });
+      } else {
+        // extra klus (zonnepanelen, dakgoot, ...): omschrijving = rest van het stuk
+        const zonderFreq = (tekst.slice(st.van, st.freq!.index) + ' ' + tekst.slice(st.freq!.end, st.tot));
+        const omschrijving = opruimen(zonderFreq) || 'extra';
+        const address = `${hoofdAdres} — ${omschrijving}`;
+        voegToe({
+          id: glasSlug(address),
+          phone,
+          address,
+          every, unit, lastDone, history,
+          note: undefined,
+        });
+      }
+    }
   }
 
   return { items, skipped };

@@ -100,11 +100,12 @@ function AdresRij({ adres, setLijst, vandaag }: {
   const [open, setOpen] = useState(false);
   const [bezig, setBezig] = useState(false);
   const [fout, setFout] = useState('');
-  const [nr, setNr] = useState(adres.nr != null ? String(adres.nr) : '');
+  const [phone, setPhone] = useState(adres.phone || '');
   const [address, setAddress] = useState(adres.address);
   const [every, setEvery] = useState(adres.every != null ? String(adres.every) : '');
   const [unit, setUnit] = useState<'weken' | 'maanden'>(adres.unit || 'maanden');
   const [lastDone, setLastDone] = useState(adres.lastDone || '');
+  const [note, setNote] = useState(adres.note || '');
 
   const next = volgendeKeer(adres);
   const teLaat = next ? vanIso(next) < new Date(vandaag.getFullYear(), vandaag.getMonth(), vandaag.getDate()) : false;
@@ -128,7 +129,7 @@ function AdresRij({ adres, setLijst, vandaag }: {
     try {
       const r = await fetch('/api/factuur/glas-save', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ originalId: adres.id, item: { nr, address, every, unit, lastDone: lastDone || null } }),
+        body: JSON.stringify({ originalId: adres.id, item: { phone, address, every, unit, lastDone: lastDone || null, note } }),
       });
       const d = await r.json().catch(() => ({}));
       if (!r.ok) { setFout(d.error || 'Er ging iets mis.'); return; }
@@ -153,8 +154,8 @@ function AdresRij({ adres, setLijst, vandaag }: {
     <div className="border border-gray-200 rounded-xl overflow-hidden">
       <div className="flex items-center gap-3 px-4 py-3 flex-wrap">
         <button onClick={() => setOpen(!open)} className="flex items-center gap-3 text-left flex-1 min-w-0">
-          {adres.nr != null && <span className="font-mono text-sm text-sky-700 font-semibold shrink-0">{adres.nr}</span>}
           <span className="font-medium text-gray-800 truncate">{adres.address}</span>
+          {adres.note && <span className="text-xs text-amber-700 bg-amber-50 rounded px-1.5 py-0.5 shrink-0">{adres.note}</span>}
         </button>
         <span className="text-sm text-gray-400 shrink-0">
           {frequentieTekst(adres)} · laatst: {formatNL(adres.lastDone)} ·{' '}
@@ -170,8 +171,12 @@ function AdresRij({ adres, setLijst, vandaag }: {
       {open && (
         <div className="px-4 pb-4 border-t border-gray-100 pt-4">
           <div className="grid sm:grid-cols-2 gap-4 mb-3">
-            <div><label className={label}>Nummer</label><input className={input} type="number" value={nr} onChange={(e) => setNr(e.target.value)} /></div>
+            <div><label className={label}>Telefoon</label><input className={input} type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} /></div>
             <div><label className={label}>Adres</label><input className={input} value={address} onChange={(e) => setAddress(e.target.value)} /></div>
+          </div>
+          <div className="mb-3">
+            <label className={label}>Notitie (optioneel)</label>
+            <input className={input} value={note} onChange={(e) => setNote(e.target.value)} placeholder="bijv. op vakantie, €32" />
           </div>
           <div className="grid sm:grid-cols-3 gap-4 mb-3">
             <div>
@@ -242,11 +247,12 @@ function ImportCard({ setLijst, vandaag }: {
     <section className={card}>
       <h2 className="text-lg font-bold text-gray-800 mb-2">Notitie inlezen</h2>
       <p className="text-sm text-gray-500 mb-3">
-        Plak hier je glasbewassing-notitie. Per regel: nummer, adres, hoe vaak en de datum(s),
-        bijvoorbeeld: <code className="bg-gray-100 px-1 rounded">7 Nijverheidsweg Noord 130-13 1x 2 maanden 13 mei</code>
+        Plak hier je glasbewassing-notitie, precies zoals je hem bijhoudt — telefoonnummer, adres,
+        hoe vaak en de datum of &quot;deze week&quot;. Bijvoorbeeld:{' '}
+        <code className="bg-gray-100 px-1 rounded">0612345678 Wieringermeerpolder 4 1x per maand 3 juli</code>
       </p>
       <textarea className={input} rows={7} value={tekst} onChange={(e) => setTekst(e.target.value)}
-        placeholder={'7 Nijverheidsweg Noord 130-13 1x 2 maanden 13 mei\n12 Vleessteeg 1 Putten 1x per maand 4 juni'} />
+        placeholder={'0612345678 Wieringermeerpolder 4 1x per maand 3 juli\n\n0687654321 Weteringkade 240 1 x 2 maanden deze week'} />
       <div className="flex flex-wrap items-center gap-2 mt-3">
         <button onClick={inlezen} className={primary}>Lees notitie in</button>
         {ok && <span className="text-green-600 font-semibold text-sm">{ok}</span>}
@@ -260,16 +266,16 @@ function ImportCard({ setLijst, vandaag }: {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead><tr className="text-left text-gray-500 border-b">
-                <th className="py-1 pr-3">Nr</th><th className="py-1 pr-3">Adres</th>
-                <th className="py-1 pr-3">Hoe vaak</th><th className="py-1">Laatst gedaan</th>
+                <th className="py-1 pr-3">Adres</th><th className="py-1 pr-3">Hoe vaak</th>
+                <th className="py-1 pr-3">Laatst gedaan</th><th className="py-1">Telefoon</th>
               </tr></thead>
               <tbody>
                 {preview.map((it) => (
                   <tr key={it.id} className="border-b last:border-0">
-                    <td className="py-1.5 pr-3 font-mono text-sky-700">{it.nr ?? '—'}</td>
-                    <td className="py-1.5 pr-3">{it.address}</td>
+                    <td className="py-1.5 pr-3">{it.address}{it.note ? <span className="text-amber-700"> · {it.note}</span> : ''}</td>
                     <td className="py-1.5 pr-3">{frequentieTekst(it)}</td>
-                    <td className="py-1.5">{formatNL(it.lastDone)}</td>
+                    <td className="py-1.5 pr-3">{formatNL(it.lastDone)}</td>
+                    <td className="py-1.5 font-mono text-gray-400 text-xs">{it.phone ?? '—'}</td>
                   </tr>
                 ))}
               </tbody>
@@ -292,7 +298,7 @@ function NieuwAdresCard({ setLijst }: {
   setLijst: React.Dispatch<React.SetStateAction<GlasAdres[]>>;
 }) {
   const [open, setOpen] = useState(false);
-  const [nr, setNr] = useState('');
+  const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
   const [every, setEvery] = useState('');
   const [unit, setUnit] = useState<'weken' | 'maanden'>('maanden');
@@ -305,12 +311,12 @@ function NieuwAdresCard({ setLijst }: {
     try {
       const r = await fetch('/api/factuur/glas-save', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ item: { nr, address, every, unit, lastDone: lastDone || null } }),
+        body: JSON.stringify({ item: { phone, address, every, unit, lastDone: lastDone || null } }),
       });
       const d = await r.json().catch(() => ({}));
       if (!r.ok) { setFout(d.error || 'Er ging iets mis.'); return; }
       setLijst((prev) => [...prev, d.item]);
-      setNr(''); setAddress(''); setEvery(''); setLastDone(''); setOpen(false);
+      setPhone(''); setAddress(''); setEvery(''); setLastDone(''); setOpen(false);
     } finally { setBezig(false); }
   }
 
@@ -322,7 +328,7 @@ function NieuwAdresCard({ setLijst }: {
         <>
           <h2 className="text-lg font-bold text-gray-800 mb-3">Nieuw adres</h2>
           <div className="grid sm:grid-cols-2 gap-4 mb-3">
-            <div><label className={label}>Nummer (optioneel)</label><input className={input} type="number" value={nr} onChange={(e) => setNr(e.target.value)} /></div>
+            <div><label className={label}>Telefoon (optioneel)</label><input className={input} type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} /></div>
             <div><label className={label}>Adres</label><input className={input} value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Straat 1, Plaats" /></div>
           </div>
           <div className="grid sm:grid-cols-3 gap-4 mb-3">

@@ -19,16 +19,16 @@ export async function POST(req: Request) {
   const idx = originalId ? lijst.findIndex((x) => x.id === originalId) : -1;
   const bestaand = idx >= 0 ? lijst[idx] : null;
 
-  const nr = it.nr != null && it.nr !== '' ? parseInt(it.nr, 10) : null;
+  const phone = it.phone != null && String(it.phone).trim() ? String(it.phone).trim() : null;
   const address = String(it.address).trim();
-  const newId = bestaand ? bestaand.id : glasSlug((nr != null ? nr + '-' : '') + address);
+  const newId = bestaand ? bestaand.id : glasSlug(address);
   if (!bestaand && lijst.some((x) => x.id === newId)) {
     return NextResponse.json({ error: 'Dit adres staat al in de lijst.' }, { status: 400 });
   }
 
   const record: GlasAdres = {
     id: newId,
-    nr: Number.isInteger(nr) ? nr : null,
+    phone,
     address,
     every: it.every != null && it.every !== '' ? Math.max(1, parseInt(it.every, 10) || 1) : null,
     unit: it.unit === 'weken' ? 'weken' : 'maanden',
