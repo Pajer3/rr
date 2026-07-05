@@ -8,6 +8,7 @@ import { LogOut } from 'lucide-react';
 const LINKS = [
   { href: '/admin/facturen', label: 'Factuur maken' },
   { href: '/admin/facturen/versturen', label: 'Facturen versturen' },
+  { href: '/admin/facturen/glasbewassing', label: 'Glasbewassing' },
   { href: '/admin/facturen/handtekening', label: 'E-mailhandtekening' },
   { href: '/admin/facturen/beheer', label: 'Beheer' },
   { href: '/admin/facturen/wachtwoord', label: 'Wachtwoord' },
