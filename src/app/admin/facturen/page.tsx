@@ -90,7 +90,7 @@ export default function FactuurMakenPage() {
       setCustAddress((c.addressLines || []).join('\n'));
       const t = c.type === 'particulier' ? 'particulier' : 'zakelijk';
       setCustType(t);
-      setPayTerm(t === 'particulier' ? '14' : '30');
+      setPayTerm('30');
     } else {
       setCustName(''); setCustEmail(''); setCustAddress(''); setCustType('zakelijk'); setPayTerm('30');
     }
@@ -98,7 +98,7 @@ export default function FactuurMakenPage() {
 
   function kiesType(t: string) {
     setCustType(t);
-    setPayTerm(t === 'particulier' ? '14' : '30');
+    setPayTerm('30');
   }
 
   function addRow(it?: Partial<Row>) {
@@ -279,7 +279,7 @@ export default function FactuurMakenPage() {
             <label className={label}>Soort klant</label>
             <select className={input} value={custType} onChange={(e) => kiesType(e.target.value)}>
               <option value="zakelijk">Zakelijk — 30 dagen betaaltermijn</option>
-              <option value="particulier">Particulier — 14 dagen betaaltermijn</option>
+              <option value="particulier">Particulier — 30 dagen betaaltermijn</option>
             </select>
           </div>
           <label className="flex items-center gap-2 text-sm text-gray-600">
@@ -367,8 +367,7 @@ export default function FactuurMakenPage() {
             <div className="mt-4">
               <label className={label}>Betaaltermijn</label>
               <select className={input} value={payTerm} onChange={(e) => setPayTerm(e.target.value)}>
-                <option value="30">30 dagen (zakelijk)</option>
-                <option value="14">14 dagen (particulier)</option>
+                <option value="30">30 dagen</option>
               </select>
             </div>
 

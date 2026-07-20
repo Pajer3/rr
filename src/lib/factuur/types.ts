@@ -42,6 +42,8 @@ export interface InvoiceItem {
   sortKey?: number;
 }
 
+export type InvoiceStatus = 'klaar' | 'verzonden' | 'betaald';
+
 export interface InvoiceLog {
   number: string;
   date: string;
@@ -49,6 +51,11 @@ export interface InvoiceLog {
   total: number;
   paymentTermDays?: number;
   file: string;
+  status?: InvoiceStatus;
+  createdAt?: string;
+  sentAt?: string | null;
+  paidAt?: string | null;
+  recipient?: string;
 }
 
 export interface Totals {

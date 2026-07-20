@@ -249,7 +249,7 @@ function KlantRij({ klant, setCustomers }: {
             <label className={label}>Soort klant</label>
             <select className={input} value={type} onChange={(e) => setType(e.target.value)}>
               <option value="zakelijk">Zakelijk — 30 dagen betaaltermijn</option>
-              <option value="particulier">Particulier — 14 dagen betaaltermijn</option>
+              <option value="particulier">Particulier — 30 dagen betaaltermijn</option>
             </select>
           </div>
           <div className="mb-3">

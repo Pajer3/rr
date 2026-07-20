@@ -53,6 +53,17 @@ export default function HandtekeningPage() {
     <div className="min-h-screen bg-gray-50">
       <FactuurNav />
       <main className="max-w-3xl mx-auto px-4 py-8">
+        <div className="mb-6">
+          <p className="mb-1 text-sm font-semibold uppercase tracking-[0.18em] text-sky-600">E-mailinstellingen</p>
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900">Frisspits-handtekening</h1>
+          <p className="mt-2 text-slate-600">Eén herkenbare handtekening voor je automatische factuurmails en overige correspondentie.</p>
+        </div>
+
+        <section className="mb-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-5 text-emerald-900">
+          <h2 className="font-bold">Automatisch toegevoegd aan factuurmails</h2>
+          <p className="mt-1 text-sm text-emerald-800">Bij automatisch verzenden wordt onderstaande HTML-handtekening inclusief logo direct onder het bericht geplaatst. Je hoeft hem daarvoor niet apart in iCloud Mail in te stellen.</p>
+        </section>
+
         <section className={card}>
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-lg font-bold text-gray-800">Voorbeeld</h2>
@@ -65,25 +76,24 @@ export default function HandtekeningPage() {
         </section>
 
         <section className={card}>
-          <h2 className="text-lg font-bold text-gray-800 mb-3">In Gmail instellen</h2>
+          <h2 className="text-lg font-bold text-gray-800 mb-3">Ook handmatig gebruiken</h2>
           <div className="flex items-center gap-3 mb-3">
             <button onClick={copyHtml} className={primary}>📋 Kopieer handtekening</button>
             {okHtml && <span className="text-green-600 font-semibold text-sm">✓ Gekopieerd!</span>}
           </div>
           <ol className="list-decimal pl-5 text-sm text-gray-700 space-y-1.5">
             <li>Klik hierboven op <b>Kopieer handtekening</b>.</li>
-            <li>Open Gmail → tandwiel ⚙️ rechtsboven → <b>Alle instellingen bekijken</b>.</li>
-            <li>Bij tabblad <b>Algemeen</b> → <b>Handtekening</b> → <b>+ Nieuw maken</b>, geef een naam (bijv. &quot;Frisspits&quot;).</li>
-            <li>Klik in het tekstvak en plak met <code className="bg-gray-100 px-1 rounded">Ctrl + V</code>.</li>
-            <li>Stel onderaan in dat de handtekening voor <b>nieuwe e-mails</b> gebruikt wordt.</li>
-            <li>Scrol naar beneden en klik <b>Wijzigingen opslaan</b>.</li>
+            <li>Open de handtekeninginstellingen van Apple Mail, iCloud Mail of je andere mailprogramma.</li>
+            <li>Maak een handtekening met de naam <b>Frisspits</b>.</li>
+            <li>Klik in het handtekeningvak en plak met <code className="bg-gray-100 px-1 rounded">Ctrl + V</code>.</li>
+            <li>Koppel de handtekening aan <b>info@frisspits.nl</b> en sla de wijziging op.</li>
           </ol>
-          <p className="text-xs text-gray-400 mt-3">Lukt het logo plakken niet? Gebruik dan <b>Google Chrome</b> voor deze stap.</p>
+          <p className="text-xs text-gray-400 mt-3">Bij automatisch verzonden facturen wordt de complete versie altijd door het systeem toegevoegd.</p>
         </section>
 
         <section className={card}>
-          <h2 className="text-lg font-bold text-gray-800 mb-2">In iCloud webmail (alleen tekst)</h2>
-          <p className="text-sm text-gray-500 mb-3">iCloud webmail ondersteunt geen logo, alleen tekst. Hieronder een nette tekst-handtekening.</p>
+          <h2 className="text-lg font-bold text-gray-800 mb-2">Platte-tekstversie</h2>
+          <p className="text-sm text-gray-500 mb-3">Gebruik deze terugvalversie wanneer een mailprogramma geen opgemaakte handtekening accepteert.</p>
           <textarea readOnly rows={9} value={plainText}
             className="w-full px-3 py-2 rounded-lg border border-gray-300 bg-gray-50 font-sans text-sm" />
           <div className="flex items-center gap-3 mt-3">

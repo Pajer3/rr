@@ -2,11 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import { neon } from '@neondatabase/serverless';
 
-// Alle gegevens staan in de online database (Neon Postgres):
-//  - app_data: bedrijfsgegevens, klanten, facturenlijst, wachtwoord-hash (als JSON)
-//  - pdfs:     de factuur-PDF's (als base64-tekst)
-// Lokaal (op de pc) bewaren we de PDF's daarnaast ook in deze map, zodat
-// "Toon in map" en de iCloud-synchronisatie kunnen werken.
+// Alle gegevens staan in Neon Postgres. Lokaal bewaren we factuur-PDF's
+// daarnaast in een uitvoermap zodat openen en iCloud-synchronisatie werken.
 export const OUTPUT_DIR = path.join(process.cwd(), 'factuur-output');
 
 function db() {
@@ -28,21 +25,16 @@ async function ensureSchema() {
   schemaKlaar = true;
 }
 
-// Lees een waarde (object/array/tekst) uit de database, of de fallback.
+// Databasefouten worden bewust doorgegeven. Een lege fallback bij een storing
+// zou echte gegevens kunnen verbergen en bij een volgende opslag overschrijven.
 export async function readJson<T>(key: string, fallback: T): Promise<T> {
-  try {
-    await ensureSchema();
-    const sql = db();
-    const rows = (await sql`SELECT value FROM app_data WHERE key = ${key}`) as { value: T }[];
-    if (rows.length === 0) return fallback;
-    return rows[0].value;
-  } catch (e) {
-    console.error('readJson(' + key + ') mislukt:', e);
-    return fallback;
-  }
+  await ensureSchema();
+  const sql = db();
+  const rows = (await sql`SELECT value FROM app_data WHERE key = ${key}`) as { value: T }[];
+  if (rows.length === 0) return fallback;
+  return rows[0].value;
 }
 
-// Sla een waarde op (maakt aan of werkt bij).
 export async function writeJson(key: string, value: unknown): Promise<void> {
   await ensureSchema();
   const sql = db();
@@ -50,21 +42,14 @@ export async function writeJson(key: string, value: unknown): Promise<void> {
             ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value`;
 }
 
-// Haal een PDF op uit de database.
 export async function readPdf(filename: string): Promise<Buffer | null> {
-  try {
-    await ensureSchema();
-    const sql = db();
-    const rows = (await sql`SELECT data_base64 FROM pdfs WHERE filename = ${filename}`) as { data_base64: string }[];
-    if (rows.length === 0) return null;
-    return Buffer.from(rows[0].data_base64, 'base64');
-  } catch (e) {
-    console.error('readPdf mislukt:', e);
-    return null;
-  }
+  await ensureSchema();
+  const sql = db();
+  const rows = (await sql`SELECT data_base64 FROM pdfs WHERE filename = ${filename}`) as { data_base64: string }[];
+  if (rows.length === 0) return null;
+  return Buffer.from(rows[0].data_base64, 'base64');
 }
 
-// Bewaar een PDF in de database.
 export async function writePdf(filename: string, buf: Buffer): Promise<void> {
   await ensureSchema();
   const sql = db();
@@ -73,25 +58,23 @@ export async function writePdf(filename: string, buf: Buffer): Promise<void> {
             ON CONFLICT (filename) DO UPDATE SET data_base64 = EXCLUDED.data_base64`;
 }
 
-// Zoekt de map waar facturen ook naartoe gekopieerd worden zodat ze naar je
-// telefoon synchroniseren (iCloud, of een andere sync-map die je instelt).
-// Werkt alleen op je eigen pc; op de server is er geen sync-map (geeft null).
 export function syncDir(): string | null {
   const candidates: string[] = [];
   if (process.env.FACTUUR_ICLOUD_MAP) candidates.push(process.env.FACTUUR_ICLOUD_MAP);
-  const home = process.env.USERPROFILE || process.env.HOME || '';
-  if (home) {
-    candidates.push(path.join(home, 'iCloudDrive', 'Frisspits facturen'));
-    candidates.push(path.join(home, 'iCloud Drive', 'Frisspits facturen'));
+  const userHome = process.env.USERPROFILE || process.env.HOME || '';
+  if (userHome) {
+    candidates.push(path.join(userHome, 'iCloudDrive', 'Frisspits facturen'));
+    candidates.push(path.join(userHome, 'iCloud Drive', 'Frisspits facturen'));
   }
   for (const dir of candidates) {
     try {
       if (fs.existsSync(dir)) return dir;
       const base = path.dirname(dir);
-      if (fs.existsSync(base)) { fs.mkdirSync(dir, { recursive: true }); return dir; }
-    } catch {
-      /* negeer en probeer de volgende */
-    }
+      if (fs.existsSync(base)) {
+        fs.mkdirSync(dir, { recursive: true });
+        return dir;
+      }
+    } catch { /* Probeer de volgende map. */ }
   }
   return null;
 }
