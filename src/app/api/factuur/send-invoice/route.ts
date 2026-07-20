@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { ImapFlow } from 'imapflow';
 import fs from 'fs';
 import path from 'path';
 import { readJson, readPdf, writeJson } from '@/lib/factuur/store';
@@ -11,6 +12,29 @@ export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+async function storeInSentMailbox(rawMessage: Buffer, user: string, password: string) {
+  const client = new ImapFlow({
+    host: process.env.FACTUUR_IMAP_HOST || 'imap.mail.me.com',
+    port: Number(process.env.FACTUUR_IMAP_PORT || 993),
+    secure: true,
+    auth: { user, pass: password },
+    logger: false,
+  });
+
+  try {
+    await client.connect();
+    const mailboxes = await client.list();
+    const sentMailbox = mailboxes.find((mailbox) => mailbox.specialUse === '\\Sent');
+    if (!sentMailbox) throw new Error('De speciale iCloud-map Verstuurd is niet gevonden.');
+
+    const appended = await client.append(sentMailbox.path, rawMessage, ['\\Seen'], new Date());
+    if (!appended) throw new Error('iCloud heeft de kopie voor Verstuurd niet opgeslagen.');
+  } finally {
+    if (client.usable) await client.logout().catch(() => client.close());
+    else client.close();
+  }
+}
 
 export async function POST(req: Request) {
   const body = await req.json().catch(() => ({}));
@@ -55,33 +79,57 @@ export async function POST(req: Request) {
     auth: { user, pass: password },
   });
 
+  const mail = {
+    from: `${company.name || 'Frisspits'} <${fromEmail}>`,
+    replyTo: fromEmail,
+    to,
+    subject,
+    text,
+    html,
+    attachments: [
+      { filename: invoice.file, content: pdf, contentType: 'application/pdf' },
+      ...(hasInlineLogo ? [{
+        filename: 'frisspits-logo.png',
+        path: logoPath,
+        cid: logoCid,
+        contentType: 'image/png',
+        contentDisposition: 'inline' as const,
+      }] : []),
+    ],
+  };
+
+  let rawMessage: Buffer;
   try {
+    const compiler = nodemailer.createTransport({
+      streamTransport: true,
+      buffer: true,
+      newline: 'unix',
+    });
+    const compiled = await compiler.sendMail(mail) as { message: Buffer | string };
+    rawMessage = Buffer.isBuffer(compiled.message)
+      ? compiled.message
+      : Buffer.from(compiled.message);
+
     await transporter.sendMail({
-      from: `${company.name || 'Frisspits'} <${fromEmail}>`,
-      replyTo: fromEmail,
-      to,
-      subject,
-      text,
-      html,
-      attachments: [
-        { filename: invoice.file, content: pdf, contentType: 'application/pdf' },
-        ...(hasInlineLogo ? [{
-          filename: 'frisspits-logo.png',
-          path: logoPath,
-          cid: logoCid,
-          contentType: 'image/png',
-          contentDisposition: 'inline' as const,
-        }] : []),
-      ],
+      envelope: { from: fromEmail, to: [to] },
+      raw: rawMessage,
     });
   } catch (error) {
     console.error('Factuurmail verzenden mislukt:', error instanceof Error ? error.message : error);
     return NextResponse.json({ error: 'iCloud Mail kon het bericht niet verzenden. Controleer de mailinstellingen.' }, { status: 502 });
   }
 
+  let sentCopyStored = true;
+  try {
+    await storeInSentMailbox(rawMessage, user, password);
+  } catch (error) {
+    sentCopyStored = false;
+    console.error('Kopie in iCloud Verstuurd opslaan mislukt:', error instanceof Error ? error.message : error);
+  }
+
   invoice.status = 'verzonden';
   invoice.sentAt = new Date().toISOString();
   invoice.recipient = to;
   await writeJson('invoices', invoices);
-  return NextResponse.json({ ok: true, invoice });
+  return NextResponse.json({ ok: true, invoice, sentCopyStored });
 }

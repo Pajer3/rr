@@ -241,16 +241,16 @@ export function buildSignatureInner(company: Partial<Company>, logoSrc?: string)
   const mapQuery = encodeURIComponent(`${addressLine}, ${postcodeCity}`);
   const logo = logoSrc || company.logoDataUri || SIGNATURE_DEFAULTS.logo;
 
-  return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:560px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.45;color:#111111;">
-  <tr><td style="padding:0 0 22px 0;font-size:17px;">Met vriendelijke groet,</td></tr>
-  <tr><td style="padding:0 0 2px 0;font-size:22px;line-height:1.25;font-weight:700;color:#111111;">${escapeHtml(contactName)}</td></tr>
-  <tr><td style="padding:0 0 15px 0;font-size:18px;color:#666666;">${escapeHtml(companyLine)}</td></tr>
-  <tr><td style="padding:0 0 17px 0;"><img src="${escapeHtml(logo)}" width="285" alt="Frisspits" style="display:block;width:285px;max-width:100%;height:auto;border:0;"></td></tr>
+  return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.4;color:#111111;">
+  <tr><td style="padding:0 0 15px 0;font-size:14px;line-height:1.4;">Met vriendelijke groet,</td></tr>
+  <tr><td style="padding:0 0 1px 0;font-size:18px;line-height:1.25;font-weight:700;color:#111111;">${escapeHtml(contactName)}</td></tr>
+  <tr><td style="padding:0 0 10px 0;font-size:14px;line-height:1.35;color:#666666;">${escapeHtml(companyLine)}</td></tr>
+  <tr><td style="padding:0 0 12px 0;"><img src="${escapeHtml(logo)}" width="210" alt="Frisspits" style="display:block;width:210px;max-width:100%;height:auto;border:0;"></td></tr>
   <tr><td><a href="https://www.google.com/maps/search/?api=1&amp;query=${mapQuery}" style="color:${blue};text-decoration:underline;">${escapeHtml(addressLine)}</a></td></tr>
   <tr><td style="padding-bottom:4px;"><a href="https://www.google.com/maps/search/?api=1&amp;query=${mapQuery}" style="color:${blue};text-decoration:underline;">${escapeHtml(postcodeCity)}</a></td></tr>
   <tr><td><a href="tel:${escapeHtml(phoneDigits)}" style="color:${blue};text-decoration:none;">${escapeHtml(phone)}</a></td></tr>
-  <tr><td style="padding-bottom:14px;"><a href="mailto:${escapeHtml(email)}" style="color:${blue};text-decoration:none;">${escapeHtml(email)}</a></td></tr>
-  <tr><td style="color:#999999;font-size:14px;">KvK <span style="text-decoration:underline;">${escapeHtml(kvkNumber)}</span> &nbsp;&middot;&nbsp; BTW ${escapeHtml(btwNumber)}</td></tr>
+  <tr><td style="padding-bottom:10px;"><a href="mailto:${escapeHtml(email)}" style="color:${blue};text-decoration:none;">${escapeHtml(email)}</a></td></tr>
+  <tr><td style="color:#999999;font-size:11px;line-height:1.4;">KvK <span style="text-decoration:underline;">${escapeHtml(kvkNumber)}</span> &nbsp;&middot;&nbsp; BTW ${escapeHtml(btwNumber)}</td></tr>
 </table>`;
 }
 
@@ -259,8 +259,8 @@ export function buildInvoiceEmailHtml(message: string, company: Partial<Company>
   const body = escapeHtml(message).replace(/\r?\n/g, '<br>');
   return `<!doctype html>
 <html lang="nl">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:24px;background:#ffffff;color:#222222;">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="x-apple-disable-message-reformatting"></head>
+<body style="margin:0;padding:24px;background:#ffffff;color:#222222;-webkit-text-size-adjust:100%;">
   <div style="max-width:680px;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#222222;">${body}</div>
   <div style="margin-top:32px;">${buildSignatureInner(company, logoSrc)}</div>
 </body>

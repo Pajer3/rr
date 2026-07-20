@@ -291,7 +291,11 @@ function InvoiceCard({ inv, initiallyOpen, company, customers, setCustomers, mai
     if (response.status === 401) { onLogin(); return; }
     if (!response.ok) { setError(data.error || 'Verzenden mislukt.'); return; }
     onUpdate(data.invoice);
-    flash(`Factuur verstuurd naar ${to}`);
+    if (data.sentCopyStored === false) {
+      setError(`Factuur is verstuurd naar ${to}, maar de kopie kon niet in iCloud Verstuurd worden opgeslagen.`);
+      return;
+    }
+    flash(`Factuur verstuurd naar ${to} en opgeslagen in iCloud Verstuurd`);
   }
 
   async function setStatus(next: InvoiceStatus) {
