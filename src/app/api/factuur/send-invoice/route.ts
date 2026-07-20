@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import fs from 'fs';
+import path from 'path';
 import { readJson, readPdf, writeJson } from '@/lib/factuur/store';
+import { buildInvoiceEmailHtml, buildSignatureText } from '@/lib/factuur/template';
 import type { Company, InvoiceLog } from '@/lib/factuur/types';
 
 export const runtime = 'nodejs';
@@ -34,6 +37,15 @@ export async function POST(req: Request) {
   const pdf = await readPdf(invoice.file);
   if (!pdf) return NextResponse.json({ error: 'De PDF van deze factuur is niet gevonden.' }, { status: 404 });
   const company = await readJson<Company>('company', {} as Company);
+  const logoPath = path.join(process.cwd(), 'public', 'factuur-logo.png');
+  const logoCid = 'frisspits-logo@frisspits.nl';
+  const hasInlineLogo = fs.existsSync(logoPath);
+  const html = buildInvoiceEmailHtml(
+    message,
+    company,
+    hasInlineLogo ? `cid:${logoCid}` : 'https://www.frisspits.nl/factuur-logo.png',
+  );
+  const text = `${message}\n\n${buildSignatureText(company)}`;
 
   const transporter = nodemailer.createTransport({
     host: process.env.FACTUUR_SMTP_HOST || 'smtp.mail.me.com',
@@ -49,8 +61,18 @@ export async function POST(req: Request) {
       replyTo: fromEmail,
       to,
       subject,
-      text: message,
-      attachments: [{ filename: invoice.file, content: pdf, contentType: 'application/pdf' }],
+      text,
+      html,
+      attachments: [
+        { filename: invoice.file, content: pdf, contentType: 'application/pdf' },
+        ...(hasInlineLogo ? [{
+          filename: 'frisspits-logo.png',
+          path: logoPath,
+          cid: logoCid,
+          contentType: 'image/png',
+          contentDisposition: 'inline' as const,
+        }] : []),
+      ],
     });
   } catch (error) {
     console.error('Factuurmail verzenden mislukt:', error instanceof Error ? error.message : error);

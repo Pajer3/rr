@@ -6,7 +6,9 @@ function escapeHtml(s: unknown): string {
   return String(s == null ? '' : s)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 // Nederlands geldformaat: hele bedragen als "€76,-", anders "€94,29"
@@ -202,43 +204,87 @@ export function buildInvoiceHtml(opts: InvoiceOpts): string {
 }
 
 // ---- E-mailhandtekening ----
-// De binnenkant (dit is wat naar Gmail gekopieerd wordt). E-mailveilige opmaak:
-// tabel + inline-stijlen, blauwe accentkleur uit de huisstijl.
-export function buildSignatureInner(company: Company): string {
-  const blue = '#2491c2';
-  const phoneDigits = String(company.phone || '').replace(/[^0-9]/g, '');
-  const pretty = (s?: string) => (s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : '');
-  const companyLine = `${pretty(company.name)} ${pretty(company.tagline)}`.trim();
-  const logo = company.logoDataUri
-    ? `<tr><td style="padding:6px 0 12px 0;"><img src="${company.logoDataUri}" width="190" alt="${escapeHtml(company.name)}" style="display:block;border:0;"></td></tr>`
-    : '';
+// E-mailveilige tabelopmaak met vaste Frisspits-terugvalwaarden. Gegevens uit
+// Beheer blijven leidend, zodat latere wijzigingen automatisch worden verwerkt.
+const SIGNATURE_DEFAULTS = {
+  contactName: 'Joshua Ramos',
+  companyLine: 'Frisspits Schoonmaakdiensten',
+  addressLine: 'Weteringkade 241',
+  postcodeCity: '3826 AW AMERSFOORT',
+  phone: '(06)51891004',
+  email: 'info@frisspits.nl',
+  kvkNumber: '92185509',
+  btwNumber: 'NL004850387B82',
+  logo: 'https://www.frisspits.nl/factuur-logo.png',
+};
 
-  return `<table cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.55;color:#333;">
-  <tr><td style="padding-bottom:12px;">Met vriendelijke groet,</td></tr>
-  <tr><td style="font-size:15px;font-weight:bold;color:#222;padding-bottom:1px;">${escapeHtml(company.contactName)}</td></tr>
-  <tr><td style="color:#666;padding-bottom:2px;">${escapeHtml(companyLine)}</td></tr>
-  ${logo}
-  <tr><td style="color:${blue};">${escapeHtml(company.addressLine)}</td></tr>
-  <tr><td style="color:${blue};">${escapeHtml(company.postcodeCity)}</td></tr>
-  <tr><td><a href="tel:${phoneDigits}" style="color:${blue};text-decoration:none;">${escapeHtml(company.phone)}</a></td></tr>
-  <tr><td><a href="mailto:${escapeHtml(company.email)}" style="color:${blue};text-decoration:none;">${escapeHtml(company.email)}</a></td></tr>
-  <tr><td style="padding-top:7px;color:#999;font-size:11.5px;">KvK ${escapeHtml(company.kvkNumber)} &nbsp;&middot;&nbsp; BTW ${escapeHtml(company.btwNumber)}</td></tr>
+function signatureValue(value: unknown, fallback: string): string {
+  const result = String(value || '').trim();
+  return result || fallback;
+}
+
+function signatureCompanyLine(): string {
+  return SIGNATURE_DEFAULTS.companyLine;
+}
+
+export function buildSignatureInner(company: Partial<Company>, logoSrc?: string): string {
+  const blue = '#119bc5';
+  const contactName = signatureValue(company.contactName, SIGNATURE_DEFAULTS.contactName);
+  const companyLine = signatureCompanyLine();
+  const addressLine = signatureValue(company.addressLine, SIGNATURE_DEFAULTS.addressLine);
+  const postcodeCity = signatureValue(company.postcodeCity, SIGNATURE_DEFAULTS.postcodeCity);
+  const phone = signatureValue(company.phone, SIGNATURE_DEFAULTS.phone);
+  const email = signatureValue(company.email, SIGNATURE_DEFAULTS.email);
+  const kvkNumber = signatureValue(company.kvkNumber, SIGNATURE_DEFAULTS.kvkNumber);
+  const btwNumber = signatureValue(company.btwNumber, SIGNATURE_DEFAULTS.btwNumber);
+  const phoneDigits = phone.replace(/[^0-9+]/g, '');
+  const mapQuery = encodeURIComponent(`${addressLine}, ${postcodeCity}`);
+  const logo = logoSrc || company.logoDataUri || SIGNATURE_DEFAULTS.logo;
+
+  return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:560px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.45;color:#111111;">
+  <tr><td style="padding:0 0 22px 0;font-size:17px;">Met vriendelijke groet,</td></tr>
+  <tr><td style="padding:0 0 2px 0;font-size:22px;line-height:1.25;font-weight:700;color:#111111;">${escapeHtml(contactName)}</td></tr>
+  <tr><td style="padding:0 0 15px 0;font-size:18px;color:#666666;">${escapeHtml(companyLine)}</td></tr>
+  <tr><td style="padding:0 0 17px 0;"><img src="${escapeHtml(logo)}" width="285" alt="Frisspits" style="display:block;width:285px;max-width:100%;height:auto;border:0;"></td></tr>
+  <tr><td><a href="https://www.google.com/maps/search/?api=1&amp;query=${mapQuery}" style="color:${blue};text-decoration:underline;">${escapeHtml(addressLine)}</a></td></tr>
+  <tr><td style="padding-bottom:4px;"><a href="https://www.google.com/maps/search/?api=1&amp;query=${mapQuery}" style="color:${blue};text-decoration:underline;">${escapeHtml(postcodeCity)}</a></td></tr>
+  <tr><td><a href="tel:${escapeHtml(phoneDigits)}" style="color:${blue};text-decoration:none;">${escapeHtml(phone)}</a></td></tr>
+  <tr><td style="padding-bottom:14px;"><a href="mailto:${escapeHtml(email)}" style="color:${blue};text-decoration:none;">${escapeHtml(email)}</a></td></tr>
+  <tr><td style="color:#999999;font-size:14px;">KvK <span style="text-decoration:underline;">${escapeHtml(kvkNumber)}</span> &nbsp;&middot;&nbsp; BTW ${escapeHtml(btwNumber)}</td></tr>
 </table>`;
 }
 
-// Platte-tekst versie (voor iCloud webmail e.d. die geen logo toelaten).
-export function buildSignatureText(company: Company): string {
-  const pretty = (s?: string) => (s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : '');
-  const companyLine = `${pretty(company.name)} ${pretty(company.tagline)}`.trim();
+// Volledige HTML-versie voor automatisch verzonden factuurmails.
+export function buildInvoiceEmailHtml(message: string, company: Partial<Company>, logoSrc?: string): string {
+  const body = escapeHtml(message).replace(/\r?\n/g, '<br>');
+  return `<!doctype html>
+<html lang="nl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:24px;background:#ffffff;color:#222222;">
+  <div style="max-width:680px;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;color:#222222;">${body}</div>
+  <div style="margin-top:32px;">${buildSignatureInner(company, logoSrc)}</div>
+</body>
+</html>`;
+}
+
+// Platte-tekst versie als een mailprogramma HTML of afbeeldingen niet toont.
+export function buildSignatureText(company: Partial<Company>): string {
+  const contactName = signatureValue(company.contactName, SIGNATURE_DEFAULTS.contactName);
+  const addressLine = signatureValue(company.addressLine, SIGNATURE_DEFAULTS.addressLine);
+  const postcodeCity = signatureValue(company.postcodeCity, SIGNATURE_DEFAULTS.postcodeCity);
+  const phone = signatureValue(company.phone, SIGNATURE_DEFAULTS.phone);
+  const email = signatureValue(company.email, SIGNATURE_DEFAULTS.email);
+  const kvkNumber = signatureValue(company.kvkNumber, SIGNATURE_DEFAULTS.kvkNumber);
+  const btwNumber = signatureValue(company.btwNumber, SIGNATURE_DEFAULTS.btwNumber);
   return [
     'Met vriendelijke groet,',
     '',
-    company.contactName,
-    companyLine,
-    company.addressLine,
-    company.postcodeCity,
-    company.phone,
-    company.email,
-    `KvK ${company.kvkNumber} · BTW ${company.btwNumber}`,
-  ].filter((l) => l !== undefined && l !== null).join('\n');
+    contactName,
+    signatureCompanyLine(),
+    addressLine,
+    postcodeCity,
+    phone,
+    email,
+    `KvK ${kvkNumber} · BTW ${btwNumber}`,
+  ].join('\n');
 }

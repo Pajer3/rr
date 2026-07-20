@@ -221,7 +221,7 @@ function InvoiceCard({ inv, initiallyOpen, company, customers, setCustomers, mai
   onLogin: () => void;
 }) {
   const cust = customers.find((c) => c.name === inv.customer) || { name: inv.customer, email: '', type: 'zakelijk' } as Customer;
-  const term = inv.paymentTermDays || (cust.type === 'particulier' ? 14 : 30);
+  const term = inv.paymentTermDays || 30;
   const vals = buildVals(company, cust, inv.number, inv.total, term);
   const [open, setOpen] = useState(initiallyOpen);
   const [to, setTo] = useState(inv.recipient || cust.email || '');

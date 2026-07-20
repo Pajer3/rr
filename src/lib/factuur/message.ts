@@ -11,12 +11,18 @@ export function money(v: number): string {
   return '€' + parseInt(p[0], 10).toLocaleString('nl-NL') + ',' + p[1];
 }
 
-// Standaard factuurbericht (placeholders worden automatisch ingevuld) — kort en netjes.
-// Géén afsluiting/"Met vriendelijke groet" hier: dat staat in je e-mailhandtekening.
+// Professioneel standaardbericht voor een schoonmaakbedrijf.
+// De vaste afsluiting staat in de ingestelde e-mailhandtekening.
 export const DEFAULT_MESSAGE =
 `Beste {klant},
 
-Hierbij ontvangt u factuur {nummer}. Wij verzoeken u vriendelijk het bedrag van {totaal} binnen {termijn} dagen over te maken naar {iban} t.n.v. {tnv}, o.v.v. factuurnummer {nummer}.`;
+Hierbij ontvangt u factuur {nummer} voor de verrichte schoonmaakwerkzaamheden.
+
+Wij verzoeken u vriendelijk het bedrag van {totaal} binnen {termijn} dagen over te maken naar {iban} t.n.v. {tnv}, onder vermelding van factuurnummer {nummer}.
+
+Heeft u vragen over de factuur of over onze werkzaamheden? Neem dan gerust contact met ons op. Wij helpen u graag verder.
+
+Bedankt voor de prettige samenwerking.`;
 
 export interface Vals {
   klant: string;
@@ -56,10 +62,10 @@ export function templatize(text: string, vals: Vals): string {
   return out;
 }
 
-// Bouw het e-mailonderwerp (net en netjes met hoofdletter)
-export function buildSubject(company: Partial<Company>, invoiceNumber: string): string {
-  const pretty = (s?: string) => (s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : '');
-  return `Factuur ${invoiceNumber} - ${pretty(company.name)} ${pretty(company.tagline)}`.trim();
+// Bouw het e-mailonderwerp zonder streepjes.
+export function buildSubject(_company: Partial<Company>, invoiceNumber: string): string {
+  const subjectNumber = invoiceNumber.replace(/-/g, '');
+  return `Factuur ${subjectNumber} van Frisspits Schoonmaakdiensten`;
 }
 
 // Bouw de ingevulde waarden voor het bericht
