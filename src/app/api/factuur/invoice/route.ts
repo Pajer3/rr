@@ -8,7 +8,6 @@ import type { Company, Customer, InvoiceItem, InvoiceLog } from '@/lib/factuur/t
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
-// PDF maken (Chromium opstarten) mag wat langer duren op de server.
 export const maxDuration = 60;
 
 function formatToday() {
@@ -21,41 +20,30 @@ export async function POST(req: Request) {
     const company = await readJson<Company>('company', {} as Company);
     const customers = await readJson<Customer[]>('customers', []);
     const invoices = await readJson<InvoiceLog[]>('invoices', []);
-
     const body = await req.json().catch(() => ({}));
     const items: InvoiceItem[] = Array.isArray(body.items)
-      ? body.items.filter((i: InvoiceItem) => i && i.amount != null)
+      ? body.items.filter((item: InvoiceItem) => item && item.amount != null)
       : [];
 
-    if (!body.customer || !body.customer.name) {
-      return NextResponse.json({ error: 'Klantnaam ontbreekt.' }, { status: 400 });
-    }
-    if (items.length === 0) {
-      return NextResponse.json({ error: 'Geen factuurregels.' }, { status: 400 });
-    }
+    if (!body.customer?.name) return NextResponse.json({ error: 'Klantnaam ontbreekt.' }, { status: 400 });
+    if (items.length === 0) return NextResponse.json({ error: 'Geen factuurregels.' }, { status: 400 });
 
     const invoiceNumber: string = body.invoiceNumber || (company.numberPrefix + company.nextNumber);
     const dateText: string = body.dateText || formatToday();
     const paymentTermDays = parseInt(body.paymentTermDays, 10) || company.paymentTermDays || 30;
-
-    const html = buildInvoiceHtml({
-      company, customer: body.customer, items, invoiceNumber, dateText, paymentTermDays,
-    });
+    const html = buildInvoiceHtml({ company, customer: body.customer, items, invoiceNumber, dateText, paymentTermDays });
     const totals = computeTotals(items, company.btwRate || 21);
-
     const fileName = `Factuur-${invoiceNumber}-${slugify(body.customer.name)}.pdf`;
 
-    // PDF maken en in de database opslaan.
     const pdfBuf = await htmlToPdf(html);
     await writePdf(fileName, pdfBuf);
 
-    // Op de eigen pc: ook lokaal opslaan + naar de sync-map (iCloud) zetten.
     let synced = false;
     let syncMap: string | null = null;
     try {
       fs.mkdirSync(OUTPUT_DIR, { recursive: true });
       fs.writeFileSync(path.join(OUTPUT_DIR, fileName), pdfBuf);
-    } catch { /* op de server geen schijf — niet erg */ }
+    } catch { /* Op de server is geen permanente lokale schijf. */ }
     try {
       const dir = syncDir();
       if (dir) {
@@ -63,18 +51,16 @@ export async function POST(req: Request) {
         synced = true;
         syncMap = dir;
       }
-    } catch { /* sync mislukt — PDF staat al in de database */ }
+    } catch { /* De PDF staat al veilig in de database. */ }
 
-    // Verhoog het factuurnummer als dit het eerstvolgende nummer was.
     if (!body.invoiceNumber || body.invoiceNumber === company.numberPrefix + company.nextNumber) {
       company.nextNumber = (company.nextNumber || 0) + 1;
       await writeJson('company', company);
     }
 
-    // Klant opslaan/bijwerken.
     if (body.saveCustomer) {
       const id = slugify(body.customer.name);
-      const idx = customers.findIndex((c) => c.id === id);
+      const idx = customers.findIndex((customer) => customer.id === id);
       const record: Customer = {
         ...(idx >= 0 ? customers[idx] : {}),
         id,
@@ -84,11 +70,13 @@ export async function POST(req: Request) {
         email: body.customer.email || (idx >= 0 ? customers[idx].email : ''),
         type: body.customer.type || (idx >= 0 ? customers[idx].type : 'zakelijk') || 'zakelijk',
       };
-      if (idx >= 0) customers[idx] = record; else customers.push(record);
+      if (idx >= 0) customers[idx] = record;
+      else customers.push(record);
       await writeJson('customers', customers);
     }
 
-    // Log (vervang bestaande met hetzelfde nummer i.p.v. dubbel toevoegen).
+    const existingIdx = invoices.findIndex((invoice) => invoice.number === invoiceNumber);
+    const previous = existingIdx >= 0 ? invoices[existingIdx] : null;
     const logEntry: InvoiceLog = {
       number: invoiceNumber,
       date: dateText,
@@ -96,9 +84,14 @@ export async function POST(req: Request) {
       total: totals.total,
       paymentTermDays,
       file: fileName,
+      status: previous?.status || 'klaar',
+      createdAt: previous?.createdAt || new Date().toISOString(),
+      sentAt: previous?.sentAt || null,
+      paidAt: previous?.paidAt || null,
+      recipient: previous?.recipient || body.customer.email || '',
     };
-    const existingIdx = invoices.findIndex((i) => i.number === invoiceNumber);
-    if (existingIdx >= 0) invoices[existingIdx] = logEntry; else invoices.push(logEntry);
+    if (existingIdx >= 0) invoices[existingIdx] = logEntry;
+    else invoices.push(logEntry);
     await writeJson('invoices', invoices);
 
     return NextResponse.json({
