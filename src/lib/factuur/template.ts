@@ -31,7 +31,11 @@ export function computeTotals(items: InvoiceItem[], btwRate: number): Totals {
 
 function renderRows(items: InvoiceItem[], company: Company): string {
   return items.map((it) => {
-    const desc = company.descriptions[it.type || 'schoonmaak'] || company.descriptions.schoonmaak;
+    const customDescription = String(it.description || '').trim();
+    const desc = customDescription
+      || company.descriptions[it.type || 'schoonmaak']
+      || company.descriptions.schoonmaak
+      || 'Schoonmaakwerkzaamheden';
     const descHtml = escapeHtml(desc).replace(/\n/g, '<br>');
     return `
       <tr>

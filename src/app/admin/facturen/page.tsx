@@ -8,7 +8,28 @@ import {
 } from '@/lib/factuur/message';
 import type { Company, Customer } from '@/lib/factuur/types';
 
-interface Row { id: number; dateText: string; type: string; amount: string }
+interface Row { id: number; dateText: string; type: string; description: string; amount: string }
+
+const SERVICE_OPTIONS = [
+  { value: 'schoonmaak', label: 'Periodieke schoonmaak' },
+  { value: 'eenmalige-schoonmaak', label: 'Eenmalige schoonmaak' },
+  { value: 'kantoorschoonmaak', label: 'Kantoorschoonmaak' },
+  { value: 'onderhoudsschoonmaak', label: 'Onderhoudsschoonmaak' },
+  { value: 'opleveringsschoonmaak', label: 'Opleveringsschoonmaak' },
+  { value: 'glasbewassing', label: 'Periodieke glasbewassing' },
+  { value: 'eenmalige-glasbewassing', label: 'Eenmalige glasbewassing' },
+  { value: 'glasbewassing-buiten', label: 'Glasbewassing buitenzijde' },
+  { value: 'glasbewassing-binnen-buiten', label: 'Glasbewassing binnen en buiten' },
+  { value: 'overig', label: 'Overige werkzaamheden' },
+] as const;
+
+function serviceDescription(type?: string): string {
+  return SERVICE_OPTIONS.find((option) => option.value === type)?.label || 'Periodieke schoonmaak';
+}
+
+function serviceType(type?: string): string {
+  return SERVICE_OPTIONS.some((option) => option.value === type) ? String(type) : 'schoonmaak';
+}
 
 interface InvoiceResult {
   invoiceNumber: string;
@@ -102,10 +123,12 @@ export default function FactuurMakenPage() {
   }
 
   function addRow(it?: Partial<Row>) {
+    const type = serviceType(it?.type);
     setRows((prev) => [...prev, {
       id: rowId.current++,
       dateText: it?.dateText || '',
-      type: it?.type === 'glasbewassing' ? 'glasbewassing' : 'schoonmaak',
+      type,
+      description: it?.description || serviceDescription(type),
       amount: it?.amount != null ? String(it.amount) : '',
     }]);
   }
@@ -118,12 +141,16 @@ export default function FactuurMakenPage() {
     if (res.status === 401) { router.push('/admin/facturen/login'); return; }
     const data = await res.json();
     rowId.current = 1;
-    setRows((data.items || []).map((it: { dateText?: string; type?: string; amount?: number }) => ({
-      id: rowId.current++,
-      dateText: it.dateText || '',
-      type: it.type === 'glasbewassing' ? 'glasbewassing' : 'schoonmaak',
-      amount: it.amount != null ? String(it.amount) : '',
-    })));
+    setRows((data.items || []).map((it: { dateText?: string; type?: string; description?: string; amount?: number }) => {
+      const type = serviceType(it.type);
+      return {
+        id: rowId.current++,
+        dateText: it.dateText || '',
+        type,
+        description: it.description || serviceDescription(type),
+        amount: it.amount != null ? String(it.amount) : '',
+      };
+    }));
     setSkipped(data.skipped && data.skipped.length ? 'Overgeslagen regels: ' + data.skipped.join('  •  ') : '');
     setLinesVisible(true);
   }
@@ -138,7 +165,12 @@ export default function FactuurMakenPage() {
   async function makeInvoice() {
     if (!custName.trim()) { alert('Vul een klantnaam in.'); return; }
     const items = rows
-      .map((r) => ({ dateText: r.dateText.trim(), type: r.type, amount: parseFloat(r.amount) }))
+      .map((r) => ({
+        dateText: r.dateText.trim(),
+        type: r.type,
+        description: r.description.trim() || serviceDescription(r.type),
+        amount: parseFloat(r.amount),
+      }))
       .filter((r) => !isNaN(r.amount));
     if (items.length === 0) { alert('Er zijn geen factuurregels.'); return; }
 
@@ -313,12 +345,15 @@ export default function FactuurMakenPage() {
         {linesVisible && (
           <section className={card}>
             <h2 className="text-lg font-bold text-gray-800 mb-4">3 · Controleer de regels</h2>
+            <p className="text-sm text-gray-500 mb-4">
+              Kies een soort werkzaamheid en pas daaronder de exacte omschrijving aan die op de factuur komt.
+            </p>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="text-left text-gray-500 border-b">
                     <th className="py-2 pr-2">Datum</th>
-                    <th className="py-2 pr-2">Soort</th>
+                    <th className="py-2 pr-2">Werkzaamheden</th>
                     <th className="py-2 pr-2">Bedrag (€)</th>
                     <th></th>
                   </tr>
@@ -330,10 +365,27 @@ export default function FactuurMakenPage() {
                         <input className={input} value={r.dateText} onChange={(e) => updateRow(r.id, { dateText: e.target.value })} placeholder="4-5-2026" />
                       </td>
                       <td className="py-2 pr-2">
-                        <select className={input} value={r.type} onChange={(e) => updateRow(r.id, { type: e.target.value })}>
-                          <option value="schoonmaak">Periodieke schoonmaak</option>
-                          <option value="glasbewassing">Periodieke glasbewassing</option>
+                        <select
+                          className={input}
+                          value={r.type}
+                          aria-label="Soort werkzaamheid"
+                          onChange={(e) => updateRow(r.id, {
+                            type: e.target.value,
+                            description: serviceDescription(e.target.value),
+                          })}
+                        >
+                          {SERVICE_OPTIONS.map((option) => (
+                            <option key={option.value} value={option.value}>{option.label}</option>
+                          ))}
                         </select>
+                        <input
+                          className={input + ' mt-2 min-w-64'}
+                          value={r.description}
+                          aria-label="Omschrijving op factuur"
+                          onChange={(e) => updateRow(r.id, { description: e.target.value })}
+                          placeholder="Omschrijving op factuur"
+                        />
+                        <span className="block mt-1 text-xs text-gray-400">Deze tekst verschijnt op de PDF.</span>
                       </td>
                       <td className="py-2 pr-2">
                         <input className={input + ' w-28'} type="number" step="0.01" value={r.amount} onChange={(e) => updateRow(r.id, { amount: e.target.value })} />

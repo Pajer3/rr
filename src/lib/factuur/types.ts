@@ -38,6 +38,7 @@ export interface InvoiceItem {
   year?: number;
   dateText?: string;
   type?: string;
+  description?: string;
   amount: number;
   sortKey?: number;
 }
